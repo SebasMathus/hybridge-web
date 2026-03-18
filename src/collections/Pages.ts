@@ -4,6 +4,7 @@ import {
   VideoSectionBlock, SplitContentBlock, FeaturesGridBlock, CurriculumPlanBlock,
   TestimonialsPlanBlock, CTASectionBlock, PillarsGridBlock, ProgramsGridBlock,
   GraduadosPrepaBlock,
+  OrgulloPrepaBlock,
   CtaFechaInicioBlock,
   FormBlock,
 } from '../blocks'
@@ -31,6 +32,7 @@ export const Pages: CollectionConfig = {
         VideoSectionBlock, SplitContentBlock, FeaturesGridBlock, CurriculumPlanBlock,
         TestimonialsPlanBlock, CTASectionBlock, PillarsGridBlock, ProgramsGridBlock,
         GraduadosPrepaBlock,
+        OrgulloPrepaBlock,
         CtaFechaInicioBlock,
         FormBlock,
       ],

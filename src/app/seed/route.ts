@@ -187,6 +187,19 @@ const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number
     buttons: [{ label: 'Inscríbete ya', url: '#form-prepa', variant: 'primary', trackId: 'prepa-about-cta' }],
   },
   {
+    blockType: 'orgulloPrepa',
+    title: 'ORGULLO',
+    highlight: 'HYBRIDGE',
+    subtitle: 'Elementos de la experiencia educativa en Hybridge que nos enorgullecen...',
+    items: [
+      { icon: '🏆', text: 'Nuestra tasa de retención es de 93%' },
+      { icon: '✈️', text: 'Participación estudiantil en concursos internacionales' },
+      { icon: '🥇', text: 'Menciones en medios y rankings internacionales' },
+      { icon: '🧑‍💻', text: 'Contamos con nuestra propia tecnología' },
+      { icon: '🤝', text: 'Nuestras alianzas educativas' },
+    ],
+  },
+  {
     blockType: 'splitContent',
     eyebrow: 'Sobre Prepa Hybridge',
     heading: '¿QUÉ NOS MUEVE?',

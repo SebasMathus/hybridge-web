@@ -368,6 +368,26 @@ export const GraduadosPrepaBlock: Block = {
   ],
 }
 
+/* ────────────────────────────── ORGULLO PREPA ────────────────────────────── */
+export const OrgulloPrepaBlock: Block = {
+  slug: 'orgulloPrepa',
+  labels: { singular: 'Orgullo Prepa', plural: 'Orgullo Prepa' },
+  fields: [
+    { name: 'title', type: 'text', defaultValue: 'ORGULLO' },
+    { name: 'highlight', type: 'text', defaultValue: 'HYBRIDGE' },
+    { name: 'subtitle', type: 'text', defaultValue: 'Elementos de la experiencia educativa en Hybridge que nos enorgullecen...' },
+    {
+      name: 'items',
+      type: 'array',
+      minRows: 1,
+      fields: [
+        { name: 'icon', type: 'text', required: true, admin: { description: 'Emoji (ej. 🏆)' } },
+        { name: 'text', type: 'text', required: true },
+      ],
+    },
+  ],
+}
+
 /* ────────────────────────────── CTA FECHA DE INICIO ────────────────────────────── */
 export const CtaFechaInicioBlock: Block = {
   slug: 'ctaFechaInicio',
