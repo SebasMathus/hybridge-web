@@ -85,7 +85,7 @@ const homeLayout = (universidadFechaId: string | number, universidadTestimonials
       { line1: 'Licenciatura en', line2: 'Administración e Innovación', description: 'Aprende a administrar negocios digitales e innovar con las nuevas tecnologías.', imageUrl: IMG('2024/11/sdc-1024x1024.png'), ctaLabel: 'Inscríbete ya', ctaUrl: '/licenciatura-en-administracion-e-innovacion/', ctaTrackId: 'home-hero-admin' },
       { line1: 'Licenciatura en', line2: 'Mercadotecnia y Negocios Digitales', description: 'Lidera estrategias innovadoras de marketing digital para la Nueva Economía.', imageUrl: IMG('2024/11/SDFGB@2x.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/contacto-licenciatura-en-mercadotecnia/', ctaTrackId: 'home-hero-mkt' },
       { line1: 'Ingeniería en Tecnologías', line2: 'Inmersivas y Videojuegos', description: 'Construye mundos virtuales.', imageUrl: IMG('2024/10/j.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/contacto-ingenieria-videojuegos/', ctaTrackId: 'home-hero-vj' },
-      { line1: 'Hybridge', line2: 'Prepa', description: 'Haz la prepa en 2 años de la manera más disruptiva que te hayas imaginado.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/preparatoria#form-prepa', ctaTrackId: 'home-hero-prepa' },
+      { line1: 'PREPA', line2: 'EN LÍNEA', description: 'Haz la prepa en 2 años de la manera más disruptiva que te hayas imaginado con clases en vivo y desde la mejor plataforma educativa del país.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/preparatoria#form-prepa', ctaTrackId: 'home-hero-prepa' },
     ],
   },
   logosBlock,
@@ -177,7 +177,7 @@ const swPlanData = {
 }
 
 const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number, prepaPlanId: string | number, prepaTestimonialsId: string | number) => [
-  { blockType: 'heroBanner', heading: 'PREPA EN LÍNEA', subheading: 'Haz la prepa en 2 años de la manera más disruptiva que te hayas imaginado con clases en vivo.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '#form-prepa', ctaTrackId: 'prepa-hero-cta' },
+  { blockType: 'heroBanner', heading: 'PREPA EN LÍNEA', subheading: 'Haz la prepa en 2 años de la manera más disruptiva que te hayas imaginado con clases en vivo y desde la mejor plataforma educativa del país.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '#form-prepa', ctaTrackId: 'prepa-hero-cta' },
   logosBlock,
   { ...waBlock, trackId: 'prepa-wa-bar' },
   {
