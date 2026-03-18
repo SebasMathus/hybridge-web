@@ -37,7 +37,7 @@ export const Header = ({ data, locale }: Props) => {
     <>
       <header style={headerCss}>
         <div className="container-hb" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '72px' }}>
-          <Link href={`/${locale}`}><img src={logoSrc} alt="Hybridge" style={{ height: '36px', width: 'auto' }} /></Link>
+          <Link href={`/${locale}`}><img src={logoSrc} alt="Hybridge" style={{ height: '27px', width: 'auto' }} /></Link>
           <nav className="hb-desk" style={{ display: 'flex', alignItems: 'center', gap: '28px' }}>
             {navItems.map((item: any, i: number) => (
               <div key={i} style={{ position: 'relative' }} onMouseEnter={() => item.children?.length ? setOpenDrop(i) : null} onMouseLeave={() => setOpenDrop(null)}>
@@ -54,8 +54,8 @@ export const Header = ({ data, locale }: Props) => {
           </nav>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <div style={{ display: 'flex', gap: '6px', fontSize: '0.8rem' }}>
-              <Link href="/es" style={{ color: locale === 'es' ? '#E2F897' : '#a0a0a0', fontWeight: locale === 'es' ? 600 : 400 }}>ES</Link>
-              <Link href="/en" style={{ color: locale === 'en' ? '#E2F897' : '#a0a0a0', fontWeight: locale === 'en' ? 600 : 400 }}>EN</Link>
+              <Link href="/es" style={{ color: locale === 'es' ? '#fff' : '#a0a0a0', fontWeight: locale === 'es' ? 500 : 400 }}>ES</Link>
+              <Link href="/en" style={{ color: locale === 'en' ? '#fff' : '#a0a0a0', fontWeight: locale === 'en' ? 500 : 400 }}>EN</Link>
             </div>
             <Link href={loginUrl} target="_blank" rel="noopener noreferrer" className="hb-desk" style={loginCss}>{loginLabel}</Link>
             <button onClick={() => setMobileOpen(!mobileOpen)} className="hb-mob" style={{ background: 'none', border: 'none', color: '#fff', fontSize: '1.5rem', cursor: 'pointer' }}>
@@ -67,7 +67,7 @@ export const Header = ({ data, locale }: Props) => {
           <div style={mobCss}>
             {navItems.map((item: any, i: number) => (
               <div key={i} style={{ marginBottom: '16px' }}>
-                <Link href={item.url} onClick={() => !item.children?.length && setMobileOpen(false)} style={{ fontSize: '1.1rem', fontWeight: 600, color: '#fff', display: 'block', padding: '8px 0' }}>{item.label}</Link>
+                <Link href={item.url} onClick={() => !item.children?.length && setMobileOpen(false)} style={{ fontSize: '1.1rem', fontWeight: 500, color: '#fff', display: 'block', padding: '8px 0' }}>{item.label}</Link>
                 {item.children?.map((c: any, j: number) => (
                   <Link key={j} href={c.url} onClick={() => setMobileOpen(false)} style={{ display: 'block', padding: '6px 0 6px 16px', fontSize: '0.95rem', color: '#a0a0a0' }}>{c.label}</Link>
                 ))}

@@ -17,11 +17,12 @@ export default async function HomePage({ params }: Props) {
       where: { slug: { equals: 'home' } },
       locale: lang,
       limit: 1,
+      depth: 2,
     })
     const page = result.docs[0]
-    if (!page) return <div className="container-hb section-pad">Visita /api/seed para crear las paginas, luego recarga.</div>
+    if (!page) return <div className="container-hb section-pad">Visita <a href="/api/seed">/api/seed</a> para crear las paginas, luego recarga.</div>
     return <RenderBlocks blocks={page.layout || []} locale={lang} />
   } catch (e) {
-    return <div className="container-hb section-pad">Ejecuta npm run dev, ve a /admin para crear tu usuario, luego visita /api/seed</div>
+    return <div className="container-hb section-pad">Ejecuta npm run dev, ve a /admin para crear tu usuario, luego visita <a href="/api/seed">/api/seed</a></div>
   }
 }

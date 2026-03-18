@@ -38,10 +38,10 @@ export const Footer = ({ data, locale }: Props) => {
       <div className="container-hb">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '40px', marginBottom: '48px' }}>
           <div>
-            <img src={logoSrc} alt="Hybridge" style={{ height: '36px', width: 'auto', marginBottom: '16px' }} />
-            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 700, marginBottom: '12px', lineHeight: 1.4, color: '#fff' }}>{tagline}</h3>
+            <img src={logoSrc} alt="Hybridge" style={{ height: '27px', width: 'auto', marginBottom: '16px' }} />
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', fontWeight: 900, marginBottom: '12px', lineHeight: 1.4, color: '#fff' }}>{tagline}</h3>
             <div style={{ marginTop: '20px', marginBottom: '16px' }}>
-              <p style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.85rem', marginBottom: '8px', color: '#fff' }}>{locale === 'es' ? 'Contacto' : 'Contact'}</p>
+              <p style={{ fontFamily: 'var(--font-display)', fontWeight: 500, fontSize: '0.85rem', marginBottom: '8px', color: '#fff' }}>{locale === 'es' ? 'Contacto' : 'Contact'}</p>
               <Link href={`tel:${phone.replace(/[^0-9+]/g, '')}`} style={{ display: 'block', color: '#a0a0a0', fontSize: '0.85rem', marginBottom: '4px' }}>{phone}</Link>
               <Link href={`mailto:${email}`} style={{ display: 'block', color: '#a0a0a0', fontSize: '0.85rem' }}>{email}</Link>
             </div>
@@ -55,7 +55,7 @@ export const Footer = ({ data, locale }: Props) => {
           </div>
           {columns.map((col: any, i: number) => (
             <div key={i}>
-              <p style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.85rem', marginBottom: '16px', color: '#fff' }}>{col.title}</p>
+              <p style={{ fontFamily: 'var(--font-display)', fontWeight: 500, fontSize: '0.85rem', marginBottom: '16px', color: '#fff' }}>{col.title}</p>
               {col.links?.map((link: any, j: number) => (
                 <Link key={j} href={`/${locale}${link.url}`} style={{ display: 'block', color: '#a0a0a0', fontSize: '0.85rem', lineHeight: 2.2 }}>{link.label}</Link>
               ))}

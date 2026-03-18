@@ -14,13 +14,13 @@ export const CurriculumTableBlock = ({ block }: Props) => {
     <section className="section-pad" style={{ background: 'var(--color-hb-bg)' }}>
       <div className="container-hb">
         {block.heading && (
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', fontWeight: 800, color: 'var(--color-hb-text)', textAlign: 'center', marginBottom: '8px' }}>{block.heading}</h2>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', fontWeight: 900, color: 'var(--color-hb-text)', textAlign: 'center', marginBottom: '8px' }}>{block.heading}</h2>
         )}
         {block.subheading && (
-          <p style={{ fontFamily: 'var(--font-display)', fontSize: '1.15rem', fontWeight: 600, color: 'var(--color-hb-text-muted)', textAlign: 'center', marginBottom: '8px' }}>{block.subheading}</p>
+          <p style={{ fontSize: '1.15rem', fontWeight: 500, color: 'var(--color-hb-text)', textAlign: 'center', marginBottom: '8px' }}>{block.subheading}</p>
         )}
         {block.description && (
-          <p style={{ color: 'var(--color-hb-text-dim)', fontSize: '0.95rem', textAlign: 'center', marginBottom: '40px' }}>{block.description}</p>
+          <p style={{ fontSize: '0.95rem', fontWeight: 400, color: 'var(--color-hb-text)', textAlign: 'center', marginBottom: '40px' }}>{block.description}</p>
         )}
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -33,7 +33,7 @@ export const CurriculumTableBlock = ({ block }: Props) => {
                   style={{
                     width: '100%', padding: '16px 20px', background: isOpen ? '#0D0D0D' : 'var(--color-hb-bg-alt)',
                     color: isOpen ? '#fff' : 'var(--color-hb-text)', border: '1px solid var(--color-hb-border)',
-                    borderRadius: '8px', cursor: 'pointer', fontFamily: 'var(--font-display)', fontWeight: 700,
+                    borderRadius: '8px', cursor: 'pointer', fontFamily: 'var(--font-display)', fontWeight: 900,
                     fontSize: '0.95rem', textAlign: 'left', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                   }}
                 >
@@ -47,7 +47,7 @@ export const CurriculumTableBlock = ({ block }: Props) => {
                       return (
                         <div key={j} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', background: 'var(--color-hb-bg-alt)', borderRadius: '8px', border: '1px solid var(--color-hb-border)' }}>
                           {iconSrc && <img src={iconSrc} alt="" style={{ width: '28px', height: '28px', objectFit: 'contain' }} />}
-                          <span style={{ fontSize: '0.85rem', color: 'var(--color-hb-text)', fontWeight: 500 }}>{subj.name}</span>
+                          <span style={{ fontSize: '0.85rem', color: 'var(--color-hb-text)', fontWeight: 400 }}>{subj.name}</span>
                         </div>
                       )
                     })}

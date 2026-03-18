@@ -12,14 +12,16 @@ export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params
   const lang = (locale === 'en' ? 'en' : 'es') as Locale
 
-  let headerData = {} as any
-  let footerData = {} as any
+  let headerData = {} as Record<string, unknown>
+  let footerData = {} as Record<string, unknown>
 
   try {
     const payload = await getPayloadClient()
-    headerData = await payload.findGlobal({ slug: 'header', locale: lang })
-    footerData = await payload.findGlobal({ slug: 'footer', locale: lang })
-  } catch (e) {}
+    headerData = (await payload.findGlobal({ slug: 'header', locale: lang })) as Record<string, unknown>
+    footerData = (await payload.findGlobal({ slug: 'footer', locale: lang })) as Record<string, unknown>
+  } catch (_) {
+    // Keep empty header/footer so the app still renders
+  }
 
   return (
     <>

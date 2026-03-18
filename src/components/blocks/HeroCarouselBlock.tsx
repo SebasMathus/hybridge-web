@@ -10,7 +10,7 @@ import { getBlockImage, btnStyles } from '@/lib/utils'
 
 type Props = { block: any; locale: string }
 
-export const HeroCarouselBlock = ({ block }: Props) => {
+export const HeroCarouselBlock = ({ block, locale }: Props) => {
   const slides = block.slides || []
   if (!slides.length) return null
 
@@ -32,10 +32,10 @@ export const HeroCarouselBlock = ({ block }: Props) => {
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.15) 100%)' }} />
               <div className="container-hb" style={{ position: 'relative', zIndex: 2 }}>
                 <div style={{ maxWidth: '550px' }}>
-                  <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 800, lineHeight: 1.1, color: '#fff', marginBottom: '4px' }}>{slide.line1}</h2>
-                  <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 800, lineHeight: 1.1, color: '#E2F897', marginBottom: '16px' }}>{slide.line2}</h2>
-                  {slide.description && <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.8)', marginBottom: '24px', lineHeight: 1.6, maxWidth: '450px' }}>{slide.description}</p>}
-                  <Link href={slide.ctaUrl || '#'} data-track-id={slide.ctaTrackId || ''} style={btnStyles.primary}>{slide.ctaLabel || 'Inscríbete ya'}</Link>
+                  <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 900, lineHeight: 1.1, color: '#fff', marginBottom: '4px' }}>{slide.line1}</h2>
+                  <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 900, lineHeight: 1.1, color: '#fff', marginBottom: '16px' }}>{slide.line2}</h2>
+                  {slide.description && <p style={{ fontSize: '1rem', fontWeight: 400, color: '#fff', marginBottom: '24px', lineHeight: 1.6, maxWidth: '450px' }}>{slide.description}</p>}
+                  <Link href={slide.ctaUrl?.startsWith('/') ? `/${locale}${slide.ctaUrl}` : (slide.ctaUrl || '#')} data-track-id={slide.ctaTrackId || ''} style={btnStyles.primary}>{slide.ctaLabel || 'Inscríbete ya'}</Link>
                 </div>
               </div>
             </div>

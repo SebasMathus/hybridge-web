@@ -10,6 +10,9 @@ const nextConfig = {
   experimental: {
     reactCompiler: false,
   },
+  async rewrites() {
+    return [{ source: '/api/seed', destination: '/seed-internal' }]
+  },
 }
 
 export default withPayload(nextConfig)

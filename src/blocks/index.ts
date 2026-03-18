@@ -172,10 +172,10 @@ export const FeaturesGridBlock: Block = {
   ],
 }
 
-/* ────────────────────────────── CURRICULUM TABLE ────────────────────────────── */
+/* ────────────────────────────── CURRICULUM TABLE (inline, legacy) ────────────────────────────── */
 export const CurriculumTableBlock: Block = {
   slug: 'curriculumTable',
-  labels: { singular: 'Plan de Estudios', plural: 'Planes de Estudios' },
+  labels: { singular: 'Plan de Estudios (inline)', plural: 'Planes de Estudios (inline)' },
   fields: [
     { name: 'heading', type: 'text', defaultValue: 'Plan de estudios' },
     { name: 'subheading', type: 'text', defaultValue: 'Las materias que cursarás' },
@@ -199,10 +199,25 @@ export const CurriculumTableBlock: Block = {
   ],
 }
 
-/* ────────────────────────────── TESTIMONIALS ROW ────────────────────────────── */
+/* ────────────────────────────── PLAN DE ESTUDIOS (desde colección) ────────────────────────────── */
+export const CurriculumPlanBlock: Block = {
+  slug: 'curriculumPlan',
+  labels: { singular: 'Plan de estudios', plural: 'Planes de estudios' },
+  fields: [
+    {
+      name: 'plan',
+      type: 'relationship',
+      relationTo: 'planes-estudio',
+      required: true,
+      admin: { description: 'Selecciona el plan de estudios (Preparatoria, Ingeniería en Software, etc.). Se edita en Planes de estudio.' },
+    },
+  ],
+}
+
+/* ────────────────────────────── TESTIMONIALS ROW (inline, legacy) ────────────────────────────── */
 export const TestimonialsRowBlock: Block = {
   slug: 'testimonialsRow',
-  labels: { singular: 'Testimonios', plural: 'Testimonios' },
+  labels: { singular: 'Testimonios (inline)', plural: 'Testimonios (inline)' },
   fields: [
     { name: 'eyebrow', type: 'text' },
     { name: 'heading', type: 'text', required: true },
@@ -223,6 +238,30 @@ export const TestimonialsRowBlock: Block = {
         { name: 'image', type: 'upload', relationTo: 'media' },
         { name: 'imageUrl', type: 'text' },
         { name: 'videoUrl', type: 'text', required: true },
+      ],
+    },
+  ],
+}
+
+/* ────────────────────────────── TESTIMONIOS (desde colección) ────────────────────────────── */
+export const TestimonialsPlanBlock: Block = {
+  slug: 'testimonialsPlan',
+  labels: { singular: 'Testimonios', plural: 'Testimonios' },
+  fields: [
+    {
+      name: 'testimonials',
+      type: 'relationship',
+      relationTo: 'testimonios',
+      required: true,
+      admin: { description: 'Selecciona el conjunto de testimonios (Preparatoria o Universidad). Se edita en Testimonios.' },
+    },
+    {
+      name: 'backgroundColor',
+      type: 'select',
+      defaultValue: 'cream',
+      options: [
+        { label: 'Blanco', value: 'white' },
+        { label: 'Crema', value: 'cream' },
       ],
     },
   ],
@@ -292,6 +331,41 @@ export const PillarsGridBlock: Block = {
         { name: 'description', type: 'textarea' },
         { name: 'icon', type: 'text' },
       ],
+    },
+  ],
+}
+
+/* ────────────────────────────── CTA FECHA DE INICIO ────────────────────────────── */
+export const CtaFechaInicioBlock: Block = {
+  slug: 'ctaFechaInicio',
+  labels: { singular: 'CTA Fecha de inicio', plural: 'CTAs Fecha de inicio' },
+  fields: [
+    {
+      name: 'fechaInicio',
+      type: 'relationship',
+      relationTo: 'fechas-inicio',
+      required: true,
+      admin: { description: 'Selecciona la fecha a mostrar (Preparatoria o Universidad). Se edita en Fechas de inicio.' },
+    },
+    {
+      name: 'trackPrefix',
+      type: 'text',
+      admin: { description: 'Prefijo para track IDs de los botones (ej. home, prepa, sw). Opcional.' },
+    },
+  ],
+}
+
+/* ────────────────────────────── FORM (INSCRIPCIÓN) ────────────────────────────── */
+export const FormBlock: Block = {
+  slug: 'formBlock',
+  labels: { singular: 'Formulario de inscripción', plural: 'Formularios de inscripción' },
+  fields: [
+    {
+      name: 'form',
+      type: 'relationship',
+      relationTo: 'forms',
+      required: true,
+      admin: { description: 'Selecciona el formulario a mostrar (Prepa o Ingeniería en Software). Los botones CTA usarán #form-{slug} para llevar aquí.' },
     },
   ],
 }

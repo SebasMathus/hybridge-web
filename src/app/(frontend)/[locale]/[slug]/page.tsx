@@ -17,6 +17,7 @@ export default async function DynamicPage({ params }: Props) {
     where: { slug: { equals: slug } },
     locale: lang,
     limit: 1,
+    depth: 2,
   })
 
   const page = result.docs[0]

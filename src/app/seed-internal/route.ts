@@ -286,7 +286,7 @@ export async function GET() {
       return NextResponse.json({
         success: false,
         error: fechasError?.message || 'Error en Fechas de inicio',
-        hint: 'Si la tabla no existe: reinicia el servidor (npm run dev), abre http://localhost:3000/admin para que Payload cree las tablas, luego ejecuta de nuevo /api/seed',
+        hint: 'Si la tabla no existe: reinicia el servidor (npm run dev), abre http://localhost:3000/admin para que Payload cree las tablas, luego ejecuta de nuevo /seed',
       }, { status: 500 })
     }
 
@@ -439,7 +439,7 @@ export async function GET() {
             return NextResponse.json({
               success: false,
               error: 'La tabla "testimonios" no existe y no se pudo crear automáticamente.',
-              hint: 'Quita push: false en payload.config.ts, reinicia el servidor, abre /admin para que se creen las tablas, vuelve a poner push: false y ejecuta el seed.',
+              hint: 'Quita push: false en payload.config.ts, reinicia el servidor, abre /admin para que se creen las tablas, vuelve a poner push: false y ejecuta GET /seed.',
               detail: createErr?.message,
             }, { status: 503 })
           }
@@ -447,7 +447,7 @@ export async function GET() {
           return NextResponse.json({
             success: false,
             error: 'La tabla "testimonios" no existe en la base de datos.',
-            hint: 'Quita push: false en payload.config.ts, reinicia el servidor, abre http://localhost:3000/admin, vuelve a poner push: false y ejecuta el seed.',
+            hint: 'Quita push: false en payload.config.ts, reinicia el servidor, abre http://localhost:3000/admin, vuelve a poner push: false y ejecuta GET /seed.',
           }, { status: 503 })
         }
       } else {

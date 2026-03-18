@@ -11,6 +11,8 @@ import { TestimonialsRowBlock } from './TestimonialsRowBlock'
 import { CTASectionBlock } from './CTASectionBlock'
 import { PillarsGridBlock } from './PillarsGridBlock'
 import { ProgramsGridBlock } from './ProgramsGridBlock'
+import { FormBlockComponent } from './FormBlock'
+import { CtaFechaInicioBlockComponent } from './CtaFechaInicioBlock'
 
 const blockMap: Record<string, React.ComponentType<any>> = {
   heroCarousel: HeroCarouselBlock,
@@ -21,10 +23,31 @@ const blockMap: Record<string, React.ComponentType<any>> = {
   splitContent: SplitContentBlock,
   featuresGrid: FeaturesGridBlock,
   curriculumTable: CurriculumTableBlock,
+  curriculumPlan: ({ block, locale }: { block: any; locale: Locale }) => {
+    if (!block?.plan) return null
+    return <CurriculumTableBlock block={block.plan} locale={locale} />
+  },
   testimonialsRow: TestimonialsRowBlock,
+  testimonialsPlan: ({ block, locale }: { block: any; locale: Locale }) => {
+    if (!block?.testimonials || typeof block.testimonials !== 'object') return null
+    const doc = block.testimonials
+    return (
+      <TestimonialsRowBlock
+        block={{
+          eyebrow: doc.eyebrow,
+          heading: doc.heading,
+          backgroundColor: block.backgroundColor ?? 'cream',
+          testimonials: doc.testimonials ?? [],
+        }}
+        locale={locale}
+      />
+    )
+  },
   ctaSection: CTASectionBlock,
+  ctaFechaInicio: CtaFechaInicioBlockComponent,
   pillarsGrid: PillarsGridBlock,
   programsGrid: ProgramsGridBlock,
+  formBlock: FormBlockComponent,
 }
 
 type Props = {

@@ -12,7 +12,7 @@ export const LogosBarBlock = ({ block }: Props) => {
   return (
     <section style={{ padding: '40px 0', borderBottom: '1px solid var(--color-hb-border)', overflow: 'hidden' }}>
       {block.heading && (
-        <h3 style={{ textAlign: 'center', fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-hb-text-dim)', marginBottom: '24px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+        <h3 style={{ textAlign: 'center', fontSize: '0.85rem', fontWeight: 500, color: 'var(--color-hb-text)', marginBottom: '24px', textTransform: 'uppercase', letterSpacing: '1px' }}>
           {block.heading}
         </h3>
       )}

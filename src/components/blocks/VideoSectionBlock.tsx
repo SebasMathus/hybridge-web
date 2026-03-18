@@ -15,8 +15,8 @@ export const VideoSectionBlock = ({ block }: Props) => {
       <div className="container-hb">
         {(block.heading || block.subheading) && (
           <div style={{ textAlign: 'center', marginBottom: '36px' }}>
-            {block.heading && <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', fontWeight: 800, color: 'var(--color-hb-text)', marginBottom: '8px' }}>{block.heading}</h2>}
-            {block.subheading && <p style={{ color: 'var(--color-hb-text-muted)', fontSize: '1.05rem' }}>{block.subheading}</p>}
+            {block.heading && <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', fontWeight: 900, color: 'var(--color-hb-text)', marginBottom: '8px' }}>{block.heading}</h2>}
+            {block.subheading && <p style={{ color: 'var(--color-hb-text)', fontSize: '1.05rem', fontWeight: 500 }}>{block.subheading}</p>}
           </div>
         )}
         <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, borderRadius: '12px', overflow: 'hidden' }}>

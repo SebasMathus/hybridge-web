@@ -10,13 +10,13 @@ export const SplitContentBlock = ({ block, locale }: Props) => {
 
   const textEl = (
     <div>
-      {block.eyebrow && <p style={{ color: '#E2F897', fontSize: '0.85rem', fontWeight: 600, marginBottom: '8px' }}>{block.eyebrow}</p>}
-      <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2.25rem', fontWeight: 800, marginBottom: '20px', color: 'var(--color-hb-text)' }}>{block.heading}</h2>
+      {block.eyebrow && <p style={{ color: 'var(--color-hb-text)', fontSize: '0.85rem', fontWeight: 500, marginBottom: '8px' }}>{block.eyebrow}</p>}
+      <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2.25rem', fontWeight: 900, marginBottom: '20px', color: 'var(--color-hb-text)' }}>{block.heading}</h2>
       {(block.body || '').split('\n').filter(Boolean).map((p: string, i: number) => (
-        <p key={i} style={{ color: 'var(--color-hb-text-muted)', fontSize: '1.05rem', lineHeight: 1.8, marginBottom: '16px' }}>{p}</p>
+        <p key={i} style={{ color: 'var(--color-hb-text)', fontSize: '1.05rem', fontWeight: 400, lineHeight: 1.8, marginBottom: '16px' }}>{p}</p>
       ))}
       {block.bulletPoints?.length > 0 && (
-        <ul style={{ paddingLeft: '20px', color: 'var(--color-hb-text-muted)', fontSize: '1rem', lineHeight: 2.2, listStyle: 'disc', marginBottom: '16px' }}>
+        <ul style={{ paddingLeft: '20px', color: 'var(--color-hb-text)', fontSize: '1rem', fontWeight: 400, lineHeight: 2.2, listStyle: 'disc', marginBottom: '16px' }}>
           {block.bulletPoints.map((bp: any, i: number) => <li key={i}>{bp.text}</li>)}
         </ul>
       )}

@@ -5,7 +5,7 @@ const locales = ['es', 'en']
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
-  if (pathname.startsWith('/admin') || pathname.startsWith('/api') || pathname.startsWith('/_next') || pathname.startsWith('/favicon') || pathname.match(/\.\w+$/)) {
+  if (pathname.startsWith('/admin') || pathname.startsWith('/api') || pathname === '/seed-internal' || pathname.startsWith('/_next') || pathname.startsWith('/favicon') || pathname.match(/\.\w+$/)) {
     return NextResponse.next()
   }
   const hasLocale = locales.some((l) => pathname.startsWith(`/${l}/`) || pathname === `/${l}`)
@@ -15,4 +15,4 @@ export function middleware(request: NextRequest) {
   return NextResponse.next()
 }
 
-export const config = { matcher: ['/((?!_next|admin|api|favicon\\.ico|.*\\..*).*)'] }
+export const config = { matcher: ['/((?!_next|admin|api|seed-internal|favicon\\.ico|.*\\..*).*)'] }

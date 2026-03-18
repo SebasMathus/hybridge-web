@@ -1,8 +1,10 @@
 import type { CollectionConfig } from 'payload'
 import {
   HeroCarouselBlock, HeroBannerBlock, LogosBarBlock, WhatsAppBarBlock,
-  VideoSectionBlock, SplitContentBlock, FeaturesGridBlock, CurriculumTableBlock,
-  TestimonialsRowBlock, CTASectionBlock, PillarsGridBlock, ProgramsGridBlock,
+  VideoSectionBlock, SplitContentBlock, FeaturesGridBlock, CurriculumPlanBlock,
+  TestimonialsPlanBlock, CTASectionBlock, PillarsGridBlock, ProgramsGridBlock,
+  CtaFechaInicioBlock,
+  FormBlock,
 } from '../blocks'
 
 export const Pages: CollectionConfig = {
@@ -25,8 +27,10 @@ export const Pages: CollectionConfig = {
       localized: true,
       blocks: [
         HeroCarouselBlock, HeroBannerBlock, LogosBarBlock, WhatsAppBarBlock,
-        VideoSectionBlock, SplitContentBlock, FeaturesGridBlock, CurriculumTableBlock,
-        TestimonialsRowBlock, CTASectionBlock, PillarsGridBlock, ProgramsGridBlock,
+        VideoSectionBlock, SplitContentBlock, FeaturesGridBlock, CurriculumPlanBlock,
+        TestimonialsPlanBlock, CTASectionBlock, PillarsGridBlock, ProgramsGridBlock,
+        CtaFechaInicioBlock,
+        FormBlock,
       ],
     },
     {
