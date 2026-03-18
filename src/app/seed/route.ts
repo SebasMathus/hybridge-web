@@ -22,13 +22,19 @@ const logos = [
   { name: 'Spotify', imageUrl: IMG('2025/02/aliado-spotify.png') },
 ]
 
-const uniTestimonials = [
-  { name: 'Gonzalo', imageUrl: IMG('2025/05/Gonzalo-ing-576x1024.webp'), videoUrl: 'https://youtu.be/-tSOJi573hw' },
-  { name: 'Bryan', imageUrl: IMG('2025/05/video-bryan-576x1024.webp'), videoUrl: 'https://youtu.be/-tSOJi573hw' },
-  { name: 'Brandom', imageUrl: IMG('2025/05/ing-brandom-576x1024.webp'), videoUrl: 'https://youtu.be/-tSOJi573hw' },
-  { name: 'Ricardo', imageUrl: IMG('2025/05/ing-ricardo-576x1024.webp'), videoUrl: 'https://youtu.be/-tSOJi573hw' },
-  { name: 'José', imageUrl: IMG('2025/05/img-ing-jose-576x1024.webp'), videoUrl: 'https://youtu.be/-tSOJi573hw' },
-  { name: 'Jefte', imageUrl: IMG('2025/05/img-ing-jefte-576x1024.webp'), videoUrl: 'https://youtu.be/-tSOJi573hw' },
+const universidadTestimonials = [
+  { name: 'Samantha', videoUrl: 'https://youtube.com/shorts/rd3j88ydstk' },
+  { name: 'Karen', videoUrl: 'https://youtube.com/shorts/3ZT_-429QFs' },
+  { name: 'Bryan', videoUrl: 'https://youtube.com/shorts/4aCkuqkXnB0' },
+  { name: 'Gonzalo', videoUrl: 'https://youtube.com/shorts/xHXkppbmecY' },
+  { name: 'Jefte', videoUrl: 'https://youtube.com/shorts/nfors3u_3-A' },
+]
+const prepaTestimonials = [
+  { name: 'Luis Jacobo', videoUrl: 'https://youtu.be/Xj5Ey_SsN3w' },
+  { name: 'Kamila', videoUrl: 'https://youtu.be/0QOhNy1EB_I' },
+  { name: 'Mariana', videoUrl: 'https://youtu.be/_f7MaLtBU8Y' },
+  { name: 'Sofía', videoUrl: 'https://youtu.be/WB5cVovW8U8' },
+  { name: 'Testimonio Prepa', videoUrl: 'https://youtu.be/T7SpnScfWkA' },
 ]
 
 /* Datos para la colección Testimonios (prepa y universidad) */
@@ -37,14 +43,14 @@ const prepaTestimonialsData = {
   title: 'Testimonios Preparatoria',
   eyebrow: 'Testimonios Prepa',
   heading: 'Conoce Hybridge desde los ojos de nuestra comunidad',
-  testimonials: uniTestimonials,
+  testimonials: prepaTestimonials,
 }
 const universidadTestimonialsData = {
   slug: 'universidad',
   title: 'Testimonios Universidad',
   eyebrow: 'Universidad en Línea — Testimonios',
   heading: 'Nuestros estudiantes te cuentan cómo ha sido su experiencia estudiando en Hybridge',
-  testimonials: uniTestimonials,
+  testimonials: universidadTestimonials,
 }
 
 const logosBlock = { blockType: 'logosBar', heading: 'Confían en nosotros', logos }
@@ -124,15 +130,11 @@ const homeLayout = (universidadFechaId: string | number, universidadTestimonials
   {
     blockType: 'pillarsGrid', heading: 'Los pilares de nuestra', highlightText: 'tecnología educativa', backgroundColor: 'cream',
     pillars: [
-      { title: 'Colaboración', description: 'Aprende junto a tu comunidad' },
-      { title: 'Inmersión', description: 'Experiencias que te sumergen' },
-      { title: 'Interacción', description: 'Participa activamente' },
-      { title: 'Adaptación', description: 'A tu ritmo y estilo' },
+      { title: 'Colaboración', description: 'Aprende junto a tu comunidad', icon: '🤝' },
+      { title: 'Inmersión', description: 'Experiencias que te sumergen', icon: '🌊' },
+      { title: 'Interacción', description: 'Participa activamente', icon: '💬' },
+      { title: 'Adaptación', description: 'A tu ritmo y estilo', icon: '🎚️' },
     ],
-  },
-  {
-    blockType: 'ctaSection', eyebrow: 'Recibe atención', heading: 'personalizada', backgroundColor: 'white',
-    buttons: [{ label: 'Hablar con un asesor', url: WA, variant: 'primary', trackId: 'home-atencion-wa' }],
   },
 ]
 
@@ -203,11 +205,14 @@ const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number
   curriculumPlanBlock(prepaPlanId),
   /* Un solo video por página (prepa) */
   { blockType: 'videoSection', heading: 'CONOCE MÁS DE NUESTRA PREPA', subheading: 'Hybridge Preparatoria', youtubeUrl: 'https://youtu.be/ilt5S7VH7xk', backgroundColor: 'cream' },
-  { blockType: 'formBlock', form: prepaFormId },
   {
-    blockType: 'ctaSection', eyebrow: 'Recibe atención', heading: 'personalizada', backgroundColor: 'white',
-    buttons: [{ label: 'Hablar con un asesor', url: WA, variant: 'primary', trackId: 'prepa-atencion-wa' }],
+    blockType: 'graduadosPrepa',
+    graduatedCount: 220,
+    percent: 15,
+    mexicoUniversities: [{ label: 'UNAM' }, { label: 'IPN' }, { label: 'UAM' }, { label: 'ITAM' }, { label: 'Tec' }],
+    abroadUniversities: [{ label: 'McGill' }, { label: 'Princeton' }, { label: 'Lake Forest' }, { label: 'ESMUC' }, { label: 'Toronto' }],
   },
+  { blockType: 'formBlock', form: prepaFormId },
 ]
 
 /* ════════ ING SOFTWARE ════════ */
@@ -241,10 +246,6 @@ const swLayout = (swFormId: string | number, universidadFechaId: string | number
   /* Un solo video por página (ingeniería) */
   { blockType: 'videoSection', heading: 'CONOCE MÁS DE NUESTRA INGENIERÍA', youtubeUrl: 'https://youtu.be/-tSOJi573hw', backgroundColor: 'cream' },
   { blockType: 'formBlock', form: swFormId },
-  {
-    blockType: 'ctaSection', eyebrow: 'Recibe atención', heading: 'personalizada', backgroundColor: 'white',
-    buttons: [{ label: 'Hablar con un asesor', url: WA, variant: 'primary', trackId: 'sw-atencion-wa' }],
-  },
 ]
 
 export async function GET() {

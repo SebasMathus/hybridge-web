@@ -13,6 +13,7 @@ import { PillarsGridBlock } from './PillarsGridBlock'
 import { ProgramsGridBlock } from './ProgramsGridBlock'
 import { FormBlockComponent } from './FormBlock'
 import { CtaFechaInicioBlockComponent } from './CtaFechaInicioBlock'
+import { GraduadosPrepaBlock } from './GraduadosPrepaBlock'
 
 const blockMap: Record<string, React.ComponentType<any>> = {
   heroCarousel: HeroCarouselBlock,
@@ -45,6 +46,7 @@ const blockMap: Record<string, React.ComponentType<any>> = {
   },
   ctaSection: CTASectionBlock,
   ctaFechaInicio: CtaFechaInicioBlockComponent,
+  graduadosPrepa: GraduadosPrepaBlock,
   pillarsGrid: PillarsGridBlock,
   programsGrid: ProgramsGridBlock,
   formBlock: FormBlockComponent,

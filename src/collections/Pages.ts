@@ -3,6 +3,7 @@ import {
   HeroCarouselBlock, HeroBannerBlock, LogosBarBlock, WhatsAppBarBlock,
   VideoSectionBlock, SplitContentBlock, FeaturesGridBlock, CurriculumPlanBlock,
   TestimonialsPlanBlock, CTASectionBlock, PillarsGridBlock, ProgramsGridBlock,
+  GraduadosPrepaBlock,
   CtaFechaInicioBlock,
   FormBlock,
 } from '../blocks'
@@ -29,6 +30,7 @@ export const Pages: CollectionConfig = {
         HeroCarouselBlock, HeroBannerBlock, LogosBarBlock, WhatsAppBarBlock,
         VideoSectionBlock, SplitContentBlock, FeaturesGridBlock, CurriculumPlanBlock,
         TestimonialsPlanBlock, CTASectionBlock, PillarsGridBlock, ProgramsGridBlock,
+        GraduadosPrepaBlock,
         CtaFechaInicioBlock,
         FormBlock,
       ],

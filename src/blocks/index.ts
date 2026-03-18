@@ -335,6 +335,38 @@ export const PillarsGridBlock: Block = {
   ],
 }
 
+/* ────────────────────────────── GRADUADOS PREPA ────────────────────────────── */
+export const GraduadosPrepaBlock: Block = {
+  slug: 'graduadosPrepa',
+  labels: { singular: 'Graduados Prepa', plural: 'Graduados Prepa' },
+  fields: [
+    {
+      name: 'graduatedCount',
+      type: 'number',
+      defaultValue: 220,
+      admin: { description: 'Ej: 220 (se muestra como +220).' },
+    },
+    {
+      name: 'percent',
+      type: 'number',
+      defaultValue: 15,
+      admin: { description: 'Ej: 15 (se muestra como 15%).' },
+    },
+    {
+      name: 'mexicoUniversities',
+      type: 'array',
+      labels: { singular: 'Universidad (México)', plural: 'Universidades (México)' },
+      fields: [{ name: 'label', type: 'text', required: true }],
+    },
+    {
+      name: 'abroadUniversities',
+      type: 'array',
+      labels: { singular: 'Universidad (Extranjero)', plural: 'Universidades (Extranjero)' },
+      fields: [{ name: 'label', type: 'text', required: true }],
+    },
+  ],
+}
+
 /* ────────────────────────────── CTA FECHA DE INICIO ────────────────────────────── */
 export const CtaFechaInicioBlock: Block = {
   slug: 'ctaFechaInicio',
