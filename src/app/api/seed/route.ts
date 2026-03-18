@@ -146,7 +146,7 @@ const prepaPlanData = {
   slug: 'prepa',
   title: 'Preparatoria',
   heading: 'Plan de estudios',
-  subheading: 'Las materias que cursarás',
+  subheading: '',
   description: 'Adquiere las habilidades para destacar en la era digital.',
   semesters: [
     { title: 'PRIMER CUATRIMESTRE', subjects: prepaSubjects(['CNEYT I: La materia y sus interacciones', 'Ciencias Sociales I', 'Cultura Digital I', 'Pensamiento matemático I', 'Lengua y Comunicación I', 'Inglés I', 'Humanidades I', 'Laboratorio de Investigación']) },
@@ -161,7 +161,7 @@ const swPlanData = {
   slug: 'ingenieria-software',
   title: 'Ingeniería en Software',
   heading: 'Plan de estudios',
-  subheading: 'Las materias que cursarás',
+  subheading: '',
   description: 'Adquiere las habilidades para destacar en la era digital.',
   semesters: [
     { title: 'PRIMER CUATRIMESTRE', subjects: swSubjects(['Introducción a la Ingeniería en Software', 'Análisis y Diseño de Algoritmos', 'Experiencia de Usuario', 'Matemáticas y Física para Ingeniería', 'Tecnología, Sociedad y Futuros Posibles I']) },

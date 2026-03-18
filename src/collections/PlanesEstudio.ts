@@ -34,7 +34,7 @@ export const PlanesEstudio: CollectionConfig = {
     {
       name: 'subheading',
       type: 'text',
-      defaultValue: 'Las materias que cursarás',
+      defaultValue: '',
     },
     {
       name: 'description',

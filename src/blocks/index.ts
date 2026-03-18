@@ -179,7 +179,7 @@ export const CurriculumTableBlock: Block = {
   labels: { singular: 'Plan de Estudios (inline)', plural: 'Planes de Estudios (inline)' },
   fields: [
     { name: 'heading', type: 'text', defaultValue: 'Plan de estudios' },
-    { name: 'subheading', type: 'text', defaultValue: 'Las materias que cursarás' },
+    { name: 'subheading', type: 'text', defaultValue: '' },
     { name: 'description', type: 'text' },
     {
       name: 'semesters',
