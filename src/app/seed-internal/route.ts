@@ -190,9 +190,10 @@ const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number
   {
     blockType: 'featuresGrid', heading: 'Haz tu prepa en sólo 2 años', subheading: 'Nuestra preparatoria cuenta con RVOE No. 2660', backgroundColor: 'white',
     features: [
-      { label: 'Modalidad', value: 'En línea' },
-      { label: 'Duración', value: '2 años (6 cuatrimestres)' },
-      { label: 'Enfoque en', value: 'nuevas Tecnologías y Emprendimiento' },
+      { iconText: '💻', label: 'Modalidad', value: 'En línea' },
+      { iconText: '⏳', label: 'Duración', value: '2 años (6 cuatrimestres)' },
+      { iconText: '🚀', label: 'Enfoque en', value: 'nuevas Tecnologías y Emprendimiento' },
+      { iconText: '✅', label: 'Avalado por la SEP', value: 'Validez oficial' },
     ],
   },
   {

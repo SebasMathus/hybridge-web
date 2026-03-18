@@ -165,6 +165,7 @@ export const FeaturesGridBlock: Block = {
       fields: [
         { name: 'icon', type: 'upload', relationTo: 'media' },
         { name: 'iconUrl', type: 'text' },
+        { name: 'iconText', type: 'text', admin: { description: 'Emoji o texto corto (ej. 💻). Se usa si no hay icon/iconUrl.' } },
         { name: 'label', type: 'text', required: true },
         { name: 'value', type: 'text', required: true },
       ],

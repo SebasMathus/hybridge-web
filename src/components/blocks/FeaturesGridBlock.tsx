@@ -21,7 +21,11 @@ export const FeaturesGridBlock = ({ block }: Props) => {
             const iconSrc = getBlockImage(f.icon, f.iconUrl)
             return (
               <div key={i} style={{ padding: '32px 24px', background: '#fff', borderRadius: '12px', border: '1px solid var(--color-hb-border)', textAlign: 'center' }}>
-                {iconSrc && <img src={iconSrc} alt={f.label} style={{ height: '40px', width: 'auto', marginBottom: '16px', marginLeft: 'auto', marginRight: 'auto', display: 'block' }} />}
+                {iconSrc ? (
+                  <img src={iconSrc} alt={f.label} style={{ height: '40px', width: 'auto', marginBottom: '16px', marginLeft: 'auto', marginRight: 'auto', display: 'block' }} />
+                ) : (
+                  f.iconText && <div style={{ fontSize: '2rem', marginBottom: '12px', lineHeight: 1 }}>{f.iconText}</div>
+                )}
                 <p style={{ fontSize: '0.8rem', fontWeight: 500, color: 'var(--color-hb-text)', marginBottom: '4px' }}>{f.label}</p>
                 <p style={{ fontSize: '1.1rem', fontWeight: 400, color: 'var(--color-hb-text)' }}>{f.value}</p>
               </div>
