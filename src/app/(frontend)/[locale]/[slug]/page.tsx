@@ -22,6 +22,5 @@ export default async function DynamicPage({ params }: Props) {
 
   const page = result.docs[0]
   if (!page) return notFound()
-
   return <RenderBlocks blocks={(page.layout || []) as any[]} locale={lang} />
 }

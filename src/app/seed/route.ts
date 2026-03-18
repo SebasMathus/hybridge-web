@@ -186,6 +186,22 @@ const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number
     imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), imagePosition: 'right', backgroundColor: 'white',
     buttons: [{ label: 'Inscríbete ya', url: '#form-prepa', variant: 'primary', trackId: 'prepa-about-cta' }],
   },
+  {
+    blockType: 'splitContent',
+    eyebrow: 'Sobre Prepa Hybridge',
+    heading: '¿QUÉ NOS MUEVE?',
+    body: 'Vemos la educación tradicional siendo cuestionada y una generación que lo puede cambiar todo:',
+    bulletPoints: [
+      { text: 'Las escuelas no están enseñando lo que demanda el mercado laboral' },
+      { text: 'Hay una escasez de talento especializado para la Nueva Economía' },
+      { text: 'La gente joven busca ser productiva lo antes posible' },
+      { text: 'La tecnología no se está utilizando al máximo para mejorar la enseñanza' },
+    ],
+    imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'),
+    imagePosition: 'left',
+    backgroundColor: 'white',
+    buttons: [{ label: 'Inscríbete ya', url: '#form-prepa', variant: 'primary', trackId: 'prepa-mueve-cta' }],
+  },
   testimonialsPlanBlock(prepaTestimonialsId),
   {
     blockType: 'featuresGrid', heading: 'Haz tu prepa en sólo 2 años', subheading: 'Nuestra preparatoria cuenta con RVOE No. 2660', backgroundColor: 'white',
