@@ -177,7 +177,7 @@ const swPlanData = {
 }
 
 const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number, prepaPlanId: string | number, prepaTestimonialsId: string | number) => [
-  { blockType: 'heroBanner', heading: 'Hybridge Prepa', subheading: 'Haz la prepa en 2 años de la manera más disruptiva que te hayas imaginado.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '#form-prepa', ctaTrackId: 'prepa-hero-cta' },
+  { blockType: 'heroBanner', heading: 'PREPA EN LÍNEA', subheading: 'Haz la prepa en 2 años de la manera más disruptiva que te hayas imaginado con clases en vivo.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '#form-prepa', ctaTrackId: 'prepa-hero-cta' },
   logosBlock,
   { ...waBlock, trackId: 'prepa-wa-bar' },
   {
