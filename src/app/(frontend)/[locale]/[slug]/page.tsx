@@ -2,6 +2,7 @@ import { getPayloadClient } from '@/lib/payload'
 import type { Locale } from '@/lib/utils'
 import { RenderBlocks } from '@/components/blocks/RenderBlocks'
 import { BenefitsHybridgeGrid } from '@/components/BenefitsHybridgeGrid'
+import { FacultyTeamSection } from '@/components/FacultyTeamSection'
 import { notFound } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
@@ -27,6 +28,8 @@ export default async function DynamicPage({ params }: Props) {
     <>
       <RenderBlocks blocks={(page.layout || []) as any[]} locale={lang} />
       {slug === 'preparatoria' || slug === 'ingenieria-en-software' ? <BenefitsHybridgeGrid /> : null}
+      {slug === 'preparatoria' ? <FacultyTeamSection program="preparatoria" /> : null}
+      {slug === 'ingenieria-en-software' ? <FacultyTeamSection program="ingenieria-en-software" /> : null}
     </>
   )
 }

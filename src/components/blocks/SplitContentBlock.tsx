@@ -16,9 +16,29 @@ export const SplitContentBlock = ({ block, locale }: Props) => {
         <p key={i} style={{ color: 'var(--color-hb-text)', fontSize: '1.05rem', fontWeight: 400, lineHeight: 1.8, marginBottom: '16px' }}>{p}</p>
       ))}
       {block.bulletPoints?.length > 0 && (
-        <ul style={{ paddingLeft: 0, marginLeft: 0, color: 'var(--color-hb-text)', fontSize: '1rem', fontWeight: 400, lineHeight: 2.2, listStyle: 'none', marginBottom: '16px' }}>
-          {block.bulletPoints.map((bp: any, i: number) => <li key={i}>{bp.text}</li>)}
-        </ul>
+        (() => {
+          // If bullets already include leading emoji (e.g. "👩‍🏫 ..."), we want the emoji to act as the bullet
+          // (so we remove the browser's default "disc" marker). For normal text bullets, keep "disc".
+          const bulletTexts: string[] = block.bulletPoints.map((bp: any) => String(bp?.text || '').trim())
+          const hasEmojiBullet = bulletTexts.length > 0 && bulletTexts.every(t => /^\p{Extended_Pictographic}/u.test(t))
+
+          return (
+            <ul
+              style={{
+                paddingLeft: hasEmojiBullet ? 0 : '20px',
+                marginLeft: hasEmojiBullet ? 0 : undefined,
+                color: 'var(--color-hb-text)',
+                fontSize: '1rem',
+                fontWeight: 400,
+                lineHeight: 2.2,
+                listStyle: hasEmojiBullet ? 'none' : 'disc',
+                marginBottom: '16px',
+              }}
+            >
+              {block.bulletPoints.map((bp: any, i: number) => <li key={i}>{bp.text}</li>)}
+            </ul>
+          )
+        })()
       )}
       {block.buttons?.length > 0 && (
         <div style={{ display: 'flex', gap: '12px', marginTop: '28px', flexWrap: 'wrap' }}>
