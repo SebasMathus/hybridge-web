@@ -36,6 +36,41 @@ export function getYouTubeEmbedUrl(videoUrl: string | null | undefined, autoplay
   return `https://www.youtube.com/embed/${id}${autoplay ? '?autoplay=1' : ''}`
 }
 
+// Emojis por materia — se calculan en el front para no depender del esquema en Payload
+const SUBJECT_EMOJI_MAP: { match: RegExp; emoji: string }[] = [
+  { match: /cneyt|ciencias naturales|física|química|energ[ií]a/i, emoji: '🧪' },
+  { match: /ciencias sociales|espacio y sociedad|conciencia hist[oó]rica/i, emoji: '🌍' },
+  { match: /cultura digital|tecnolog[ií]a|computaci[oó]n/i, emoji: '💻' },
+  { match: /pensamiento matem[aá]tico|matem[aá]ticas|c[aá]lculo|[áa]lgebra|estad[ií]stica/i, emoji: '📐' },
+  { match: /lengua y comunicaci[oó]n|comunicaci[oó]n oral|pensamiento literario|redacci[oó]n/i, emoji: '📖' },
+  { match: /ingl[eé]s/i, emoji: '🗣️' },
+  { match: /humanidades|filosof[ií]a|psicolog[ií]a/i, emoji: '🏛️' },
+  { match: /laboratorio|investigaci[oó]n|taller de ciencias/i, emoji: '🔬' },
+  { match: /administraci[oó]n|econom[ií]a|finanzas|negocios/i, emoji: '📊' },
+  { match: /ingenier[ií]a en software|programaci[oó]n|algoritmos|c[oó]digo|desarrollo web/i, emoji: '💻' },
+  { match: /datos|ciencia de datos|machine learning|aprendizaje de m[aá]quina/i, emoji: '📊' },
+  { match: /inteligencia artificial|ia/i, emoji: '🤖' },
+  { match: /videojuegos|realidad virtual|inmersivas/i, emoji: '🎮' },
+]
+
+/** Devuelve un emoji para una materia dado su nombre. */
+export function getEmojiForSubject(name: string | undefined | null, fallbackIndex = 0): string {
+  if (!name) return ['📚', '✨', '⭐'][fallbackIndex % 3]
+  for (const rule of SUBJECT_EMOJI_MAP) {
+    if (rule.match.test(name)) return rule.emoji
+  }
+  const fallback = ['📚', '✨', '⭐', '🎓', '🧠']
+  return fallback[fallbackIndex % fallback.length]
+}
+
+/** Devuelve un arreglo de materias con un campo `emoji` calculado. No modifica el arreglo original. */
+export function resolveEmojisForSubjects<T extends { name?: string; emoji?: string }>(subjects: T[]): (T & { emoji: string })[] {
+  return subjects.map((subj, index) => ({
+    ...subj,
+    emoji: subj.emoji || getEmojiForSubject(subj.name, index),
+  }))
+}
+
 export const btnStyles: Record<string, React.CSSProperties> = {
   primary: {
     display: 'inline-block', padding: '12px 28px', background: '#E2F897',

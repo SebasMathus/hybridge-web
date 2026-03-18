@@ -22,6 +22,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Faltan campos requeridos.' }, { status: 400 })
     }
 
+    if (!whatsappConsent) {
+      return NextResponse.json({ error: 'Debes aceptar el contacto por WhatsApp.' }, { status: 400 })
+    }
+
     const payload = await getPayloadClient()
     const forms = await payload.find({ collection: 'forms', where: { slug: { equals: formSlug } }, limit: 1 })
     const form = forms.docs[0]

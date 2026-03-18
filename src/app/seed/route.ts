@@ -23,12 +23,12 @@ const logos = [
 ]
 
 const uniTestimonials = [
-  { name: 'Gonzalo', imageUrl: IMG('2025/05/Gonzalo-ing-576x1024.webp'), videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
-  { name: 'Bryan', imageUrl: IMG('2025/05/video-bryan-576x1024.webp'), videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
-  { name: 'Brandom', imageUrl: IMG('2025/05/ing-brandom-576x1024.webp'), videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
-  { name: 'Ricardo', imageUrl: IMG('2025/05/ing-ricardo-576x1024.webp'), videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
-  { name: 'José', imageUrl: IMG('2025/05/img-ing-jose-576x1024.webp'), videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
-  { name: 'Jefte', imageUrl: IMG('2025/05/img-ing-jefte-576x1024.webp'), videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
+  { name: 'Gonzalo', imageUrl: IMG('2025/05/Gonzalo-ing-576x1024.webp'), videoUrl: 'https://youtu.be/-tSOJi573hw' },
+  { name: 'Bryan', imageUrl: IMG('2025/05/video-bryan-576x1024.webp'), videoUrl: 'https://youtu.be/-tSOJi573hw' },
+  { name: 'Brandom', imageUrl: IMG('2025/05/ing-brandom-576x1024.webp'), videoUrl: 'https://youtu.be/-tSOJi573hw' },
+  { name: 'Ricardo', imageUrl: IMG('2025/05/ing-ricardo-576x1024.webp'), videoUrl: 'https://youtu.be/-tSOJi573hw' },
+  { name: 'José', imageUrl: IMG('2025/05/img-ing-jose-576x1024.webp'), videoUrl: 'https://youtu.be/-tSOJi573hw' },
+  { name: 'Jefte', imageUrl: IMG('2025/05/img-ing-jefte-576x1024.webp'), videoUrl: 'https://youtu.be/-tSOJi573hw' },
 ]
 
 /* Datos para la colección Testimonios (prepa y universidad) */
@@ -202,7 +202,7 @@ const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number
   ctaFechaInicio(prepaFechaId, 'prepa'),
   curriculumPlanBlock(prepaPlanId),
   /* Un solo video por página (prepa) */
-  { blockType: 'videoSection', heading: 'CONOCE MÁS DE NUESTRA PREPA', subheading: 'Hybridge Preparatoria', youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', backgroundColor: 'cream' },
+  { blockType: 'videoSection', heading: 'CONOCE MÁS DE NUESTRA PREPA', subheading: 'Hybridge Preparatoria', youtubeUrl: 'https://youtu.be/ilt5S7VH7xk', backgroundColor: 'cream' },
   { blockType: 'formBlock', form: prepaFormId },
   {
     blockType: 'ctaSection', eyebrow: 'Recibe atención', heading: 'personalizada', backgroundColor: 'white',
@@ -239,7 +239,7 @@ const swLayout = (swFormId: string | number, universidadFechaId: string | number
   ctaFechaInicio(universidadFechaId, 'sw'),
   curriculumPlanBlock(swPlanId),
   /* Un solo video por página (ingeniería) */
-  { blockType: 'videoSection', heading: 'CONOCE MÁS DE NUESTRA INGENIERÍA', youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', backgroundColor: 'cream' },
+  { blockType: 'videoSection', heading: 'CONOCE MÁS DE NUESTRA INGENIERÍA', youtubeUrl: 'https://youtu.be/-tSOJi573hw', backgroundColor: 'cream' },
   { blockType: 'formBlock', form: swFormId },
   {
     blockType: 'ctaSection', eyebrow: 'Recibe atención', heading: 'personalizada', backgroundColor: 'white',
@@ -296,7 +296,7 @@ export async function GET() {
         data: {
           title: 'Prepa Hybridge',
           slug: 'prepa',
-          showWhatsAppConsent: false,
+          showWhatsAppConsent: true,
           successMessage: 'Gracias. Nos pondremos en contacto contigo pronto.',
         },
       })

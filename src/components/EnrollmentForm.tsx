@@ -146,14 +146,12 @@ export function EnrollmentForm({ formSlug, title, showWhatsAppConsent, successMe
               </span>
             </label>
           </div>
-          {showWhatsAppConsent && (
-            <div>
-              <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', cursor: 'pointer' }}>
-                <input type="checkbox" name="whatsappConsent" checked={data.whatsappConsent} onChange={handleChange} style={{ marginTop: '4px' }} />
-                <span style={{ fontSize: '0.9rem', color: 'var(--color-hb-text)' }}>Acepto que Hybridge Education me contacte por WhatsApp.</span>
-              </label>
-            </div>
-          )}
+          <div>
+            <label style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', cursor: 'pointer' }}>
+              <input type="checkbox" name="whatsappConsent" required checked={data.whatsappConsent} onChange={handleChange} style={{ marginTop: '4px' }} />
+              <span style={{ fontSize: '0.9rem', color: 'var(--color-hb-text)' }}>Acepto que Hybridge Education me contacte por WhatsApp.</span>
+            </label>
+          </div>
           {errorMsg && <p style={{ color: '#b91c1c', fontSize: '0.9rem' }}>{errorMsg}</p>}
           <button
             type="submit"

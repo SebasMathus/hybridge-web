@@ -17,7 +17,7 @@ export const PillarsGridBlock = ({ block }: Props) => {
         <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Math.min(pillars.length, 4)}, 1fr)`, gap: '16px' }}>
           {pillars.map((p: any, i: number) => (
             <div key={i} style={{ padding: '36px 24px', background: '#fff', borderRadius: '12px', border: '1px solid var(--color-hb-border)', textAlign: 'center' }}>
-              {p.icon && <span style={{ fontSize: '2rem', marginBottom: '12px', display: 'block' }}>{p.icon}</span>}
+              {p.icon && <span style={{ fontSize: '2.5rem', marginBottom: '12px', display: 'block', lineHeight: 1 }}>{p.icon}</span>}
               <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.15rem', fontWeight: 900, color: 'var(--color-hb-text)', marginBottom: p.description ? '8px' : 0 }}>{p.title}</h3>
               {p.description && <p style={{ fontSize: '0.85rem', fontWeight: 400, color: 'var(--color-hb-text)', lineHeight: 1.5 }}>{p.description}</p>}
             </div>

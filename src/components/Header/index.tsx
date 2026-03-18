@@ -53,10 +53,8 @@ export const Header = ({ data, locale }: Props) => {
             ))}
           </nav>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <div style={{ display: 'flex', gap: '6px', fontSize: '0.8rem' }}>
-              <Link href="/es" style={{ color: locale === 'es' ? '#fff' : '#a0a0a0', fontWeight: locale === 'es' ? 500 : 400 }}>ES</Link>
-              <Link href="/en" style={{ color: locale === 'en' ? '#fff' : '#a0a0a0', fontWeight: locale === 'en' ? 500 : 400 }}>EN</Link>
-            </div>
+            {/* Espaciador para mantener el layout sin el selector de idioma */}
+            <div style={{ width: 48 }} />
             <Link href={loginUrl} target="_blank" rel="noopener noreferrer" className="hb-desk" style={loginCss}>{loginLabel}</Link>
             <button onClick={() => setMobileOpen(!mobileOpen)} className="hb-mob" style={{ background: 'none', border: 'none', color: '#fff', fontSize: '1.5rem', cursor: 'pointer' }}>
               {mobileOpen ? '\u2715' : '\u2630'}

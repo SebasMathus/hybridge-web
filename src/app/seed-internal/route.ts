@@ -130,10 +130,10 @@ const homeLayout = (universidadFechaId: string | number, universidadTestimonials
   {
     blockType: 'pillarsGrid', heading: 'Los pilares de nuestra', highlightText: 'tecnología educativa', backgroundColor: 'cream',
     pillars: [
-      { title: 'Colaboración', description: 'Aprende junto a tu comunidad' },
-      { title: 'Inmersión', description: 'Experiencias que te sumergen' },
-      { title: 'Interacción', description: 'Participa activamente' },
-      { title: 'Adaptación', description: 'A tu ritmo y estilo' },
+      { title: 'Colaboración', description: 'Aprende junto a tu comunidad', icon: '🤝' },
+      { title: 'Inmersión', description: 'Experiencias que te sumergen', icon: '🌊' },
+      { title: 'Interacción', description: 'Participa activamente', icon: '💬' },
+      { title: 'Adaptación', description: 'A tu ritmo y estilo', icon: '🎚️' },
     ],
   },
   {
@@ -208,7 +208,7 @@ const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number
   ctaFechaInicio(prepaFechaId, 'prepa'),
   curriculumPlanBlock(prepaPlanId),
   /* Un solo video por página (prepa) */
-  { blockType: 'videoSection', heading: 'CONOCE MÁS DE NUESTRA PREPA', subheading: 'Hybridge Preparatoria', youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', backgroundColor: 'cream' },
+  { blockType: 'videoSection', heading: 'CONOCE MÁS DE NUESTRA PREPA', subheading: 'Hybridge Preparatoria', youtubeUrl: 'https://youtu.be/ilt5S7VH7xk', backgroundColor: 'cream' },
   { blockType: 'formBlock', form: prepaFormId },
   {
     blockType: 'ctaSection', eyebrow: 'Recibe atención', heading: 'personalizada', backgroundColor: 'white',
@@ -245,7 +245,7 @@ const swLayout = (swFormId: string | number, universidadFechaId: string | number
   ctaFechaInicio(universidadFechaId, 'sw'),
   curriculumPlanBlock(swPlanId),
   /* Un solo video por página (ingeniería) */
-  { blockType: 'videoSection', heading: 'CONOCE MÁS DE NUESTRA INGENIERÍA', youtubeUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', backgroundColor: 'cream' },
+  { blockType: 'videoSection', heading: 'CONOCE MÁS DE NUESTRA INGENIERÍA', youtubeUrl: 'https://youtu.be/-tSOJi573hw', backgroundColor: 'cream' },
   { blockType: 'formBlock', form: swFormId },
   {
     blockType: 'ctaSection', eyebrow: 'Recibe atención', heading: 'personalizada', backgroundColor: 'white',
@@ -302,7 +302,7 @@ export async function GET() {
         data: {
           title: 'Prepa Hybridge',
           slug: 'prepa',
-          showWhatsAppConsent: false,
+          showWhatsAppConsent: true,
           successMessage: 'Gracias. Nos pondremos en contacto contigo pronto.',
         },
       })
