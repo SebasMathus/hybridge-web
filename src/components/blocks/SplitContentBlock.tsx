@@ -16,7 +16,7 @@ export const SplitContentBlock = ({ block, locale }: Props) => {
         <p key={i} style={{ color: 'var(--color-hb-text)', fontSize: '1.05rem', fontWeight: 400, lineHeight: 1.8, marginBottom: '16px' }}>{p}</p>
       ))}
       {block.bulletPoints?.length > 0 && (
-        <ul style={{ paddingLeft: '20px', color: 'var(--color-hb-text)', fontSize: '1rem', fontWeight: 400, lineHeight: 2.2, listStyle: 'disc', marginBottom: '16px' }}>
+        <ul style={{ paddingLeft: 0, marginLeft: 0, color: 'var(--color-hb-text)', fontSize: '1rem', fontWeight: 400, lineHeight: 2.2, listStyle: 'none', marginBottom: '16px' }}>
           {block.bulletPoints.map((bp: any, i: number) => <li key={i}>{bp.text}</li>)}
         </ul>
       )}

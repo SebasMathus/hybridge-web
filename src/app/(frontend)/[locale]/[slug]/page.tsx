@@ -1,6 +1,7 @@
 import { getPayloadClient } from '@/lib/payload'
 import type { Locale } from '@/lib/utils'
 import { RenderBlocks } from '@/components/blocks/RenderBlocks'
+import { BenefitsHybridgeGrid } from '@/components/BenefitsHybridgeGrid'
 import { notFound } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
@@ -22,5 +23,10 @@ export default async function DynamicPage({ params }: Props) {
 
   const page = result.docs[0]
   if (!page) return notFound()
-  return <RenderBlocks blocks={(page.layout || []) as any[]} locale={lang} />
+  return (
+    <>
+      <RenderBlocks blocks={(page.layout || []) as any[]} locale={lang} />
+      {slug === 'preparatoria' || slug === 'ingenieria-en-software' ? <BenefitsHybridgeGrid /> : null}
+    </>
+  )
 }

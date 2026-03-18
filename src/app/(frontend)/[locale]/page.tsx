@@ -1,6 +1,7 @@
 import { getPayloadClient } from '@/lib/payload'
 import type { Locale } from '@/lib/utils'
 import { RenderBlocks } from '@/components/blocks/RenderBlocks'
+import { BenefitsHybridgeGrid } from '@/components/BenefitsHybridgeGrid'
 
 export const dynamic = 'force-dynamic'
 
@@ -21,7 +22,12 @@ export default async function HomePage({ params }: Props) {
     })
     const page = result.docs[0]
     if (!page) return <div className="container-hb section-pad">Visita <a href="/api/seed">/api/seed</a> para crear las paginas, luego recarga.</div>
-    return <RenderBlocks blocks={page.layout || []} locale={lang} />
+    return (
+      <>
+        <RenderBlocks blocks={page.layout || []} locale={lang} />
+        <BenefitsHybridgeGrid />
+      </>
+    )
   } catch (e) {
     return <div className="container-hb section-pad">Ejecuta npm run dev, ve a /admin para crear tu usuario, luego visita <a href="/api/seed">/api/seed</a></div>
   }
