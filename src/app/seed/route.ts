@@ -181,8 +181,8 @@ const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number
   logosBlock,
   { ...waBlock, trackId: 'prepa-wa-bar' },
   {
-    blockType: 'splitContent', eyebrow: 'Hybridge', heading: 'Preparatoria',
-    body: 'Si todo está cambiando, también la prepa debía de cambiar.\nPor medio de un ecosistema virtual único, tendrás acceso a las mejores clases en vivo y al mismo tiempo podrás avanzar a tu propio ritmo.\nEn Hybridge entendemos que todas las personas somos distintas, y por eso hemos creado un modelo flexible y adaptable a cualquier necesidad.',
+    blockType: 'splitContent', eyebrow: 'Sobre Hybridge Prepa', heading: 'PREPARATORIA HYBRIDGE',
+    body: 'Hemos creado la mejor preparatoria en línea con enfoque en Nuevas Tecnologías y Emprendimiento que puedes terminar en solo 2 años.\n\nEn Hybridge entendemos que todas las personas somos diferentes y tenemos intereses distintos; por eso hemos creado un modelo flexible y adaptable a cualquier necesidad.',
     imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), imagePosition: 'right', backgroundColor: 'white',
     buttons: [{ label: 'Inscríbete ya', url: '#form-prepa', variant: 'primary', trackId: 'prepa-about-cta' }],
   },
