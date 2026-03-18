@@ -226,8 +226,13 @@ const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number
     ],
   },
   {
-    blockType: 'splitContent', eyebrow: 'Hybridge', heading: 'Mucho más que solo una prepa',
-    body: 'Nuestro modelo está diseñado para que nuestros estudiantes aprendan de su comunidad de la mano de un amplio grupo de líderes de la industria, expertas y emprendedores.',
+    blockType: 'splitContent', eyebrow: 'MENTORES', heading: 'QUE DAN SEGUIMIENTO',
+    body: 'En Hybridge estamos comprometidos con tu éxito académico y personal.
+Por eso ofrecemos un sistema de mentoría integral que te acompaña en cada paso de tu trayectoria educativa.',
+    bulletPoints: [
+      { text: '👩‍🏫 ORIENTACIÓN CONSTANTE — Nuestro equipo de mentores está disponible para resolver cualquier duda que te surja, asegurando que siempre tengas el apoyo que necesitas para avanzar con confianza.' },
+      { text: '🧑‍💻 ASESORÍAS PERSONALIZADAS — Sabemos que cada estudiante es único y por lo tanto cada uno tiene su forma particular de aprender. Por eso, parte de nuestra oferta educativa incluye sesiones para resolver dudas en las cuales puedes obtener asesoría directa sobre temas específicos, uso de la plataforma, y cualquier otra consulta que necesites resolver para maximizar tu aprendizaje.' },
+    ],
     imageUrl: IMG('2024/11/sdc-1024x1024.png'), imagePosition: 'left', backgroundColor: 'cream',
     buttons: [{ label: 'Inscríbete ya', url: '#form-prepa', variant: 'primary', trackId: 'prepa-masque-cta' }],
   },
