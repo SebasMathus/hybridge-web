@@ -247,9 +247,10 @@ const swLayout = (swFormId: string | number, universidadFechaId: string | number
   {
     blockType: 'featuresGrid', heading: 'Haz tu ingeniería en solo 3 años', subheading: 'RVOE No. 2833', backgroundColor: 'white',
     features: [
-      { label: 'Modalidad', value: 'En línea' },
-      { label: 'Duración', value: '3 años (9 cuatrimestres)' },
-      { label: 'Enfoque en', value: 'nuevas Tecnologías y Emprendimiento' },
+      { iconText: '💻', label: 'Modalidad', value: 'En línea' },
+      { iconText: '⏳', label: 'Duración', value: '3 años (9 cuatrimestres)' },
+      { iconText: '🚀', label: 'Enfoque en', value: 'nuevas Tecnologías y Emprendimiento' },
+      { iconText: '✅', label: 'Avalado por la SEP', value: 'Validez oficial' },
     ],
   },
   {
