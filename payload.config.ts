@@ -11,6 +11,7 @@ import { FormSubmissions } from './src/collections/FormSubmissions'
 import { FechasInicio } from './src/collections/FechasInicio'
 import { PlanesEstudio } from './src/collections/PlanesEstudio'
 import { Testimonios } from './src/collections/Testimonios'
+import { FacultyMembers } from './src/collections/FacultyMembers'
 import { HeaderGlobal } from './src/globals/Header'
 import { FooterGlobal } from './src/globals/Footer'
 
@@ -23,7 +24,7 @@ export default buildConfig({
     meta: { titleSuffix: ' | Hybridge' },
   },
   editor: lexicalEditor({}),
-  collections: [Users, Media, Pages, Forms, FormSubmissions, FechasInicio, PlanesEstudio, Testimonios],
+  collections: [Users, Media, Pages, Forms, FormSubmissions, FechasInicio, PlanesEstudio, Testimonios, FacultyMembers],
   globals: [HeaderGlobal, FooterGlobal],
   db: postgresAdapter({
     pool: { connectionString: process.env.DATABASE_URL || '' },

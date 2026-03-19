@@ -1,5 +1,6 @@
 import { getPayloadClient } from '@/lib/payload'
 import { NextResponse } from 'next/server'
+import { FACULTY_MEMBERS_SEED } from '@/seedData/facultyMembers'
 
 const WA = 'https://wa.me/message/2JJMWGRX5DSDO1'
 const WA_INSC = 'https://wa.me/+525592256413?text=¡Hola!%20Me%20gustaria%20inscribirme'
@@ -229,8 +230,8 @@ const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number
     blockType: 'splitContent', eyebrow: 'ACOMPAÑAMIENTO', heading: 'MENTORES QUE DAN SEGUIMIENTO',
     body: 'En Hybridge estamos comprometidos con tu éxito académico y personal.',
     bulletPoints: [
-      { text: '👩‍🏫 Nuestro equipo de mentores está disponible para resolver cualquier duda que te surja, asegurando que siempre tengas el apoyo que necesitas para avanzar con confianza.' },
-      { text: '🧑‍💻 Sabemos que cada estudiante es único y por lo tanto cada uno tiene su forma particular de aprender. Por eso, parte de nuestra oferta educativa incluye sesiones para resolver dudas en las cuales puedes obtener asesoría directa sobre temas específicos, uso de la plataforma, y cualquier otra consulta que necesites resolver para maximizar tu aprendizaje.' },
+      { text: '👩‍🏫 Nuestro equipo de mentores está disponible para resolver cualquier duda que te surja.' },
+      { text: '🧑‍💻 Sabemos que cada estudiante es único y por lo tanto cada uno tiene su forma particular de aprender. Por eso, parte de nuestra oferta educativa incluye sesiones para resolver dudas en las cuales puedes obtener asesoría directa sobre temas específicos.' },
     ],
     imageUrl: IMG('2024/11/sdc-1024x1024.png'), imagePosition: 'left', backgroundColor: 'cream',
     buttons: [{ label: 'Inscríbete ya', url: '#form-prepa', variant: 'primary', trackId: 'prepa-masque-cta' }],
@@ -470,6 +471,34 @@ export async function GET() {
         }
       } else {
         throw testimoniosErr
+      }
+    }
+
+    // Ensure faculty members exist (all teachers + program assignments)
+    for (const member of FACULTY_MEMBERS_SEED) {
+      const existingRes = await payload.find({
+        collection: 'faculty-members',
+        where: { slug: { equals: member.slug } },
+        limit: 1,
+      })
+
+      const programs = member.programs.map((p) => ({ program: p }))
+      const data = {
+        ...member,
+        programs,
+      } as any
+
+      if (existingRes.docs.length) {
+        await payload.update({
+          collection: 'faculty-members',
+          id: existingRes.docs[0].id,
+          data,
+        })
+      } else {
+        await payload.create({
+          collection: 'faculty-members',
+          data,
+        })
       }
     }
 
