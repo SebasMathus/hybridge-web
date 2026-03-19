@@ -86,7 +86,7 @@ const homeLayout = (universidadFechaId: string | number, universidadTestimonials
       { line1: 'Licenciatura en', line2: 'Administración e Innovación', description: 'Aprende a administrar negocios digitales e innovar con las nuevas tecnologías.', imageUrl: IMG('2024/11/sdc-1024x1024.png'), ctaLabel: 'Inscríbete ya', ctaUrl: '/licenciatura-en-administracion-e-innovacion/', ctaTrackId: 'home-hero-admin' },
       { line1: 'Licenciatura en', line2: 'Mercadotecnia y Negocios Digitales', description: 'Lidera estrategias innovadoras de marketing digital para la Nueva Economía.', imageUrl: IMG('2024/11/SDFGB@2x.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/contacto-licenciatura-en-mercadotecnia/', ctaTrackId: 'home-hero-mkt' },
       { line1: 'Ingeniería en Tecnologías', line2: 'Inmersivas y Videojuegos', description: 'Construye mundos virtuales.', imageUrl: IMG('2024/10/j.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/contacto-ingenieria-videojuegos/', ctaTrackId: 'home-hero-vj' },
-      { line1: 'PREPA', line2: 'EN LÍNEA', description: 'Haz la prepa en 2 años de la manera más disruptiva que te hayas imaginado con clases en vivo y desde la mejor plataforma educativa del país.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/preparatoria#form-prepa', ctaTrackId: 'home-hero-prepa' },
+      { line1: 'Prepa en', line2: 'Línea', description: 'Haz la prepa en 2 años de la manera más disruptiva que te hayas imaginado con clases en vivo y desde la mejor plataforma educativa del país.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/preparatoria#form-prepa', ctaTrackId: 'home-hero-prepa' },
     ],
   },
   logosBlock,
@@ -178,7 +178,7 @@ const swPlanData = {
 }
 
 const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number, prepaPlanId: string | number, prepaTestimonialsId: string | number) => [
-  { blockType: 'heroBanner', heading: 'PREPA EN LÍNEA', subheading: 'Haz la prepa en 2 años de la manera más disruptiva que te hayas imaginado con clases en vivo y desde la mejor plataforma educativa del país.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '#form-prepa', ctaTrackId: 'prepa-hero-cta' },
+  { blockType: 'heroBanner', heading: 'Prepa en Línea', subheading: 'Haz la prepa en 2 años de la manera más disruptiva que te hayas imaginado con clases en vivo y desde la mejor plataforma educativa del país.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '#form-prepa', ctaTrackId: 'prepa-hero-cta' },
   logosBlock,
   { ...waBlock, trackId: 'prepa-wa-bar' },
   {
@@ -228,10 +228,10 @@ const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number
   },
   {
     blockType: 'splitContent', eyebrow: 'ACOMPAÑAMIENTO', heading: 'MENTORES QUE DAN SEGUIMIENTO',
-    body: 'En Hybridge estamos comprometidos con tu éxito académico y personal.',
+    body: ' ',
     bulletPoints: [
-      { text: '👩‍🏫 Nuestro equipo de mentores está disponible para resolver cualquier duda que te surja.' },
-      { text: '🧑‍💻 Sabemos que cada estudiante es único y por lo tanto cada uno tiene su forma particular de aprender. Por eso, parte de nuestra oferta educativa incluye sesiones para resolver dudas en las cuales puedes obtener asesoría directa sobre temas específicos.' },
+      { text: 'Nuestro equipo de mentores está disponible para resolver cualquier duda que te surja.' },
+      { text: 'Sabemos que cada estudiante es único y por lo tanto cada uno tiene su forma particular de aprender. Por eso, parte de nuestra oferta educativa incluye sesiones para resolver dudas en las cuales puedes obtener asesoría directa sobre temas específicos.' },
     ],
     imageUrl: IMG('2024/11/sdc-1024x1024.png'), imagePosition: 'left', backgroundColor: 'cream',
     buttons: [{ label: 'Inscríbete ya', url: '#form-prepa', variant: 'primary', trackId: 'prepa-masque-cta' }],
@@ -513,6 +513,13 @@ export async function GET() {
     await payload.create({ collection: 'pages', data: { title: 'Inicio', slug: 'home', layout: homeLayout(universidadFechaId, universidadTestimonialsId) as any, meta: { title: 'Hybridge Education - La mejor escuela en línea', description: 'Preparatoria y universidad en línea con validez oficial.' } } })
     await payload.create({ collection: 'pages', data: { title: 'Preparatoria', slug: 'preparatoria', layout: prepaLayout(prepaFormId, prepaFechaId, prepaPlanId, prepaTestimonialsId) as any, meta: { title: 'Preparatoria en Línea - Hybridge', description: 'Haz la prepa en 2 años de la manera más disruptiva.' } } })
     await payload.create({ collection: 'pages', data: { title: 'Ingeniería en Software', slug: 'ingenieria-en-software', layout: swLayout(swFormId, universidadFechaId, swPlanId, universidadTestimonialsId) as any, meta: { title: 'Ingeniería en Software - Hybridge', description: 'El mejor programa de ingeniería para dominar la tecnología.' } } })
+
+    try {
+      await payload.updateGlobal({ slug: 'footer', data: { tagline: 'La mejor escuela en línea para tecnologías digitales.' } as any })
+      await payload.updateGlobal({ slug: 'footer', locale: 'en', data: { tagline: 'The best online school for digital technologies.' } as any })
+    } catch (_) {
+      // Footer global may not exist yet; schema default will apply on first create
+    }
 
     return NextResponse.json({ success: true, message: 'Seeded: home, preparatoria, ingenieria-en-software + forms + fechas-inicio + planes-estudio + testimonios' })
   } catch (error: any) {

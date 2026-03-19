@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { siInstagram, siFacebook, siTiktok } from 'simple-icons/icons'
 import type { Locale } from '@/lib/utils'
 import { getMediaUrl } from '@/lib/utils'
 
@@ -23,15 +24,19 @@ export const Footer = ({ data, locale }: Props) => {
   const logoSrc = data?.logo ? getMediaUrl(data.logo) : '/Logo_blanco.png'
   const columns = data?.columns?.length ? data.columns : defaultCols[locale]
   const socials = data?.socialLinks?.length ? data.socialLinks : [
-    { platform: 'whatsapp', url: 'https://wa.link/22wtjy' },
     { platform: 'instagram', url: 'https://www.instagram.com/hybridge.education' },
+    { platform: 'facebook', url: 'https://www.facebook.com/hybridge.education' },
     { platform: 'tiktok', url: 'https://www.tiktok.com/@hybridge.education' },
   ]
   const phone = data?.contact?.phone || '(55) 2887 5759'
   const email = data?.contact?.email || 'sebastian@hybridge.education'
-  const tagline = data?.tagline || 'Empieza a aprender de nuestros expertos y mejora tus habilidades'
+  const tagline = data?.tagline || 'La mejor escuela en línea para tecnologías digitales.'
   const copyright = data?.copyright || '\u00A9 Copyright 2026 by Hybridge'
-  const icons: Record<string, string> = { whatsapp: 'Wa', instagram: 'Ig', tiktok: 'Tk', facebook: 'Fb', twitter: 'X' }
+  const socialIcons: Record<string, { path: string; hex: string }> = {
+    instagram: { path: siInstagram.path, hex: siInstagram.hex },
+    facebook: { path: siFacebook.path, hex: siFacebook.hex },
+    tiktok: { path: siTiktok.path, hex: siTiktok.hex },
+  }
 
   return (
     <footer style={{ background: '#0D0D0D', paddingTop: '64px', paddingBottom: '32px' }}>
@@ -45,12 +50,21 @@ export const Footer = ({ data, locale }: Props) => {
               <Link href={`tel:${phone.replace(/[^0-9+]/g, '')}`} style={{ display: 'block', color: '#a0a0a0', fontSize: '0.85rem', marginBottom: '4px' }}>{phone}</Link>
               <Link href={`mailto:${email}`} style={{ display: 'block', color: '#a0a0a0', fontSize: '0.85rem' }}>{email}</Link>
             </div>
-            <div style={{ display: 'flex', gap: '8px' }}>
-              {socials.map((s: any, i: number) => (
-                <Link key={i} href={s.url} target="_blank" rel="noopener noreferrer" style={{ width: '32px', height: '32px', borderRadius: '50%', border: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', color: '#a0a0a0' }}>
-                  {icons[s.platform || ''] || '?'}
-                </Link>
-              ))}
+            <div style={{ display: 'flex', gap: '10px' }}>
+              {socials.map((s: any, i: number) => {
+                const icon = socialIcons[s.platform || '']
+                return (
+                  <Link key={i} href={s.url} target="_blank" rel="noopener noreferrer" aria-label={String(s.platform).charAt(0).toUpperCase() + String(s.platform).slice(1)} style={{ width: '36px', height: '36px', borderRadius: '50%', border: '1px solid #2a2a2a', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
+                    {icon ? (
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                        <path d={icon.path} />
+                      </svg>
+                    ) : (
+                      <span style={{ fontSize: '0.7rem' }}>?</span>
+                    )}
+                  </Link>
+                )
+              })}
             </div>
           </div>
           {columns.map((col: any, i: number) => (

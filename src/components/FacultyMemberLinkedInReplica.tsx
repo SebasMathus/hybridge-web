@@ -28,7 +28,7 @@ function formatSpecialization(spec: string) {
 function programMeta(program: ProgramKey): { label: string; href: string } {
   switch (program) {
     case 'preparatoria':
-      return { label: 'Prepa en línea', href: '/preparatoria' }
+      return { label: 'Prepa en Línea', href: '/preparatoria' }
     case 'ingenieria-en-software':
       return { label: 'Ingeniería en Software', href: '/ingenieria-en-software' }
     default:

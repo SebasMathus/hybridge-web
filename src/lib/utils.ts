@@ -73,19 +73,33 @@ export function resolveEmojisForSubjects<T extends { name?: string; emoji?: stri
 
 export const btnStyles: Record<string, React.CSSProperties> = {
   primary: {
-    display: 'inline-block', padding: '12px 28px', background: '#E2F897',
-    color: '#0D0D0D', fontFamily: 'var(--font-display)', fontWeight: 700,
-    fontSize: '0.9rem', borderRadius: '8px',
+    display: 'inline-block', padding: '12px 28px', background: 'var(--color-hb-black)',
+    color: '#fff', fontFamily: 'var(--font-display)', fontWeight: 700,
+    fontSize: '0.9rem', borderRadius: '9999px', textDecoration: 'none',
   },
   secondary: {
-    display: 'inline-block', padding: '12px 28px', background: '#304D6D',
-    color: '#ffffff', fontFamily: 'var(--font-display)', fontWeight: 600,
-    fontSize: '0.9rem', borderRadius: '8px',
+    display: 'inline-block', padding: '12px 28px', background: 'transparent',
+    border: '1.5px solid var(--color-hb-black)', color: 'var(--color-hb-black)',
+    fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.9rem',
+    borderRadius: '9999px', textDecoration: 'none',
+  },
+  tertiary: {
+    display: 'inline-block', padding: '12px 28px', background: 'transparent',
+    border: '1.5px solid var(--color-hb-black)', color: 'var(--color-hb-black)',
+    fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.9rem',
+    borderRadius: '9999px', textDecoration: 'none',
   },
   outline: {
     display: 'inline-block', padding: '12px 28px', background: 'transparent',
-    border: '1.5px solid var(--color-hb-border)', color: 'var(--color-hb-text)',
-    fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: '0.9rem',
-    borderRadius: '8px',
+    border: '1.5px solid var(--color-hb-black)', color: 'var(--color-hb-black)',
+    fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.9rem',
+    borderRadius: '9999px', textDecoration: 'none',
+  },
+  /** Botón para covers/heros: borde blanco, fondo transparente, texto blanco */
+  cover: {
+    display: 'inline-block', padding: '12px 28px', background: 'transparent',
+    border: '1.5px solid #fff', color: '#fff',
+    fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '0.9rem',
+    borderRadius: '9999px', textDecoration: 'none', letterSpacing: '0.04em',
   },
 }

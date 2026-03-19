@@ -80,7 +80,7 @@ export const HeroCarouselBlock = ({ block, locale }: Props) => {
                     <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 900, lineHeight: 1.1, color: '#fff', marginBottom: '4px' }}>{slide.line1}</h2>
                     <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 900, lineHeight: 1.1, color: '#fff', marginBottom: '16px' }}>{slide.line2}</h2>
                     {slide.description && <p style={{ fontSize: '1rem', fontWeight: 400, color: '#fff', marginBottom: '24px', lineHeight: 1.6, maxWidth: '450px' }}>{slide.description}</p>}
-                    <Link href={slide.ctaUrl?.startsWith('/') ? `/${locale}${slide.ctaUrl}` : (slide.ctaUrl || '#')} data-track-id={slide.ctaTrackId || ''} style={btnStyles.primary}>{slide.ctaLabel || 'Inscríbete ya'}</Link>
+                    <Link href={slide.ctaUrl?.startsWith('/') ? `/${locale}${slide.ctaUrl}` : (slide.ctaUrl || '#')} data-track-id={slide.ctaTrackId || ''} style={btnStyles.cover}>{slide.ctaLabel || 'Inscríbete ya'}</Link>
                   </div>
                 </div>
               </div>

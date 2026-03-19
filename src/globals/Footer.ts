@@ -5,7 +5,7 @@ export const FooterGlobal: GlobalConfig = {
   label: 'Footer',
   fields: [
     { name: 'logo', type: 'upload', relationTo: 'media' },
-    { name: 'tagline', type: 'text', localized: true, defaultValue: 'Empieza a aprender de nuestros expertos y mejora tus habilidades' },
+    { name: 'tagline', type: 'text', localized: true, defaultValue: 'La mejor escuela en línea para tecnologías digitales.' },
     {
       name: 'contact',
       type: 'group',

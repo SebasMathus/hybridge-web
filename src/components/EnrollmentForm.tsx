@@ -158,13 +158,13 @@ export function EnrollmentForm({ formSlug, title, showWhatsAppConsent, successMe
             disabled={status === 'loading'}
             style={{
               padding: '14px 28px',
-              background: '#0D0D0D',
+              background: 'var(--color-hb-black)',
               color: '#fff',
               fontFamily: 'var(--font-display)',
               fontWeight: 700,
               fontSize: '1rem',
               border: 'none',
-              borderRadius: '8px',
+              borderRadius: '9999px',
               cursor: status === 'loading' ? 'not-allowed' : 'pointer',
               opacity: status === 'loading' ? 0.7 : 1,
             }}
