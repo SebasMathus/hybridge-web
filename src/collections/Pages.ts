@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import {
-  HeroCarouselBlock, HeroBannerBlock, LogosBarBlock, WhatsAppBarBlock,
+  HeroCarouselBlock, HeroBannerBlock, WhatsAppBarBlock,
   VideoSectionBlock, SplitContentBlock, FeaturesGridBlock, CurriculumPlanBlock,
   TestimonialsPlanBlock, CTASectionBlock, PillarsGridBlock, ProgramsGridBlock,
   GraduadosPrepaBlock,
@@ -28,7 +28,7 @@ export const Pages: CollectionConfig = {
       type: 'blocks',
       localized: true,
       blocks: [
-        HeroCarouselBlock, HeroBannerBlock, LogosBarBlock, WhatsAppBarBlock,
+        HeroCarouselBlock, HeroBannerBlock, WhatsAppBarBlock,
         VideoSectionBlock, SplitContentBlock, FeaturesGridBlock, CurriculumPlanBlock,
         TestimonialsPlanBlock, CTASectionBlock, PillarsGridBlock, ProgramsGridBlock,
         GraduadosPrepaBlock,

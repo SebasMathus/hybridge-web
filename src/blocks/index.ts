@@ -43,7 +43,7 @@ export const LogosBarBlock: Block = {
   slug: 'logosBar',
   labels: { singular: 'Barra de Logos', plural: 'Barras de Logos' },
   fields: [
-    { name: 'heading', type: 'text', defaultValue: 'Confían en nosotros' },
+    { name: 'heading', type: 'text', defaultValue: 'Nuestros estudiantes trabajan en:' },
     {
       name: 'logos',
       type: 'array',

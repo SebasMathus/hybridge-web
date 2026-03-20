@@ -14,6 +14,8 @@ import { Testimonios } from './src/collections/Testimonios'
 import { FacultyMembers } from './src/collections/FacultyMembers'
 import { HeaderGlobal } from './src/globals/Header'
 import { FooterGlobal } from './src/globals/Footer'
+import { StudentsWorkWithGlobal } from './src/globals/StudentsWorkWith'
+import { AprendeSobreGlobal } from './src/globals/AprendeSobre'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -25,13 +27,18 @@ export default buildConfig({
   },
   editor: lexicalEditor({}),
   collections: [Users, Media, Pages, Forms, FormSubmissions, FechasInicio, PlanesEstudio, Testimonios, FacultyMembers],
-  globals: [HeaderGlobal, FooterGlobal],
+  globals: [HeaderGlobal, FooterGlobal, StudentsWorkWithGlobal, AprendeSobreGlobal],
   db: postgresAdapter({
     pool: { connectionString: process.env.DATABASE_URL || '' },
-    // Con push: true, al arrancar el servidor Payload crea/actualiza las tablas (testimonios, etc.).
-    // Si aparece un prompt en la terminal, elige "create table" y acepta. Luego puedes poner push: false
-    // para que no pregunte en los próximos arranques.
-    push: true,
+    // En desarrollo evitamos prompts interactivos (p. ej. "Accept warnings and push schema?")
+    // cuando estamos iterando cambios de esquema. Las tablas suelen existir ya por runs previos/seed.
+    //
+    // Puedes forzar push en local definiendo:
+    //   PAYLOAD_DB_PUSH=true
+    // Nota: si desactivamos push y faltan tablas, Payload fallará al consultar.
+    push:
+      process.env.PAYLOAD_DB_PUSH === 'true' ||
+      (process.env.NODE_ENV === 'production' && process.env.PAYLOAD_DB_PUSH !== 'false'),
   }),
   localization: {
     locales: [

@@ -54,7 +54,7 @@ const universidadTestimonialsData = {
   testimonials: universidadTestimonials,
 }
 
-const logosBlock = { blockType: 'logosBar', heading: 'Confían en nosotros', logos }
+const logosBlock = { blockType: 'logosBar', heading: 'Nuestros estudiantes trabajan en:', logos }
 const waBlock = { blockType: 'whatsappBar', text: 'Hablar con un asesor', url: WA, trackId: '' }
 /* CTA fecha de inicio: bloque que consume la colección Fechas de inicio (prepa / universidad) */
 const ctaFechaInicio = (fechaInicioId: string | number, trackPrefix: string) => ({
@@ -89,7 +89,6 @@ const homeLayout = (universidadFechaId: string | number, universidadTestimonials
       { line1: 'Prepa en', line2: 'Línea', description: 'Haz la prepa en 2 años de la manera más disruptiva que te hayas imaginado con clases en vivo y desde la mejor plataforma educativa del país.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/preparatoria#form-prepa', ctaTrackId: 'home-hero-prepa' },
     ],
   },
-  logosBlock,
   { ...waBlock, trackId: 'home-wa-bar' },
   {
     blockType: 'splitContent', eyebrow: 'Sobre', heading: 'Hybridge Education',
@@ -179,7 +178,6 @@ const swPlanData = {
 
 const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number, prepaPlanId: string | number, prepaTestimonialsId: string | number) => [
   { blockType: 'heroBanner', heading: 'Prepa en Línea', subheading: 'Haz la prepa en 2 años de la manera más disruptiva que te hayas imaginado con clases en vivo y desde la mejor plataforma educativa del país.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '#form-prepa', ctaTrackId: 'prepa-hero-cta' },
-  logosBlock,
   { ...waBlock, trackId: 'prepa-wa-bar' },
   {
     blockType: 'splitContent', eyebrow: 'Sobre Hybridge Prepa', heading: 'PREPARATORIA HYBRIDGE',
@@ -236,6 +234,16 @@ const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number
     imageUrl: IMG('2024/11/sdc-1024x1024.png'), imagePosition: 'left', backgroundColor: 'cream',
     buttons: [{ label: 'Inscríbete ya', url: '#form-prepa', variant: 'primary', trackId: 'prepa-masque-cta' }],
   },
+  {
+    blockType: 'splitContent',
+    eyebrow: 'COMUNIDAD',
+    heading: 'EL ESPIRITU HYBRIDGE',
+    body: 'En Hybridge, valoramos profundamente la creación de una comunidad inclusiva, donde cada miembro es esencial y cada voz cuenta. Nos esforzamos por cultivar un ambiente donde todos los estudiantes se sientan acogidos, respetados y parte integral de nuestro colectivo educativo.\n\nCreemos firmemente en la inclusión educativa, y nos comprometemos a ofrecer un espacio donde la diversidad es celebrada y donde cada estudiante encuentra su lugar.',
+    imageUrl: IMG('2024/11/SDFGB@2x.jpg'),
+    imagePosition: 'right',
+    backgroundColor: 'white',
+    buttons: [{ label: 'Inscríbete ya', url: '#form-prepa', variant: 'primary', trackId: 'prepa-comunidad-cta' }],
+  },
   ctaFechaInicio(prepaFechaId, 'prepa'),
   curriculumPlanBlock(prepaPlanId),
   /* Un solo video por página (prepa) */
@@ -253,11 +261,10 @@ const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number
 /* ════════ ING SOFTWARE ════════ */
 const swLayout = (swFormId: string | number, universidadFechaId: string | number, swPlanId: string | number, universidadTestimonialsId: string | number) => [
   { blockType: 'heroBanner', heading: 'Ingeniería en Software', subheading: 'El mejor programa para las personas que aspiran a dominar el mundo de la tecnología.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '#form-ingenieria-software', ctaTrackId: 'sw-hero-cta' },
-  logosBlock,
   { ...waBlock, trackId: 'sw-wa-bar' },
   {
     blockType: 'splitContent', eyebrow: 'Sobre nuestra', heading: 'Ingeniería en Software',
-    body: 'El programa de Ingeniería en Software de Hybridge es un programa con validez oficial dirigido a personas innovadoras que aspiran a dominar el mundo de la tecnología.\nPor medio de un ecosistema virtual único, Hybridge ofrece una formación única en ingeniería, nuevas tecnologías y habilidades para la nueva economía.\nYa sea que busques construir nuevos productos, transformaciones digitales o estés pensando en iniciar un emprendimiento, este programa te dará todas las herramientas.',
+    body: 'Hybridge ofrece una formación completa en ingeniería, nuevas tecnologías y habilidades para la nueva economía.\n\nNuestro programa de Ingeniería en Software cuenta con Reconocimiento de Validez Oficial de Estudios (RVOE), lo cual significa que al graduarte obtendrás tu título oficial de Educación Superior.',
     imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), imagePosition: 'right', backgroundColor: 'white',
     buttons: [{ label: 'Inscríbete ya', url: '#form-ingenieria-software', variant: 'primary', trackId: 'sw-about-cta' }],
   },
@@ -520,6 +527,25 @@ export async function GET() {
     } catch (_) {
       // Footer global may not exist yet; schema default will apply on first create
     }
+
+    try {
+      await payload.updateGlobal({
+        slug: 'studentsWorkWith',
+        locale: 'es',
+        data: {
+          heading: 'Nuestros estudiantes trabajan en:',
+          logos: logos.map((l: any) => ({ name: l.name, imageUrl: l.imageUrl })),
+        } as any,
+      })
+      await payload.updateGlobal({
+        slug: 'studentsWorkWith',
+        locale: 'en',
+        data: {
+          heading: 'Nuestros estudiantes trabajan en:',
+          logos: logos.map((l: any) => ({ name: l.name, imageUrl: l.imageUrl })),
+        } as any,
+      })
+    } catch (_) {}
 
     return NextResponse.json({ success: true, message: 'Seeded: home, preparatoria, ingenieria-en-software + forms + fechas-inicio + planes-estudio + testimonios' })
   } catch (error: any) {
