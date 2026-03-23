@@ -49,15 +49,20 @@ function StoreBadges() {
         style={{
           display: 'flex',
           flexWrap: 'wrap',
-          gap: '14px',
+          gap: '12px',
           alignItems: 'center',
         }}
       >
-        <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer" style={{ lineHeight: 0 }}>
+        <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer" style={{ lineHeight: 0, display: 'flex', alignItems: 'center', height: 40 }}>
           <img src={APP_STORE_BADGE} alt="Descargar en el App Store" height={40} style={{ width: 'auto', display: 'block' }} />
         </a>
-        <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer" style={{ lineHeight: 0 }}>
-          <img src={PLAY_BADGE} alt="Disponible en Google Play" height={58} style={{ width: 'auto', display: 'block' }} />
+        <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer" style={{ lineHeight: 0, display: 'flex', alignItems: 'center', height: 40 }}>
+          {/* El asset de Google trae más padding; misma altura visual que App Store */}
+          <img
+            src={PLAY_BADGE}
+            alt="Disponible en Google Play"
+            style={{ height: 40, width: 'auto', maxHeight: 40, display: 'block', objectFit: 'contain' }}
+          />
         </a>
       </div>
     </div>
