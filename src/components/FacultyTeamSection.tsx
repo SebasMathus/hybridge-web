@@ -1,11 +1,10 @@
 import React from 'react'
 import { getPayloadClient } from '@/lib/payload'
 import { FacultyTeamGrid, type FacultyTeamMember } from './FacultyTeamGrid'
-import type { Locale } from '@/lib/utils'
 
 export type ProgramKey = 'preparatoria' | 'ingenieria-en-software'
 
-export async function FacultyTeamSection({ program, locale }: { program: ProgramKey; locale: Locale }) {
+export async function FacultyTeamSection({ program }: { program: ProgramKey }) {
   let members: FacultyTeamMember[] = []
 
   try {
@@ -48,6 +47,6 @@ export async function FacultyTeamSection({ program, locale }: { program: Program
     members = []
   }
 
-  return <FacultyTeamGrid members={members} program={program} locale={locale} />
+  return <FacultyTeamGrid members={members} />
 }
 

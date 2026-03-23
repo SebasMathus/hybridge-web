@@ -1,9 +1,5 @@
 'use client'
 import React from 'react'
-import Link from 'next/link'
-import type { Locale } from '@/lib/utils'
-
-export type ProgramKey = 'preparatoria' | 'ingenieria-en-software'
 
 export type FacultyTeamMember = {
   id: string
@@ -21,21 +17,7 @@ export type FacultyTeamMember = {
 
 const HYBRIDGE_LOGO = '/Logo_blanco.png'
 
-function normalizeArray(arr: any): string[] {
-  if (!arr) return []
-  if (Array.isArray(arr)) return arr.map((x) => (typeof x === 'string' ? x : x?.text).filter(Boolean))
-  return []
-}
-
-export function FacultyTeamGrid({
-  members,
-  program,
-  locale,
-}: {
-  members: FacultyTeamMember[]
-  program: ProgramKey
-  locale: Locale
-}) {
+export function FacultyTeamGrid({ members }: { members: FacultyTeamMember[] }) {
   return (
     <section className="section-pad hb-faculty-team" style={{ background: 'var(--color-hb-bg)' }}>
       <div className="container-hb">
@@ -50,12 +32,7 @@ export function FacultyTeamGrid({
 
         <div className="hb-faculty-team__grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: '18px' }}>
           {members.map((p) => (
-            <Link
-              key={p.id}
-              href={`/${locale}/profesor/${encodeURIComponent(p.slug ?? p.id)}`}
-              aria-label={`Ver perfil de ${p.name}`}
-              className="hb-faculty-card"
-            >
+            <article key={p.id} className="hb-faculty-card" aria-label={p.name}>
               <div className="hb-faculty-card__media">
                 <img className="hb-faculty-card__avatar" src={p.avatarUrl || HYBRIDGE_LOGO} alt={p.name} />
                 <div className="hb-faculty-card__overlay" aria-hidden="true">
@@ -68,7 +45,7 @@ export function FacultyTeamGrid({
                   </div>
                 </div>
               </div>
-            </Link>
+            </article>
           ))}
         </div>
       </div>
@@ -77,10 +54,10 @@ export function FacultyTeamGrid({
         .hb-faculty-card {
           border: none;
           padding: 0;
+          margin: 0;
           background: transparent;
-          cursor: pointer;
+          cursor: default;
           display: block;
-          text-decoration: none;
         }
 
         .hb-faculty-card__media {

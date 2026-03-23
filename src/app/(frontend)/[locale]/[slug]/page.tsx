@@ -98,8 +98,8 @@ export default async function DynamicPage({ params }: Props) {
             : <RenderBlocks blocks={blocksAfter} locale={lang} />}
         </>
       ) : null}
-      {slug === 'preparatoria' ? <FacultyTeamSection program="preparatoria" locale={lang} /> : null}
-      {slug === 'ingenieria-en-software' ? <FacultyTeamSection program="ingenieria-en-software" locale={lang} /> : null}
+      {slug === 'preparatoria' ? <FacultyTeamSection program="preparatoria" /> : null}
+      {slug === 'ingenieria-en-software' ? <FacultyTeamSection program="ingenieria-en-software" /> : null}
     </>
   )
 }
