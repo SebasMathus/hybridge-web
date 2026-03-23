@@ -6,6 +6,7 @@ import { BenefitsHybridgeGrid } from '@/components/BenefitsHybridgeGrid'
 import { FacultyTeamSection } from '@/components/FacultyTeamSection'
 import { PerfilIngresoSection } from '@/components/PerfilIngresoSection'
 import { IndustryLeadersSection } from '@/components/IndustryLeadersSection'
+import { TalleresHybridgeSection } from '@/components/TalleresHybridgeSection'
 import { StudentsWorkWithSection } from '@/components/StudentsWorkWithSection'
 import { AprendeSobreChipsSection, AprendeSobreSkillsSection } from '@/components/AprendeSobreSection'
 import { ActiveStudentsHybridge } from '@/components/ActiveStudentsHybridge'
@@ -84,6 +85,9 @@ export default async function DynamicPage({ params }: Props) {
   const isIngenieriaVideoSection = (b: any) =>
     slug === 'ingenieria-en-software' && b?.blockType === 'videoSection'
 
+  const isIngenieriaCtaFechaInicio = (b: any) =>
+    slug === 'ingenieria-en-software' && b?.blockType === 'ctaFechaInicio'
+
   return (
     <>
       {showStudentsWorkWith ? <RenderBlocks blocks={blocksBefore} locale={lang} /> : <RenderBlocks blocks={blocks} locale={lang} />}
@@ -101,6 +105,7 @@ export default async function DynamicPage({ params }: Props) {
                     <AprendeSobreSkillsSection skills={aprendeSobre?.skills} />
                   ) : null}
                   {isIngenieriaCurriculumPlan(b) ? <ActiveStudentsHybridge /> : null}
+                  {isIngenieriaCtaFechaInicio(b) ? <TalleresHybridgeSection /> : null}
                   {isIngenieriaVideoSection(b) ? <IndustryLeadersSection /> : null}
                 </React.Fragment>
               ))
