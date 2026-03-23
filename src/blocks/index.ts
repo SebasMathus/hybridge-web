@@ -444,3 +444,138 @@ export const ProgramsGridBlock: Block = {
     },
   ],
 }
+
+/* ────────────────────────────── BENEFICIOS HYBRIDGE (grid oscuro) ────────────────────────────── */
+export const BenefitsHybridgeBlock: Block = {
+  slug: 'benefitsHybridge',
+  labels: {
+    singular: 'Beneficios Hybridge (grid aliados)',
+    plural: 'Beneficios Hybridge (grid aliados)',
+  },
+  fields: [],
+}
+
+/* ────────────────────────────── MODELO EDUCATIVO ────────────────────────────── */
+export const ModeloEducativoBlock: Block = {
+  slug: 'modeloEducativo',
+  labels: { singular: 'Modelo educativo', plural: 'Modelo educativo' },
+  fields: [
+    { name: 'sectionTitle', type: 'text', required: true, defaultValue: 'MODELO EDUCATIVO' },
+    { name: 'subtitle', type: 'textarea', defaultValue: 'Educación en línea de calidad, aprende con:' },
+    {
+      name: 'pillars',
+      type: 'array',
+      minRows: 1,
+      maxRows: 5,
+      labels: { singular: 'Pilar', plural: 'Pilares' },
+      fields: [
+        { name: 'icon', type: 'text', required: true, admin: { description: 'Emoji o símbolo' } },
+        { name: 'title', type: 'text', required: true },
+        { name: 'subtitle', type: 'text', required: true },
+        { name: 'description', type: 'textarea', required: true },
+        { name: 'showLiveDot', type: 'checkbox', defaultValue: false, admin: { description: 'Punto verde “en vivo” junto al título (ej. Clases).' } },
+      ],
+    },
+  ],
+}
+
+/* ────────────────────────────── OPORTUNIDADES (grid 2×2) ────────────────────────────── */
+export const Oportunidades2026Block: Block = {
+  slug: 'oportunidades2026',
+  labels: { singular: 'Oportunidades (grid)', plural: 'Oportunidades (grid)' },
+  fields: [
+    { name: 'eyebrow', type: 'text', defaultValue: 'MUCHO MÁS QUE SOLO ESTUDIAR' },
+    { name: 'heading', type: 'text', required: true, defaultValue: 'OPORTUNIDADES 2026' },
+    {
+      name: 'items',
+      type: 'array',
+      minRows: 1,
+      maxRows: 8,
+      fields: [
+        { name: 'icon', type: 'text', required: true, admin: { description: 'Emoji' } },
+        { name: 'label', type: 'text', required: true },
+      ],
+    },
+  ],
+}
+
+/* ────────────────────────────── LÍDERES DE LA INDUSTRIA ────────────────────────────── */
+export const IndustryLeadersBlock: Block = {
+  slug: 'industryLeaders',
+  labels: { singular: 'Líderes de la industria', plural: 'Líderes de la industria' },
+  fields: [
+    { name: 'eyebrow', type: 'text', defaultValue: 'APRENDE DE LA MANO DE' },
+    { name: 'heading', type: 'text', required: true, defaultValue: 'LÍDERES DE LA INDUSTRIA' },
+    { name: 'body', type: 'textarea', required: true },
+  ],
+}
+
+/* ────────────────────────────── TALLERES HYBRIDGE ────────────────────────────── */
+export const TalleresHybridgeBlock: Block = {
+  slug: 'talleresHybridge',
+  labels: { singular: 'Talleres Hybridge', plural: 'Talleres Hybridge' },
+  fields: [
+    { name: 'heading', type: 'text', required: true, defaultValue: 'TALLERES HYBRIDGE' },
+    { name: 'subheading', type: 'text', defaultValue: 'TU HUB DE APRENDIZAJE' },
+    { name: 'descriptionBefore', type: 'text', defaultValue: 'Además de tus materias, accede a talleres gratuitos y ' },
+    { name: 'accentWord1', type: 'text', defaultValue: 'exclusivos' },
+    { name: 'descriptionMiddle', type: 'text', defaultValue: ' para la comunidad Hybridge. Adquiere ' },
+    { name: 'accentWord2', type: 'text', defaultValue: 'certificaciones' },
+    { name: 'descriptionAfter', type: 'text', defaultValue: ' mientras estudias tu carrera.' },
+    {
+      name: 'workshops',
+      type: 'array',
+      minRows: 1,
+      maxRows: 8,
+      labels: { singular: 'Taller', plural: 'Talleres' },
+      fields: [
+        { name: 'icon', type: 'text', required: true },
+        { name: 'label', type: 'text', required: true },
+      ],
+    },
+  ],
+}
+
+/* ────────────────────────────── HYBRIDGE APP ────────────────────────────── */
+export const HybridgeAppBlock: Block = {
+  slug: 'hybridgeApp',
+  labels: { singular: 'Hybridge App', plural: 'Hybridge App' },
+  fields: [
+    { name: 'heading', type: 'text', required: true, defaultValue: 'HYBRIDGE APP' },
+    { name: 'body', type: 'textarea', required: true },
+    { name: 'image', type: 'upload', relationTo: 'media' },
+    { name: 'imageUrl', type: 'text' },
+    {
+      name: 'imagePosition',
+      type: 'select',
+      defaultValue: 'right',
+      options: [
+        { label: 'Derecha', value: 'right' },
+        { label: 'Izquierda', value: 'left' },
+      ],
+    },
+    {
+      name: 'backgroundColor',
+      type: 'select',
+      defaultValue: 'cream',
+      options: [
+        { label: 'Blanco', value: 'white' },
+        { label: 'Crema', value: 'cream' },
+      ],
+    },
+    { name: 'storesLabel', type: 'text', defaultValue: 'Disponible para iOS y Android' },
+    { name: 'appStoreUrl', type: 'text', defaultValue: 'https://hybridge.education/' },
+    { name: 'playStoreUrl', type: 'text', defaultValue: 'https://hybridge.education/' },
+    {
+      name: 'appStoreBadgeUrl',
+      type: 'text',
+      defaultValue:
+        'https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/es-mx?size=250x83',
+    },
+    {
+      name: 'playBadgeUrl',
+      type: 'text',
+      defaultValue: 'https://play.google.com/intl/es-419/badges/static/images/badges/es-419_badge_web_generic.png',
+    },
+  ],
+}

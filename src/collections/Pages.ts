@@ -7,6 +7,12 @@ import {
   OrgulloPrepaBlock,
   CtaFechaInicioBlock,
   FormBlock,
+  BenefitsHybridgeBlock,
+  ModeloEducativoBlock,
+  Oportunidades2026Block,
+  IndustryLeadersBlock,
+  TalleresHybridgeBlock,
+  HybridgeAppBlock,
 } from '../blocks'
 
 export const Pages: CollectionConfig = {
@@ -35,6 +41,12 @@ export const Pages: CollectionConfig = {
         OrgulloPrepaBlock,
         CtaFechaInicioBlock,
         FormBlock,
+        BenefitsHybridgeBlock,
+        ModeloEducativoBlock,
+        Oportunidades2026Block,
+        IndustryLeadersBlock,
+        TalleresHybridgeBlock,
+        HybridgeAppBlock,
       ],
     },
     {

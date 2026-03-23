@@ -2,33 +2,59 @@ import React from 'react'
 
 const ACCENT = '#FF2D92'
 
-const WORKSHOPS = [
-  { id: 'ia', icon: '🧠', label: 'IA Y TECNOLOGÍA' },
-  { id: 'productividad', icon: '📱', label: 'PRODUCTIVIDAD Y HERRAMIENTAS' },
-  { id: 'negocios', icon: '📈', label: 'NEGOCIOS Y MARKETING' },
-  { id: 'desarrollo', icon: '📁', label: 'DESARROLLO PROFESIONAL' },
-] as const
+export type TalleresWorkshop = { icon: string; label: string }
+
+export const DEFAULT_TALLERES_WORKSHOPS: TalleresWorkshop[] = [
+  { icon: '🧠', label: 'IA Y TECNOLOGÍA' },
+  { icon: '📱', label: 'PRODUCTIVIDAD Y HERRAMIENTAS' },
+  { icon: '📈', label: 'NEGOCIOS Y MARKETING' },
+  { icon: '📁', label: 'DESARROLLO PROFESIONAL' },
+]
+
+export type TalleresHybridgeSectionProps = {
+  heading?: string
+  subheading?: string
+  descriptionBefore?: string
+  accentWord1?: string
+  descriptionMiddle?: string
+  accentWord2?: string
+  descriptionAfter?: string
+  workshops?: TalleresWorkshop[]
+}
 
 /**
- * Talleres Hybridge — Ingeniería en Software (entre fecha de inicio y plan de estudios).
+ * Talleres Hybridge — sección oscura con cards — reutilizable vía CMS.
  */
-export function TalleresHybridgeSection() {
+export function TalleresHybridgeSection({
+  heading = 'TALLERES HYBRIDGE',
+  subheading = 'TU HUB DE APRENDIZAJE',
+  descriptionBefore = 'Además de tus materias, accede a talleres gratuitos y ',
+  accentWord1 = 'exclusivos',
+  descriptionMiddle = ' para la comunidad Hybridge. Adquiere ',
+  accentWord2 = 'certificaciones',
+  descriptionAfter = ' mientras estudias tu carrera.',
+  workshops = DEFAULT_TALLERES_WORKSHOPS,
+}: TalleresHybridgeSectionProps) {
+  if (!workshops.length) return null
+
   return (
     <section className="hb-talleres section-pad">
       <div className="container-hb">
         <header className="hb-talleres__header">
-          <h2 className="hb-talleres__title">TALLERES HYBRIDGE</h2>
-          <p className="hb-talleres__subtitle">TU HUB DE APRENDIZAJE</p>
+          <h2 className="hb-talleres__title">{heading}</h2>
+          <p className="hb-talleres__subtitle">{subheading}</p>
           <p className="hb-talleres__desc">
-            Además de tus materias, accede a talleres gratuitos y{' '}
-            <span className="hb-talleres__accent">exclusivos</span> para la comunidad Hybridge. Adquiere{' '}
-            <span className="hb-talleres__accent">certificaciones</span> mientras estudias tu carrera.
+            {descriptionBefore}
+            <span className="hb-talleres__accent">{accentWord1}</span>
+            {descriptionMiddle}
+            <span className="hb-talleres__accent">{accentWord2}</span>
+            {descriptionAfter}
           </p>
         </header>
 
         <div className="hb-talleres__grid" role="list">
-          {WORKSHOPS.map((w) => (
-            <article key={w.id} className="hb-talleres__card" role="listitem">
+          {workshops.map((w, idx) => (
+            <article key={`${w.label}-${idx}`} className="hb-talleres__card" role="listitem">
               <div className="hb-talleres__iconWrap" aria-hidden>
                 <span className="hb-talleres__icon">{w.icon}</span>
               </div>

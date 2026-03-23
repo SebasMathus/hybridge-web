@@ -1,27 +1,41 @@
 import React from 'react'
 
-const OPPORTUNITIES = [
-  { id: 'internships', icon: '👱', label: 'Prácticas profesionales e Internships' },
-  { id: 'mentorias', icon: '📁', label: 'Mentorías y talleres especializados' },
-  { id: 'webinars', icon: '🎙️', label: 'Webinars y pláticas' },
-  { id: 'vinculacion', icon: '🤝', label: 'Vinculación laboral' },
-] as const
+export type OportunidadItem = { icon: string; label: string }
+
+export const DEFAULT_OPORTUNIDADES_ITEMS: OportunidadItem[] = [
+  { icon: '👩‍💼', label: 'Prácticas profesionales e Internships' },
+  { icon: '📁', label: 'Mentorías y talleres especializados' },
+  { icon: '🎙️', label: 'Webinars y pláticas' },
+  { icon: '🤝', label: 'Vinculación laboral' },
+]
+
+export type Oportunidades2026SectionProps = {
+  eyebrow?: string
+  heading?: string
+  items?: OportunidadItem[]
+}
 
 /**
- * Ingeniería en Software — sección después de testimonios.
+ * Grid de oportunidades — reutilizable vía CMS en varias páginas.
  */
-export function Oportunidades2026Section() {
+export function Oportunidades2026Section({
+  eyebrow = 'MUCHO MÁS QUE SOLO ESTUDIAR',
+  heading = 'OPORTUNIDADES 2026',
+  items = DEFAULT_OPORTUNIDADES_ITEMS,
+}: Oportunidades2026SectionProps) {
+  if (!items.length) return null
+
   return (
     <section className="hb-oportunidades section-pad">
       <div className="container-hb">
         <header className="hb-oportunidades__header">
-          <p className="hb-oportunidades__eyebrow">MUCHO MÁS QUE SOLO ESTUDIAR</p>
-          <h2 className="hb-oportunidades__title">OPORTUNIDADES 2026</h2>
+          <p className="hb-oportunidades__eyebrow">{eyebrow}</p>
+          <h2 className="hb-oportunidades__title">{heading}</h2>
         </header>
 
         <div className="hb-oportunidades__grid" role="list">
-          {OPPORTUNITIES.map((item) => (
-            <article key={item.id} className="hb-oportunidades__card" role="listitem">
+          {items.map((item, idx) => (
+            <article key={`${item.label}-${idx}`} className="hb-oportunidades__card" role="listitem">
               <span className="hb-oportunidades__icon" aria-hidden>
                 {item.icon}
               </span>

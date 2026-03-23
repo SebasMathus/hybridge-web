@@ -2,15 +2,8 @@ import { getPayloadClient } from '@/lib/payload'
 import type { Locale } from '@/lib/utils'
 import React from 'react'
 import { RenderBlocks } from '@/components/blocks/RenderBlocks'
-import { BenefitsHybridgeGrid } from '@/components/BenefitsHybridgeGrid'
 import { FacultyTeamSection } from '@/components/FacultyTeamSection'
-import { PerfilIngresoSection } from '@/components/PerfilIngresoSection'
-import { IndustryLeadersSection } from '@/components/IndustryLeadersSection'
-import { TalleresHybridgeSection } from '@/components/TalleresHybridgeSection'
 import { StudentsWorkWithSection } from '@/components/StudentsWorkWithSection'
-import { ModeloEducativoSection } from '@/components/ModeloEducativoSection'
-import { Oportunidades2026Section } from '@/components/Oportunidades2026Section'
-import { HybridgeAppSection } from '@/components/HybridgeAppSection'
 import { AprendeSobreChipsSection, AprendeSobreSkillsSection } from '@/components/AprendeSobreSection'
 import { ActiveStudentsHybridge } from '@/components/ActiveStudentsHybridge'
 import { notFound } from 'next/navigation'
@@ -56,8 +49,6 @@ export default async function DynamicPage({ params }: Props) {
       }
     }
   } catch (_) {
-    // If DB/Payload fails locally (e.g. DATABASE_URL not reachable), show a clear message
-    // instead of crashing the server render.
     return <div className="container-hb section-pad">Error de base de datos. Configura `DATABASE_URL` en `.env` y vuelve a intentar.</div>
   }
 
@@ -85,27 +76,10 @@ export default async function DynamicPage({ params }: Props) {
   const isIngenieriaCurriculumPlan = (b: any) =>
     slug === 'ingenieria-en-software' && b?.blockType === 'curriculumPlan'
 
-  const isIngenieriaVideoSection = (b: any) =>
-    slug === 'ingenieria-en-software' && b?.blockType === 'videoSection'
-
-  const isIngenieriaCtaFechaInicio = (b: any) =>
-    slug === 'ingenieria-en-software' && b?.blockType === 'ctaFechaInicio'
-
-  const isIngenieriaTestimonials = (b: any) =>
-    slug === 'ingenieria-en-software' && (b?.blockType === 'testimonialsPlan' || b?.blockType === 'testimonialsRow')
-
-  const isIngenieriaComunidadHybridgeSplit = (b: any) => {
-    if (slug !== 'ingenieria-en-software' || b?.blockType !== 'splitContent') return false
-    const eyebrow = stripAccents(String(b?.eyebrow ?? '')).toLowerCase()
-    const heading = stripAccents(String(b?.heading ?? '')).toLowerCase().trim()
-    return eyebrow.includes('comunidad') && heading === 'hybridge'
-  }
-
   return (
     <>
       {showStudentsWorkWith ? <RenderBlocks blocks={blocksBefore} locale={lang} /> : <RenderBlocks blocks={blocks} locale={lang} />}
       {showStudentsWorkWith ? <StudentsWorkWithSection data={studentsWorkWith} /> : null}
-      {showStudentsWorkWith ? <ModeloEducativoSection /> : null}
       {showStudentsWorkWith ? (
         <>
           {showAprendeSobre
@@ -115,21 +89,15 @@ export default async function DynamicPage({ params }: Props) {
                   {isIngenieriaAboutSplit(b) ? (
                     <AprendeSobreChipsSection chips={aprendeSobre?.chips} />
                   ) : null}
-                  {isIngenieriaComunidadHybridgeSplit(b) ? <HybridgeAppSection locale={lang} /> : null}
                   {isIngenieriaSkillsFeaturesGrid(b) ? (
                     <AprendeSobreSkillsSection skills={aprendeSobre?.skills} />
                   ) : null}
-                  {isIngenieriaTestimonials(b) ? <Oportunidades2026Section /> : null}
                   {isIngenieriaCurriculumPlan(b) ? <ActiveStudentsHybridge /> : null}
-                  {isIngenieriaCtaFechaInicio(b) ? <TalleresHybridgeSection /> : null}
-                  {isIngenieriaVideoSection(b) ? <IndustryLeadersSection /> : null}
                 </React.Fragment>
               ))
             : <RenderBlocks blocks={blocksAfter} locale={lang} />}
         </>
       ) : null}
-      {slug === 'preparatoria' || slug === 'ingenieria-en-software' ? <BenefitsHybridgeGrid /> : null}
-      {slug === 'ingenieria-en-software' ? <PerfilIngresoSection locale={lang} /> : null}
       {slug === 'preparatoria' ? <FacultyTeamSection program="preparatoria" locale={lang} /> : null}
       {slug === 'ingenieria-en-software' ? <FacultyTeamSection program="ingenieria-en-software" locale={lang} /> : null}
     </>

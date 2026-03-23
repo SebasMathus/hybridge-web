@@ -1,6 +1,15 @@
 import { getPayloadClient } from '@/lib/payload'
 import { NextResponse } from 'next/server'
 import { FACULTY_MEMBERS_SEED } from '@/seedData/facultyMembers'
+import {
+  modeloEducativoBlock,
+  benefitsHybridgeBlock,
+  oportunidades2026Block,
+  industryLeadersBlock,
+  talleresHybridgeBlock,
+  hybridgeAppBlock,
+  perfilIngresoSplitBlock,
+} from '@/seedData/pageBlocksMarketing'
 
 const WA = 'https://wa.me/message/2JJMWGRX5DSDO1'
 const WA_INSC = 'https://wa.me/+525592256413?text=¡Hola!%20Me%20gustaria%20inscribirme'
@@ -178,6 +187,7 @@ const swPlanData = {
 
 const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number, prepaPlanId: string | number, prepaTestimonialsId: string | number) => [
   { blockType: 'heroBanner', heading: 'Prepa en Línea', subheading: 'Haz la prepa en 2 años de la manera más disruptiva que te hayas imaginado con clases en vivo y desde la mejor plataforma educativa del país.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '#form-prepa', ctaTrackId: 'prepa-hero-cta' },
+  modeloEducativoBlock(),
   { ...waBlock, trackId: 'prepa-wa-bar' },
   {
     blockType: 'splitContent', eyebrow: 'Sobre Hybridge Prepa', heading: 'PREPARATORIA HYBRIDGE',
@@ -256,11 +266,13 @@ const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number
     abroadUniversities: [{ label: 'McGill' }, { label: 'Princeton' }, { label: 'Lake Forest' }, { label: 'ESMUC' }, { label: 'Toronto' }],
   },
   { blockType: 'formBlock', form: prepaFormId },
+  benefitsHybridgeBlock(),
 ]
 
 /* ════════ ING SOFTWARE ════════ */
 const swLayout = (swFormId: string | number, universidadFechaId: string | number, swPlanId: string | number, universidadTestimonialsId: string | number) => [
   { blockType: 'heroBanner', heading: 'Ingeniería en Software', subheading: 'El mejor programa para las personas que aspiran a dominar el mundo de la tecnología.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '#form-ingenieria-software', ctaTrackId: 'sw-hero-cta' },
+  modeloEducativoBlock(),
   { ...waBlock, trackId: 'sw-wa-bar' },
   {
     blockType: 'splitContent', eyebrow: 'Sobre nuestra', heading: 'Ingeniería en Software',
@@ -269,6 +281,7 @@ const swLayout = (swFormId: string | number, universidadFechaId: string | number
     buttons: [{ label: 'Inscríbete ya', url: '#form-ingenieria-software', variant: 'primary', trackId: 'sw-about-cta' }],
   },
   testimonialsPlanBlock(universidadTestimonialsId),
+  oportunidades2026Block(),
   {
     blockType: 'featuresGrid', heading: 'Haz tu ingeniería en solo 3 años', subheading: 'RVOE No. 2833', backgroundColor: 'white',
     features: [
@@ -284,11 +297,16 @@ const swLayout = (swFormId: string | number, universidadFechaId: string | number
     imageUrl: IMG('2024/11/sdc-1024x1024.png'), imagePosition: 'left', backgroundColor: 'cream',
     buttons: [{ label: 'Inscríbete ya', url: '#form-ingenieria-software', variant: 'primary', trackId: 'sw-comunidad-cta' }],
   },
+  hybridgeAppBlock(),
   ctaFechaInicio(universidadFechaId, 'sw'),
+  talleresHybridgeBlock(),
   curriculumPlanBlock(swPlanId),
   /* Un solo video por página (ingeniería) */
   { blockType: 'videoSection', heading: 'CONOCE MÁS DE NUESTRA INGENIERÍA', youtubeUrl: 'https://youtu.be/-tSOJi573hw', backgroundColor: 'cream' },
+  industryLeadersBlock(),
   { blockType: 'formBlock', form: swFormId },
+  benefitsHybridgeBlock(),
+  perfilIngresoSplitBlock(),
 ]
 
 export async function GET() {

@@ -7,20 +7,33 @@ const HB_BENEFITS_LIKE_BACKGROUND = {
     linear-gradient(180deg, #070A0B, #050607)`,
 } as const
 
+export const DEFAULT_INDUSTRY_LEADERS = {
+  eyebrow: 'APRENDE DE LA MANO DE',
+  heading: 'LÍDERES DE LA INDUSTRIA',
+  body: 'Con nosotros colaboran expertos de empresas como Amazon, Nu, Cinépolis, Fintual, Scotiabank, Strata Analytics, Deloitte, Buk, Peñafiel, Bank of America, TikTok, Banamex y más. ¡Aprende de ellos!',
+}
+
+export type IndustryLeadersSectionProps = {
+  eyebrow?: string
+  heading?: string
+  body?: string
+}
+
 /**
- * Ingeniería en Software — colocar entre bloque de video y formulario (orden CMS).
+ * Texto centrado sobre colaboración con la industria — reutilizable vía CMS.
  */
-export function IndustryLeadersSection() {
+export function IndustryLeadersSection({
+  eyebrow = DEFAULT_INDUSTRY_LEADERS.eyebrow,
+  heading = DEFAULT_INDUSTRY_LEADERS.heading,
+  body = DEFAULT_INDUSTRY_LEADERS.body,
+}: IndustryLeadersSectionProps) {
   return (
     <section className="hb-industry-leaders section-pad" style={HB_BENEFITS_LIKE_BACKGROUND}>
       <div className="container-hb">
         <div className="hb-industry-leaders__inner">
-          <p className="hb-industry-leaders__eyebrow">APRENDE DE LA MANO DE</p>
-          <h2 className="hb-industry-leaders__title">LÍDERES DE LA INDUSTRIA</h2>
-          <p className="hb-industry-leaders__body">
-            Con nosotros colaboran expertos de empresas como Amazon, Nu, Cinépolis, Fintual, Scotiabank, Strata
-            Analytics, Deloitte, Buk, Peñafiel, Bank of America, TikTok, Banamex y más. ¡Aprende de ellos!
-          </p>
+          <p className="hb-industry-leaders__eyebrow">{eyebrow}</p>
+          <h2 className="hb-industry-leaders__title">{heading}</h2>
+          <p className="hb-industry-leaders__body">{body}</p>
         </div>
       </div>
 

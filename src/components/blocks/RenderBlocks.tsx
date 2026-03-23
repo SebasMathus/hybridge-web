@@ -1,3 +1,4 @@
+import type { ComponentType } from 'react'
 import type { Locale } from '@/lib/utils'
 import { HeroCarouselBlock } from './HeroCarouselBlock'
 import { HeroBannerBlock } from './HeroBannerBlock'
@@ -15,8 +16,14 @@ import { FormBlockComponent } from './FormBlock'
 import { CtaFechaInicioBlockComponent } from './CtaFechaInicioBlock'
 import { GraduadosPrepaBlock } from './GraduadosPrepaBlock'
 import { OrgulloPrepaBlock } from './OrgulloPrepaBlock'
+import { BenefitsHybridgeBlockComponent } from './BenefitsHybridgeBlock'
+import { ModeloEducativoBlockComponent } from './ModeloEducativoBlock'
+import { Oportunidades2026BlockComponent } from './Oportunidades2026Block'
+import { IndustryLeadersBlockComponent } from './IndustryLeadersBlock'
+import { TalleresHybridgeBlockComponent } from './TalleresHybridgeBlock'
+import { HybridgeAppBlockComponent } from './HybridgeAppBlock'
 
-const blockMap: Record<string, React.ComponentType<any>> = {
+const blockMap: Record<string, ComponentType<any>> = {
   heroCarousel: HeroCarouselBlock,
   heroBanner: HeroBannerBlock,
   logosBar: LogosBarBlock,
@@ -52,6 +59,12 @@ const blockMap: Record<string, React.ComponentType<any>> = {
   pillarsGrid: PillarsGridBlock,
   programsGrid: ProgramsGridBlock,
   formBlock: FormBlockComponent,
+  benefitsHybridge: BenefitsHybridgeBlockComponent,
+  modeloEducativo: ModeloEducativoBlockComponent,
+  oportunidades2026: Oportunidades2026BlockComponent,
+  industryLeaders: IndustryLeadersBlockComponent,
+  talleresHybridge: TalleresHybridgeBlockComponent,
+  hybridgeApp: HybridgeAppBlockComponent,
 }
 
 type Props = {

@@ -2,49 +2,66 @@ import React from 'react'
 
 const LIVE_DOT = '#2EE6A0'
 
-const PILLARS = [
+export type ModeloEducativoPillar = {
+  icon: string
+  title: string
+  subtitle: string
+  description: string
+  showLiveDot?: boolean
+}
+
+export const DEFAULT_MODELO_EDUCATIVO_PILLARS: ModeloEducativoPillar[] = [
   {
-    id: 'material',
     icon: '📱',
     title: 'Material',
     subtitle: 'asíncrono',
-    body: 'La mejor experiencia de aprendizaje en la plataforma de Hybridge',
-    liveDot: false,
+    description: 'La mejor experiencia de aprendizaje en la plataforma de Hybridge',
+    showLiveDot: false,
   },
   {
-    id: 'clases',
     icon: '💻',
     title: 'Clases',
     subtitle: 'en vivo',
-    body: 'Sesiones en zoom impartidas por expertos de la industria',
-    liveDot: true,
+    description: 'Sesiones en zoom impartidas por expertos de la industria',
+    showLiveDot: true,
   },
   {
-    id: 'tutorias',
     icon: '👩‍🏫',
     title: 'Tutorías',
     subtitle: 'Personalizadas 1 a 1',
-    body: 'Sesiones en zoom para resolver dudas',
-    liveDot: false,
+    description: 'Sesiones en zoom para resolver dudas',
+    showLiveDot: false,
   },
-] as const
+]
+
+export type ModeloEducativoSectionProps = {
+  sectionTitle?: string
+  subtitle?: string
+  pillars?: ModeloEducativoPillar[]
+}
 
 /**
- * Modelo educativo — después de «Nuestros estudiantes trabajan en» (preparatoria e ingeniería).
+ * Modelo educativo — reutilizable (Preparatoria, Ingeniería, otras páginas vía CMS).
  */
-export function ModeloEducativoSection() {
+export function ModeloEducativoSection({
+  sectionTitle = 'MODELO EDUCATIVO',
+  subtitle = 'Educación en línea de calidad, aprende con:',
+  pillars = DEFAULT_MODELO_EDUCATIVO_PILLARS,
+}: ModeloEducativoSectionProps) {
+  if (!pillars.length) return null
+
   return (
     <section className="hb-modelo section-pad">
       <div className="container-hb">
         <header className="hb-modelo__header">
-          <h2 className="hb-modelo__title">MODELO EDUCATIVO</h2>
-          <p className="hb-modelo__subtitle">Educación en línea de calidad, aprende con:</p>
+          <h2 className="hb-modelo__title">{sectionTitle}</h2>
+          <p className="hb-modelo__subtitle">{subtitle}</p>
         </header>
 
         <div className="hb-modelo__circles" role="list">
-          {PILLARS.map((p, i) => (
+          {pillars.map((p, i) => (
             <article
-              key={p.id}
+              key={`${p.title}-${i}`}
               className={`hb-modelo__circle hb-modelo__circle--${i}`}
               role="listitem"
               style={{ zIndex: i === 1 ? 3 : i === 0 ? 1 : 2 }}
@@ -54,14 +71,14 @@ export function ModeloEducativoSection() {
               </div>
               <h3 className="hb-modelo__circleTitle">
                 {p.title}
-                {p.liveDot ? (
+                {p.showLiveDot ? (
                   <span className="hb-modelo__liveDot" title="En vivo" aria-hidden>
                     <span className="hb-modelo__liveDotInner" />
                   </span>
                 ) : null}
               </h3>
               <p className="hb-modelo__circleSubtitle">{p.subtitle}</p>
-              <p className="hb-modelo__circleBody">{p.body}</p>
+              <p className="hb-modelo__circleBody">{p.description}</p>
             </article>
           ))}
         </div>
