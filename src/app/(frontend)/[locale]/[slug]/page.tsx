@@ -9,6 +9,7 @@ import { IndustryLeadersSection } from '@/components/IndustryLeadersSection'
 import { TalleresHybridgeSection } from '@/components/TalleresHybridgeSection'
 import { StudentsWorkWithSection } from '@/components/StudentsWorkWithSection'
 import { ModeloEducativoSection } from '@/components/ModeloEducativoSection'
+import { Oportunidades2026Section } from '@/components/Oportunidades2026Section'
 import { AprendeSobreChipsSection, AprendeSobreSkillsSection } from '@/components/AprendeSobreSection'
 import { ActiveStudentsHybridge } from '@/components/ActiveStudentsHybridge'
 import { notFound } from 'next/navigation'
@@ -89,6 +90,9 @@ export default async function DynamicPage({ params }: Props) {
   const isIngenieriaCtaFechaInicio = (b: any) =>
     slug === 'ingenieria-en-software' && b?.blockType === 'ctaFechaInicio'
 
+  const isIngenieriaTestimonials = (b: any) =>
+    slug === 'ingenieria-en-software' && (b?.blockType === 'testimonialsPlan' || b?.blockType === 'testimonialsRow')
+
   return (
     <>
       {showStudentsWorkWith ? <RenderBlocks blocks={blocksBefore} locale={lang} /> : <RenderBlocks blocks={blocks} locale={lang} />}
@@ -106,6 +110,7 @@ export default async function DynamicPage({ params }: Props) {
                   {isIngenieriaSkillsFeaturesGrid(b) ? (
                     <AprendeSobreSkillsSection skills={aprendeSobre?.skills} />
                   ) : null}
+                  {isIngenieriaTestimonials(b) ? <Oportunidades2026Section /> : null}
                   {isIngenieriaCurriculumPlan(b) ? <ActiveStudentsHybridge /> : null}
                   {isIngenieriaCtaFechaInicio(b) ? <TalleresHybridgeSection /> : null}
                   {isIngenieriaVideoSection(b) ? <IndustryLeadersSection /> : null}
