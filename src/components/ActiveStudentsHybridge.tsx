@@ -1,15 +1,25 @@
 import React from 'react'
 
-export function ActiveStudentsHybridge() {
+type ActiveStudentsHybridgeProps = {
+  badge?: string
+  numberValue?: string
+  numberUnit?: string
+}
+
+export function ActiveStudentsHybridge({
+  badge = 'COMUNIDAD HYBRIDGE',
+  numberValue = '+3,500',
+  numberUnit = 'Estudiantes Inscritos',
+}: ActiveStudentsHybridgeProps) {
   return (
     <section className="hb-active-students" aria-label="Estudiantes activos Hybridge">
       <div className="container-hb hb-active-students__inner">
         <div className="hb-active-students__content">
-          <div className="hb-active-students__badge">COMUNIDAD HYBRIDGE</div>
+          <div className="hb-active-students__badge">{badge}</div>
 
           <div className="hb-active-students__number">
-            <span className="hb-active-students__numberValue">+3,500</span>
-            <span className="hb-active-students__numberUnit">Estudiantes Inscritos</span>
+            <span className="hb-active-students__numberValue">{numberValue}</span>
+            <span className="hb-active-students__numberUnit">{numberUnit}</span>
           </div>
         </div>
       </div>

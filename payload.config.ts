@@ -33,11 +33,11 @@ export default buildConfig({
     // En desarrollo evitamos prompts interactivos (p. ej. "Accept warnings and push schema?")
     // cuando estamos iterando cambios de esquema. Las tablas suelen existir ya por runs previos/seed.
     //
-    // Puedes forzar push en local definiendo:
-    //   PAYLOAD_DB_PUSH=true
-    // Nota: si desactivamos push y faltan tablas, Payload fallará al consultar.
+    // Desarrollo: push activo por defecto (sincroniza bloques nuevos en `Pages.layout`).
+    // Desactivar con PAYLOAD_DB_PUSH=false. En prod, push solo si no lo desactivas explícitamente.
     push:
       process.env.PAYLOAD_DB_PUSH === 'true' ||
+      (process.env.NODE_ENV === 'development' && process.env.PAYLOAD_DB_PUSH !== 'false') ||
       (process.env.NODE_ENV === 'production' && process.env.PAYLOAD_DB_PUSH !== 'false'),
   }),
   localization: {
