@@ -8,6 +8,7 @@ import { PerfilIngresoSection } from '@/components/PerfilIngresoSection'
 import { IndustryLeadersSection } from '@/components/IndustryLeadersSection'
 import { TalleresHybridgeSection } from '@/components/TalleresHybridgeSection'
 import { StudentsWorkWithSection } from '@/components/StudentsWorkWithSection'
+import { ModeloEducativoSection } from '@/components/ModeloEducativoSection'
 import { AprendeSobreChipsSection, AprendeSobreSkillsSection } from '@/components/AprendeSobreSection'
 import { ActiveStudentsHybridge } from '@/components/ActiveStudentsHybridge'
 import { notFound } from 'next/navigation'
@@ -92,6 +93,7 @@ export default async function DynamicPage({ params }: Props) {
     <>
       {showStudentsWorkWith ? <RenderBlocks blocks={blocksBefore} locale={lang} /> : <RenderBlocks blocks={blocks} locale={lang} />}
       {showStudentsWorkWith ? <StudentsWorkWithSection data={studentsWorkWith} /> : null}
+      {showStudentsWorkWith ? <ModeloEducativoSection /> : null}
       {showStudentsWorkWith ? (
         <>
           {showAprendeSobre
