@@ -10,6 +10,7 @@ import { TalleresHybridgeSection } from '@/components/TalleresHybridgeSection'
 import { StudentsWorkWithSection } from '@/components/StudentsWorkWithSection'
 import { ModeloEducativoSection } from '@/components/ModeloEducativoSection'
 import { Oportunidades2026Section } from '@/components/Oportunidades2026Section'
+import { HybridgeAppSection } from '@/components/HybridgeAppSection'
 import { AprendeSobreChipsSection, AprendeSobreSkillsSection } from '@/components/AprendeSobreSection'
 import { ActiveStudentsHybridge } from '@/components/ActiveStudentsHybridge'
 import { notFound } from 'next/navigation'
@@ -93,6 +94,13 @@ export default async function DynamicPage({ params }: Props) {
   const isIngenieriaTestimonials = (b: any) =>
     slug === 'ingenieria-en-software' && (b?.blockType === 'testimonialsPlan' || b?.blockType === 'testimonialsRow')
 
+  const isIngenieriaComunidadHybridgeSplit = (b: any) => {
+    if (slug !== 'ingenieria-en-software' || b?.blockType !== 'splitContent') return false
+    const eyebrow = stripAccents(String(b?.eyebrow ?? '')).toLowerCase()
+    const heading = stripAccents(String(b?.heading ?? '')).toLowerCase().trim()
+    return eyebrow.includes('comunidad') && heading === 'hybridge'
+  }
+
   return (
     <>
       {showStudentsWorkWith ? <RenderBlocks blocks={blocksBefore} locale={lang} /> : <RenderBlocks blocks={blocks} locale={lang} />}
@@ -107,6 +115,7 @@ export default async function DynamicPage({ params }: Props) {
                   {isIngenieriaAboutSplit(b) ? (
                     <AprendeSobreChipsSection chips={aprendeSobre?.chips} />
                   ) : null}
+                  {isIngenieriaComunidadHybridgeSplit(b) ? <HybridgeAppSection locale={lang} /> : null}
                   {isIngenieriaSkillsFeaturesGrid(b) ? (
                     <AprendeSobreSkillsSection skills={aprendeSobre?.skills} />
                   ) : null}

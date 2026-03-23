@@ -1,9 +1,10 @@
+import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { getBlockImage, btnStyles } from '@/lib/utils'
 
-type Props = { block: any; locale: string }
+type Props = { block: any; locale: string; footer?: ReactNode }
 
-export const SplitContentBlock = ({ block, locale }: Props) => {
+export const SplitContentBlock = ({ block, locale, footer }: Props) => {
   const imgSrc = getBlockImage(block.image, block.imageUrl)
   const imgRight = block.imagePosition !== 'left'
   const bg = block.backgroundColor === 'cream' ? 'var(--color-hb-bg-alt)' : 'var(--color-hb-bg)'
@@ -47,6 +48,7 @@ export const SplitContentBlock = ({ block, locale }: Props) => {
           ))}
         </div>
       )}
+      {footer ? <div style={{ marginTop: '8px' }}>{footer}</div> : null}
     </div>
   )
 
