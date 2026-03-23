@@ -4,8 +4,10 @@ import React from 'react'
 import { RenderBlocks } from '@/components/blocks/RenderBlocks'
 import { BenefitsHybridgeGrid } from '@/components/BenefitsHybridgeGrid'
 import { FacultyTeamSection } from '@/components/FacultyTeamSection'
+import { PerfilIngresoSection } from '@/components/PerfilIngresoSection'
 import { StudentsWorkWithSection } from '@/components/StudentsWorkWithSection'
 import { AprendeSobreChipsSection, AprendeSobreSkillsSection } from '@/components/AprendeSobreSection'
+import { ActiveStudentsHybridge } from '@/components/ActiveStudentsHybridge'
 import { notFound } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
@@ -75,6 +77,9 @@ export default async function DynamicPage({ params }: Props) {
     return heading.includes('haz tu ingenieria en solo 3 anos')
   }
 
+  const isIngenieriaCurriculumPlan = (b: any) =>
+    slug === 'ingenieria-en-software' && b?.blockType === 'curriculumPlan'
+
   return (
     <>
       {showStudentsWorkWith ? <RenderBlocks blocks={blocksBefore} locale={lang} /> : <RenderBlocks blocks={blocks} locale={lang} />}
@@ -91,12 +96,14 @@ export default async function DynamicPage({ params }: Props) {
                   {isIngenieriaSkillsFeaturesGrid(b) ? (
                     <AprendeSobreSkillsSection skills={aprendeSobre?.skills} />
                   ) : null}
+                  {isIngenieriaCurriculumPlan(b) ? <ActiveStudentsHybridge /> : null}
                 </React.Fragment>
               ))
             : <RenderBlocks blocks={blocksAfter} locale={lang} />}
         </>
       ) : null}
       {slug === 'preparatoria' || slug === 'ingenieria-en-software' ? <BenefitsHybridgeGrid /> : null}
+      {slug === 'ingenieria-en-software' ? <PerfilIngresoSection locale={lang} /> : null}
       {slug === 'preparatoria' ? <FacultyTeamSection program="preparatoria" locale={lang} /> : null}
       {slug === 'ingenieria-en-software' ? <FacultyTeamSection program="ingenieria-en-software" locale={lang} /> : null}
     </>

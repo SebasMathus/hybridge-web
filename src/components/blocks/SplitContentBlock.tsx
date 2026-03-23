@@ -56,10 +56,20 @@ export const SplitContentBlock = ({ block, locale }: Props) => {
     </div>
   ) : null
 
+  const hasImage = Boolean(imgSrc)
+
   return (
     <section className="section-pad" style={{ background: bg }}>
-      <div className="container-hb" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'center' }}>
-        {imgRight ? <>{textEl}{imgEl}</> : <>{imgEl}{textEl}</>}
+      <div
+        className="container-hb"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: hasImage ? '1fr 1fr' : '1fr',
+          gap: '48px',
+          alignItems: 'center',
+        }}
+      >
+        {hasImage ? (imgRight ? <>{textEl}{imgEl}</> : <>{imgEl}{textEl}</>) : textEl}
       </div>
       <style>{`
         @media (max-width: 768px) {
