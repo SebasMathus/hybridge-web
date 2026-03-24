@@ -54,11 +54,32 @@ export default async function DynamicPage({ params }: Props) {
 
   if (!page) return notFound()
 
-  const blocks = (page.layout || []) as any[]
+  const rawLayout = (page.layout || []) as any[]
+  /* Modelo educativo solo en Ingeniería en Software; no en Preparatoria (CMS o seed antiguo). */
+  const blocks =
+    slug === 'preparatoria'
+      ? rawLayout.filter((b) => b?.blockType !== 'modeloEducativo')
+      : rawLayout
 
   const stripAccents = (s: string) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+
+  /** Ingeniería: barra WhatsApp debe ir justo debajo de “estudiantes trabajan en” (antes de modelo educativo). */
+  const moveWhatsappBeforeModeloEducativo = (arr: any[]) => {
+    const iWa = arr.findIndex((b) => b?.blockType === 'whatsappBar')
+    const iMe = arr.findIndex((b) => b?.blockType === 'modeloEducativo')
+    if (iWa === -1 || iMe === -1 || iWa < iMe) return arr
+    const out = [...arr]
+    const [wa] = out.splice(iWa, 1)
+    const newMe = out.findIndex((b) => b?.blockType === 'modeloEducativo')
+    out.splice(newMe, 0, wa)
+    return out
+  }
+
   const blocksBefore = showStudentsWorkWith ? blocks.slice(0, 1) : blocks
-  const blocksAfter = showStudentsWorkWith ? blocks.slice(1) : blocks
+  let blocksAfter = showStudentsWorkWith ? blocks.slice(1) : blocks
+  if (slug === 'ingenieria-en-software' && showStudentsWorkWith) {
+    blocksAfter = moveWhatsappBeforeModeloEducativo(blocksAfter)
+  }
 
   const isIngenieriaAboutSplit = (b: any) => {
     if (b?.blockType !== 'splitContent') return false

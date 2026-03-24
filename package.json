@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "WATCHPACK_POLLING=true CHOKIDAR_USEPOLLING=true next dev --hostname localhost",
+    "dev": "WATCHPACK_POLLING=true CHOKIDAR_USEPOLLING=true next dev --hostname localhost -p 3000",
     "build": "next build",
     "start": "next start",
     "seed": "curl -s http://localhost:3000/api/seed"

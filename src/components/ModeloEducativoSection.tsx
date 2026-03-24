@@ -41,7 +41,7 @@ export type ModeloEducativoSectionProps = {
 }
 
 /**
- * Modelo educativo — reutilizable (Preparatoria, Ingeniería, otras páginas vía CMS).
+ * Modelo educativo — reutilizable (p. ej. Ingeniería en Software u otras páginas vía CMS).
  */
 export function ModeloEducativoSection({
   sectionTitle = 'MODELO EDUCATIVO',

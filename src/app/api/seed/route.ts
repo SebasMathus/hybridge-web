@@ -64,7 +64,7 @@ const universidadTestimonialsData = {
 }
 
 const logosBlock = { blockType: 'logosBar', heading: 'Nuestros estudiantes trabajan en:', logos }
-const waBlock = { blockType: 'whatsappBar', text: 'Hablar con un asesor', url: WA, trackId: '' }
+const waBlock = { blockType: 'whatsappBar', text: 'Quiero más información', url: WA, trackId: '' }
 /* CTA fecha de inicio: bloque que consume la colección Fechas de inicio (prepa / universidad) */
 const ctaFechaInicio = (fechaInicioId: string | number, trackPrefix: string) => ({
   blockType: 'ctaFechaInicio',
@@ -147,7 +147,7 @@ const homeLayout = (universidadFechaId: string | number, universidadTestimonials
   },
 ]
 
-/* ════════ PREPARATORIA (mismo orden de componentes que Ingeniería en Software) ════════ */
+/* ════════ PREPARATORIA (sin bloque modelo educativo; solo en Ingeniería en Software) ════════ */
 const prepaSubjects = (names: string[]) => names.map(n => ({ name: n }))
 const swSubjects = (names: string[]) => names.map(n => ({ name: n }))
 /* Datos de los planes de estudio (colección planes-estudio) */
@@ -187,7 +187,6 @@ const swPlanData = {
 
 const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number, prepaPlanId: string | number, prepaTestimonialsId: string | number) => [
   { blockType: 'heroBanner', heading: 'Prepa en Línea', subheading: 'Haz la prepa en 2 años de la manera más disruptiva que te hayas imaginado con clases en vivo y desde la mejor plataforma educativa del país.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '#form-prepa', ctaTrackId: 'prepa-hero-cta' },
-  modeloEducativoBlock(),
   { ...waBlock, trackId: 'prepa-wa-bar' },
   {
     blockType: 'splitContent', eyebrow: 'Sobre Hybridge Prepa', heading: 'PREPARATORIA HYBRIDGE',
@@ -272,8 +271,8 @@ const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number
 /* ════════ ING SOFTWARE ════════ */
 const swLayout = (swFormId: string | number, universidadFechaId: string | number, swPlanId: string | number, universidadTestimonialsId: string | number) => [
   { blockType: 'heroBanner', heading: 'Ingeniería en Software', subheading: 'El mejor programa para las personas que aspiran a dominar el mundo de la tecnología.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '#form-ingenieria-software', ctaTrackId: 'sw-hero-cta' },
-  modeloEducativoBlock(),
   { ...waBlock, trackId: 'sw-wa-bar' },
+  modeloEducativoBlock(),
   {
     blockType: 'splitContent', eyebrow: 'Sobre nuestra', heading: 'Ingeniería en Software',
     body: 'Hybridge ofrece una formación completa en ingeniería, nuevas tecnologías y habilidades para la nueva economía.\n\nNuestro programa de Ingeniería en Software cuenta con Reconocimiento de Validez Oficial de Estudios (RVOE), lo cual significa que al graduarte obtendrás tu título oficial de Educación Superior.',

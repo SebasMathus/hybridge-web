@@ -61,7 +61,7 @@ export const WhatsAppBarBlock: Block = {
   slug: 'whatsappBar',
   labels: { singular: 'Barra WhatsApp', plural: 'Barras WhatsApp' },
   fields: [
-    { name: 'text', type: 'text', defaultValue: 'Hablar con un asesor' },
+    { name: 'text', type: 'text', defaultValue: 'Quiero más información' },
     { name: 'url', type: 'text', required: true, defaultValue: 'https://wa.me/message/2JJMWGRX5DSDO1' },
     { name: 'trackId', type: 'text' },
   ],
