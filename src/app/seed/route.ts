@@ -145,6 +145,7 @@ const homeLayout = (universidadFechaId: string | number, universidadTestimonials
       { title: 'Adaptación', description: 'A tu ritmo y estilo', icon: '🎚️' },
     ],
   },
+  { ...waBlock, trackId: 'home-wa-bar-bottom' },
 ]
 
 /* ════════ PREPARATORIA (sin bloque modelo educativo; solo en Ingeniería en Software) ════════ */
@@ -266,6 +267,7 @@ const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number
   },
   { blockType: 'formBlock', form: prepaFormId },
   benefitsHybridgeBlock(),
+  { ...waBlock, trackId: 'prepa-wa-bar-bottom' },
 ]
 
 /* ════════ ING SOFTWARE ════════ */
@@ -307,6 +309,7 @@ const swLayout = (swFormId: string | number, universidadFechaId: string | number
   { blockType: 'formBlock', form: swFormId },
   benefitsHybridgeBlock(),
   perfilIngresoSplitBlock(),
+  { ...waBlock, trackId: 'sw-wa-bar-bottom' },
 ]
 
 export async function GET() {

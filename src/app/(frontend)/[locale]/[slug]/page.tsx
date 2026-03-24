@@ -63,23 +63,26 @@ export default async function DynamicPage({ params }: Props) {
 
   const stripAccents = (s: string) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 
-  /** Ingeniería: barra WhatsApp debe ir justo debajo de “estudiantes trabajan en” (antes de modelo educativo). */
-  const moveWhatsappBeforeModeloEducativo = (arr: any[]) => {
-    const iWa = arr.findIndex((b) => b?.blockType === 'whatsappBar')
-    const iMe = arr.findIndex((b) => b?.blockType === 'modeloEducativo')
-    if (iWa === -1 || iMe === -1 || iWa < iMe) return arr
-    const out = [...arr]
-    const [wa] = out.splice(iWa, 1)
-    const newMe = out.findIndex((b) => b?.blockType === 'modeloEducativo')
-    out.splice(newMe, 0, wa)
-    return out
+  const enforceTopAndBottomWhatsapp = (arr: any[]) => {
+    const targets = new Set(['home', 'preparatoria', 'ingenieria-en-software'])
+    if (!targets.has(slug)) return arr
+
+    const waTemplate = arr.find((b) => b?.blockType === 'whatsappBar') || {
+      blockType: 'whatsappBar',
+      text: 'Quiero más información',
+      url: 'https://wa.me/message/2JJMWGRX5DSDO1',
+    }
+    const nonWa = arr.filter((b) => b?.blockType !== 'whatsappBar')
+    if (!nonWa.length) return [waTemplate, { ...waTemplate }]
+
+    const topWa = { ...waTemplate, trackId: waTemplate.trackId || `${slug}-wa-bar-top` }
+    const bottomWa = { ...waTemplate, trackId: `${slug}-wa-bar-bottom` }
+    return [nonWa[0], topWa, ...nonWa.slice(1), bottomWa]
   }
 
-  const blocksBefore = showStudentsWorkWith ? blocks.slice(0, 1) : blocks
-  let blocksAfter = showStudentsWorkWith ? blocks.slice(1) : blocks
-  if (slug === 'ingenieria-en-software' && showStudentsWorkWith) {
-    blocksAfter = moveWhatsappBeforeModeloEducativo(blocksAfter)
-  }
+  const normalizedBlocks = enforceTopAndBottomWhatsapp(blocks)
+  const blocksBefore = showStudentsWorkWith ? normalizedBlocks.slice(0, 1) : normalizedBlocks
+  const blocksAfter = showStudentsWorkWith ? normalizedBlocks.slice(1) : normalizedBlocks
 
   const isIngenieriaAboutSplit = (b: any) => {
     if (b?.blockType !== 'splitContent') return false
