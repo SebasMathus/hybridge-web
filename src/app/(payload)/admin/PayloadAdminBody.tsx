@@ -84,6 +84,7 @@ export async function PayloadAdminBody({ children, config: configPromise, import
       dir={dir}
       lang={languageCode}
       suppressHydrationWarning={suppress}
+      className="hb-admin-scope min-h-screen"
       style={{ minHeight: '100%' }}
     >
       <SyncAdminDocument theme={theme} lang={languageCode} dir={dir} />

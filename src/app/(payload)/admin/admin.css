@@ -1,0 +1,354 @@
+.hb-admin-scope * {
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Dashboard cards density like the reference */
+.hb-admin-scope .dashboard__card-list {
+  gap: 10px !important;
+}
+
+/* Cards hover border accent */
+.hb-admin-scope .card {
+  transition: border-color 0.15s ease !important;
+}
+.hb-admin-scope .card:hover {
+  border-color: var(--theme-color) !important;
+}
+.hb-admin-scope .card .card__title {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: var(--theme-text) !important;
+}
+
+/* Admin-only visual redesign (scoped to /admin). */
+
+/* Scope: this wrapper exists only in `src/app/(payload)/admin/PayloadAdminBody.tsx` */
+.hb-admin-scope {
+  /* Typography */
+  --font-body: var(--font-body, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Radii: Payload UI components reference these vars */
+  --style-radius-s: 8px;
+  --style-radius-m: 10px;
+  --style-radius-l: 12px;
+
+  /* Layout scale (matches your other Payload admin) */
+  --app-header-height: 56px;
+  --gutter-h: 28px;
+
+  /* Root Admin Theme — Dracula (ported from root-web) */
+  --theme-bg: #282a36;
+  --theme-input-bg: #21222c;
+  --theme-elevation-0: #282a36;
+  --theme-elevation-50: #21222c;
+  --theme-elevation-100: #343746;
+  --theme-elevation-150: #3d4059;
+  --theme-elevation-200: #44475a;
+  --theme-elevation-250: #565969;
+  --theme-elevation-300: #6272a4;
+  --theme-elevation-500: #8be9fd;
+  --theme-elevation-800: #e2e2e2;
+  --theme-elevation-1000: #f8f8f2;
+  --theme-text: #f8f8f2;
+  --theme-text-dimmed: #6272a4;
+  --theme-border-color: #44475a;
+  --theme-success-50: #1a2e1a;
+  --theme-success-500: #50fa7b;
+  --theme-error-50: #2e1a1a;
+  --theme-error-500: #ff5555;
+  --theme-warning-500: #ffb86c;
+  --theme-color: #bd93f9; /* accent */
+
+  /* Derivatives used by our overrides */
+  --theme-text-muted: var(--theme-text-dimmed);
+  --hb-focus: 0 0 0 2px rgba(189, 147, 249, 0.2);
+
+  -webkit-font-smoothing: antialiased;
+  color-scheme: dark;
+  color: var(--theme-text);
+  background: radial-gradient(800px 420px at 20% 0%, rgba(189, 147, 249, 0.12) 0%, transparent 60%),
+    linear-gradient(180deg, var(--theme-elevation-0) 0%, var(--theme-elevation-0) 100%);
+}
+
+.hb-admin-scope[data-theme='dark'] {
+  /* Keep same “dracula” tokens; Payload theme toggle won't fight the look */
+}
+
+/* Global page chrome tweaks (scoped) */
+.hb-admin-scope .template-default {
+  background: transparent !important;
+}
+
+/* Force full-canvas dark background inside admin */
+.hb-admin-scope,
+.hb-admin-scope .template-default__wrap,
+.hb-admin-scope .template-default__wrap > * {
+  background-color: var(--theme-elevation-0);
+}
+.hb-admin-scope .template-default__wrap {
+  background: transparent;
+}
+.hb-admin-scope .main-content,
+.hb-admin-scope .dashboard,
+.hb-admin-scope .collection-list,
+.hb-admin-scope .document-view,
+.hb-admin-scope .document-fields {
+  background: transparent;
+}
+
+/* Default text rhythm */
+.hb-admin-scope {
+  --hb-pad-1: 10px;
+  --hb-pad-2: 14px;
+  --hb-pad-3: 18px;
+  --hb-pad-4: 24px;
+}
+
+/* Cards / surfaces */
+.hb-admin-scope .card,
+.hb-admin-scope .dashboard__card,
+.hb-admin-scope .collapsible,
+.hb-admin-scope .render-fields,
+.hb-admin-scope .list-controls,
+.hb-admin-scope .collection-list__wrap,
+.hb-admin-scope .document-fields,
+.hb-admin-scope .tabs-field__tabs {
+  border-radius: var(--style-radius-l);
+}
+
+.hb-admin-scope .card,
+.hb-admin-scope .dashboard__card,
+.hb-admin-scope .list-controls,
+.hb-admin-scope .collection-list__wrap,
+.hb-admin-scope .document-fields {
+  background: var(--theme-elevation-50) !important;
+  border: 1px solid var(--theme-border-color);
+  box-shadow: none !important;
+}
+
+/* List / document headers spacing (matches your reference density) */
+.hb-admin-scope .list-header,
+.hb-admin-scope .collection-list__header {
+  padding-top: var(--hb-pad-4);
+  padding-bottom: var(--hb-pad-2);
+}
+.hb-admin-scope .list-header__title,
+.hb-admin-scope .collection-list__header h1 {
+  letter-spacing: -0.01em;
+}
+
+/* Buttons: make them feel SaaS-like */
+.hb-admin-scope .btn {
+  border-radius: 6px !important;
+  padding: 10px 14px;
+  letter-spacing: 0.01em;
+  transition: transform 120ms ease, box-shadow 160ms ease, background-color 160ms ease, border-color 160ms ease,
+    color 160ms ease;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+}
+.hb-admin-scope .btn:active {
+  transform: translateY(1px);
+}
+.hb-admin-scope .btn--style-primary {
+  background: var(--theme-color) !important;
+  color: #282a36 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.hb-admin-scope .btn--style-primary:hover {
+  background: #a580f0 !important;
+}
+.hb-admin-scope .btn--style-secondary {
+  background: transparent !important;
+  border: 1px solid var(--theme-border-color) !important;
+  color: var(--theme-text) !important;
+}
+.hb-admin-scope .btn--style-secondary:hover {
+  background: var(--theme-elevation-100) !important;
+}
+.hb-admin-scope .btn:focus-visible,
+.hb-admin-scope button:focus-visible,
+.hb-admin-scope a:focus-visible {
+  outline: none;
+  box-shadow: var(--hb-focus);
+}
+
+/* Inputs / selects / textarea */
+.hb-admin-scope .field-type input[type='text'],
+.hb-admin-scope .field-type input[type='email'],
+.hb-admin-scope .field-type input[type='password'],
+.hb-admin-scope .field-type input[type='number'],
+.hb-admin-scope .field-type input[type='url'],
+.hb-admin-scope .field-type textarea,
+.hb-admin-scope .field-type .rs__control {
+  border-radius: 6px !important;
+  border: 1px solid var(--theme-border-color) !important;
+  background: var(--theme-input-bg) !important;
+  font-size: 13.5px !important;
+  color: var(--theme-text) !important;
+}
+
+.hb-admin-scope .field-label,
+.hb-admin-scope .label,
+.hb-admin-scope label {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #ccc !important;
+}
+.hb-admin-scope .field-description,
+.hb-admin-scope .description,
+.hb-admin-scope .field-type .hint {
+  color: var(--theme-text-dimmed) !important;
+}
+.hb-admin-scope .field-type textarea:focus,
+.hb-admin-scope .field-type input:focus,
+.hb-admin-scope .field-type .rs__control--is-focused {
+  border-color: var(--theme-color) !important;
+  box-shadow: var(--hb-focus) !important;
+}
+
+/* Field spacing */
+.hb-admin-scope .field-type {
+  margin-bottom: 18px;
+}
+.hb-admin-scope .field-label {
+  margin-bottom: 6px;
+}
+.hb-admin-scope .field-description {
+  margin-top: 6px;
+}
+
+/* Tables: calmer zebra + clearer header */
+.hb-admin-scope .table table thead th {
+  background: var(--theme-elevation-50) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  color: var(--theme-text-dimmed) !important;
+  border-bottom: 1px solid var(--theme-border-color) !important;
+}
+.hb-admin-scope .table table td,
+.hb-admin-scope .table table th {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+.hb-admin-scope .table {
+  border-radius: var(--style-radius-l);
+  overflow: hidden;
+  border: 1px solid var(--theme-border-color) !important;
+}
+.hb-admin-scope .table table td {
+  font-size: 13.5px !important;
+  border-bottom: 1px solid var(--theme-border-color) !important;
+  color: var(--theme-text) !important;
+}
+.hb-admin-scope .table table tbody tr:last-child td {
+  border-bottom: none !important;
+}
+.hb-admin-scope .table table tbody tr {
+  transition: background-color 120ms ease;
+}
+.hb-admin-scope .table table tbody tr:hover {
+  background: var(--theme-elevation-100) !important;
+}
+
+/* Sidebar/nav: add spacing and softer borders */
+.hb-admin-scope .nav {
+  border-right: 1px solid var(--theme-border-color) !important;
+  background: var(--theme-elevation-50) !important;
+}
+.hb-admin-scope .nav a,
+.hb-admin-scope .nav button {
+  border-radius: 6px !important;
+}
+.hb-admin-scope .nav .nav__label {
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: var(--theme-text-dimmed) !important;
+  padding: 20px 20px 6px !important;
+}
+.hb-admin-scope .nav a {
+  margin: 1px 10px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: var(--theme-text) !important;
+  transition: background 0.1s ease !important;
+}
+.hb-admin-scope .nav a:hover {
+  background: var(--theme-elevation-100) !important;
+}
+.hb-admin-scope .nav a.active {
+  background: var(--theme-elevation-100) !important;
+  color: var(--theme-color) !important;
+}
+
+.hb-admin-scope .nav-group {
+  margin-bottom: 14px;
+}
+.hb-admin-scope .nav-group__toggle {
+  padding: 10px 12px;
+  border-radius: 12px;
+  color: var(--theme-text-muted);
+}
+.hb-admin-scope .nav-group__toggle:hover,
+.hb-admin-scope .nav-group__toggle:focus-visible {
+  background: color-mix(in oklab, var(--theme-elevation-100) 55%, transparent);
+  color: var(--theme-text);
+}
+
+/* Breadcrumbs / step-nav */
+.hb-admin-scope .step-nav {
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--theme-elevation-100) 55%, transparent);
+  border: 1px solid var(--theme-border-color);
+}
+
+/* Header / topbar */
+.hb-admin-scope .app-header {
+  border-bottom: 1px solid var(--theme-border-color) !important;
+  background: var(--theme-elevation-50) !important;
+  backdrop-filter: none;
+}
+.hb-admin-scope .app-header__content {
+  padding-left: var(--gutter-h);
+  padding-right: var(--gutter-h);
+}
+
+/* Search bar (lists) */
+.hb-admin-scope .search-bar {
+  --search-bg: var(--theme-elevation-50);
+  border: 1px solid var(--theme-border-color) !important;
+  border-radius: 8px !important;
+  min-height: 44px;
+}
+.hb-admin-scope .search-filter__input {
+  color: var(--theme-text) !important;
+}
+
+/* Tighten controls toolbar spacing */
+.hb-admin-scope .list-controls {
+  padding: var(--hb-pad-2) var(--hb-pad-3);
+}
+.hb-admin-scope .collection-list__wrap {
+  padding: var(--hb-pad-2);
+}
+
+/* Page padding */
+.hb-admin-scope .gutter--left,
+.hb-admin-scope .gutter--right {
+  padding-left: var(--gutter-h);
+  padding-right: var(--gutter-h);
+}
+
+/* Errors: make them easier to scan */
+.hb-admin-scope .error-message,
+.hb-admin-scope .field-error {
+  border-radius: var(--style-radius-m);
+}
+

@@ -4,6 +4,7 @@ import type { ServerFunctionClient } from 'payload'
 import type { ReactNode } from 'react'
 import { importMap } from './importMap.js'
 import { PayloadAdminBody } from './PayloadAdminBody'
+import './admin.css'
 
 const serverFunction: ServerFunctionClient = async function (args) {
   'use server'
