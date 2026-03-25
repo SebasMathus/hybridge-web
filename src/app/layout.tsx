@@ -5,6 +5,10 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Hybridge Education',
   description: 'La escuela y universidad del futuro.',
+  icons: {
+    icon: '/Iso_amarillo.png',
+    apple: '/Iso_amarillo.png',
+  },
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
