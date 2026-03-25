@@ -14,9 +14,13 @@ import {
   perfilIngresoAdministracionInnovacionSplitBlock,
   perfilIngresoMercadotecniaSplitBlock,
 } from '@/seedData/pageBlocksMarketing'
-import { APRENDE_SOBRE_GLOBAL_SLUGS, APRENDE_SOBRE_SEED_DATA } from '@/seedData/aprendeSobreSeed'
+import {
+  APRENDE_SOBRE_PROGRAMS_SEED,
+  APRENDE_SOBRE_SKILLS_GLOBAL_SLUG,
+} from '@/seedData/aprendeSobreSeed'
 import { dropLegacyAprendeSobreBeforePayloadInit } from '@/lib/dropLegacyAprendeSobreTables'
 import { loadBlogPostsSeedRows } from '@/seedData/blogPosts'
+import { seedStart, seedOk, seedFail, seedDone } from '@/lib/seedLog'
 
 const WA = 'https://wa.me/message/2JJMWGRX5DSDO1'
 const WA_INSC = 'https://wa.me/+525592256413?text=¡Hola!%20Me%20gustaria%20inscribirme'
@@ -97,12 +101,12 @@ const homeLayout = (universidadFechaId: string | number, universidadTestimonials
   {
     blockType: 'heroCarousel',
     slides: [
-      { line1: 'Ingeniería en', line2: 'Software', description: 'El mejor programa de ingeniería para las personas que aspiran a dominar el mundo de la tecnología.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/ingenieria-en-software#form-ingenieria-software', ctaTrackId: 'home-hero-software' },
-      { line1: 'Ingeniería en', line2: 'Inteligencia Artificial', description: 'Lidera en el campo de la inteligencia artificial.', imageUrl: IMG('2024/10/j.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/ingenieria-en-inteligencia-artificial#form-ingenieria-inteligencia-artificial', ctaTrackId: 'home-hero-ia' },
-      { line1: 'Licenciatura en', line2: 'Administración e Innovación', description: 'Aprende a administrar negocios digitales e innovar con las nuevas tecnologías.', imageUrl: IMG('2024/11/sdc-1024x1024.png'), ctaLabel: 'Inscríbete ya', ctaUrl: '/licenciatura-en-administracion-e-innovacion#form-licenciatura-administracion-innovacion', ctaTrackId: 'home-hero-admin' },
-      { line1: 'Licenciatura en', line2: 'Mercadotecnia y Negocios Digitales', description: 'Lidera estrategias innovadoras de marketing digital para la Nueva Economía.', imageUrl: IMG('2024/11/SDFGB@2x.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/contacto-licenciatura-en-mercadotecnia/', ctaTrackId: 'home-hero-mkt' },
-      { line1: 'Ingeniería en Tecnologías', line2: 'Inmersivas y Videojuegos', description: 'Construye mundos virtuales.', imageUrl: IMG('2024/10/j.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/ingenieria-en-videojuegos#form-ingenieria-videojuegos', ctaTrackId: 'home-hero-vj' },
-      { line1: 'Prepa en', line2: 'Línea', description: 'Haz la prepa en 2 años de la manera más disruptiva que te hayas imaginado con clases en vivo y desde la mejor plataforma educativa del país.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/preparatoria#form-prepa', ctaTrackId: 'home-hero-prepa' },
+      { line1: 'Ingeniería en', line2: 'Software', description: 'El mejor programa de ingeniería para las personas que aspiran a dominar el mundo de la tecnología.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Más información', ctaUrl: '/ingenieria-en-software', ctaTrackId: 'home-hero-software' },
+      { line1: 'Ingeniería en', line2: 'Inteligencia Artificial', description: 'Lidera en el campo de la inteligencia artificial.', imageUrl: IMG('2024/10/j.jpg'), ctaLabel: 'Más información', ctaUrl: '/ingenieria-en-inteligencia-artificial', ctaTrackId: 'home-hero-ia' },
+      { line1: 'Ingeniería en Tecnologías', line2: 'Inmersivas y Videojuegos', description: 'Construye mundos virtuales.', imageUrl: IMG('2024/10/j.jpg'), ctaLabel: 'Más información', ctaUrl: '/ingenieria-en-videojuegos', ctaTrackId: 'home-hero-vj' },
+      { line1: 'Prepa en', line2: 'Línea', description: 'Haz la prepa en 2 años de la manera más disruptiva que te hayas imaginado con clases en vivo y desde la mejor plataforma educativa del país.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Más información', ctaUrl: '/preparatoria', ctaTrackId: 'home-hero-prepa' },
+      { line1: 'Licenciatura en', line2: 'Mercadotecnia y Negocios Digitales', description: 'Lidera estrategias innovadoras de marketing digital para la Nueva Economía.', imageUrl: IMG('2024/11/SDFGB@2x.jpg'), ctaLabel: 'Más información', ctaUrl: '/licenciatura-en-mercadotecnia', ctaTrackId: 'home-hero-mkt' },
+      { line1: 'Licenciatura en', line2: 'Administración e Innovación', description: 'Aprende a administrar negocios digitales e innovar con las nuevas tecnologías.', imageUrl: IMG('2024/11/sdc-1024x1024.png'), ctaLabel: 'Más información', ctaUrl: '/licenciatura-en-administracion-e-innovacion', ctaTrackId: 'home-hero-admin' },
     ],
   },
   { ...waBlock, trackId: 'home-wa-bar' },
@@ -710,8 +714,11 @@ const experienciaHybridgeLayout = () => [
 
 export async function GET() {
   try {
+    seedStart()
     await dropLegacyAprendeSobreBeforePayloadInit(process.env.DATABASE_URL || '')
+    seedOk('Limpieza tablas legacy AprendeSobre (si aplica)')
     const payload = await getPayloadClient()
+    seedOk('Cliente Payload inicializado')
 
     // Ensure Fechas de inicio exist (prepa, universidad)
     let prepaFechaId: string | number
@@ -737,8 +744,9 @@ export async function GET() {
         })
         universidadFechaId = created.id
       }
+      seedOk('Fechas de inicio (prepa + universidad)')
     } catch (fechasError: any) {
-      console.error('Fechas-inicio error:', fechasError)
+      seedFail('Fechas de inicio', fechasError)
       return NextResponse.json({
         success: false,
         error: fechasError?.message || 'Error en Fechas de inicio',
@@ -879,6 +887,7 @@ export async function GET() {
     } catch {
       /* colección forms ausente */
     }
+    seedOk('Formularios (prepa, ingenierías, licenciaturas) + limpieza form demo experiencia')
 
     // Ensure Planes de estudio exist (prepa, ingenierías, videojuegos, licenciaturas)
     let prepaPlanId: string | number
@@ -963,6 +972,7 @@ export async function GET() {
       })
       mercPlanId = created.id
     }
+    seedOk('Planes de estudio (prepa, ingenierías, videojuegos, licenciaturas)')
 
     // Ensure Testimonios exist (prepa, universidad). Si la tabla no existe (push: false), devolver mensaje claro.
     let prepaTestimonialsId: string | number
@@ -1052,6 +1062,7 @@ export async function GET() {
               universidadTestimonialsId = created.id
             }
           } catch (createErr: any) {
+            seedFail('Testimonios: no se pudo crear la tabla automáticamente', createErr)
             return NextResponse.json({
               success: false,
               error: 'La tabla "testimonios" no existe y no se pudo crear automáticamente.',
@@ -1060,6 +1071,7 @@ export async function GET() {
             }, { status: 503 })
           }
         } else {
+          seedFail('Testimonios: tabla ausente en la base de datos')
           return NextResponse.json({
             success: false,
             error: 'La tabla "testimonios" no existe en la base de datos.',
@@ -1070,6 +1082,7 @@ export async function GET() {
         throw testimoniosErr
       }
     }
+    seedOk('Testimonios (prepa + universidad)')
 
     // Ensure faculty members exist (all teachers + program assignments)
     for (const member of FACULTY_MEMBERS_SEED) {
@@ -1098,6 +1111,7 @@ export async function GET() {
         })
       }
     }
+    seedOk(`Equipo docente: ${FACULTY_MEMBERS_SEED.length} perfiles (faculty-members)`)
 
     const allowedFacultySlugs = new Set(FACULTY_MEMBERS_SEED.map((m) => m.slug))
     try {
@@ -1115,7 +1129,9 @@ export async function GET() {
     } catch (_) {
       /* colección ausente o error de esquema: no bloquear el seed */
     }
+    seedOk('Limpieza faculty huérfanos (si aplica)')
 
+    seedOk('Páginas CMS: eliminando entradas previas por slug…')
     // Delete existing pages with these slugs
     for (const slug of [
       'home',
@@ -1136,11 +1152,16 @@ export async function GET() {
         }
       }
     }
+    seedOk('Páginas CMS: borrado previo listo — creando páginas…')
 
     await payload.create({ collection: 'pages', data: { title: 'Inicio', slug: 'home', layout: homeLayout(universidadFechaId, universidadTestimonialsId) as any, meta: { title: 'Hybridge Education - La mejor escuela en línea', description: 'Preparatoria y universidad en línea con validez oficial.' } } })
+    seedOk('Página: home')
     await payload.create({ collection: 'pages', data: { title: 'Preparatoria', slug: 'preparatoria', layout: prepaLayout(prepaFormId, prepaFechaId, prepaPlanId, prepaTestimonialsId) as any, meta: { title: 'Preparatoria en Línea - Hybridge', description: 'Haz la prepa en 2 años de la manera más disruptiva.' } } })
+    seedOk('Página: preparatoria')
     await payload.create({ collection: 'pages', data: { title: 'Ingeniería en Software', slug: 'ingenieria-en-software', layout: swLayout(swFormId, universidadFechaId, swPlanId, universidadTestimonialsId) as any, meta: { title: 'Ingeniería en Software - Hybridge', description: 'El mejor programa de ingeniería para dominar la tecnología.' } } })
+    seedOk('Página: ingenieria-en-software')
     await payload.create({ collection: 'pages', data: { title: 'Ingeniería en Inteligencia Artificial', slug: 'ingenieria-en-inteligencia-artificial', layout: iaLayout(iaFormId, universidadFechaId, iaPlanId, universidadTestimonialsId) as any, meta: { title: 'Ingeniería en Inteligencia Artificial - Hybridge', description: 'Lidera en el campo de la inteligencia artificial.' } } })
+    seedOk('Página: ingenieria-en-inteligencia-artificial')
     await payload.create({
       collection: 'pages',
       data: {
@@ -1153,6 +1174,7 @@ export async function GET() {
         },
       },
     })
+    seedOk('Página: ingenieria-en-videojuegos')
     await payload.create({
       collection: 'pages',
       data: {
@@ -1165,6 +1187,7 @@ export async function GET() {
         },
       },
     })
+    seedOk('Página: licenciatura-en-administracion-e-innovacion')
     await payload.create({
       collection: 'pages',
       data: {
@@ -1177,6 +1200,7 @@ export async function GET() {
         },
       },
     })
+    seedOk('Página: licenciatura-en-mercadotecnia')
     await payload.create({
       collection: 'pages',
       data: {
@@ -1190,6 +1214,7 @@ export async function GET() {
         },
       },
     })
+    seedOk('Página: experiencia-hybridge')
 
     try {
       await payload.updateGlobal({ slug: 'footer', data: { tagline: 'La mejor escuela en línea para tecnologías digitales.' } as any })
@@ -1197,6 +1222,7 @@ export async function GET() {
     } catch (_) {
       // Footer global may not exist yet; schema default will apply on first create
     }
+    seedOk('Globales: footer (es/en, best-effort)')
 
     try {
       await payload.updateGlobal({
@@ -1216,20 +1242,21 @@ export async function GET() {
         } as any,
       })
     } catch (_) {}
+    seedOk('Globales: studentsWorkWith (es/en)')
 
     try {
-      for (const gslug of APRENDE_SOBRE_GLOBAL_SLUGS) {
-        await payload.updateGlobal({
-          slug: gslug,
-          data: APRENDE_SOBRE_SEED_DATA as any,
-        })
-      }
+      await payload.updateGlobal({
+        slug: APRENDE_SOBRE_SKILLS_GLOBAL_SLUG,
+        data: APRENDE_SOBRE_PROGRAMS_SEED as any,
+      })
+      seedOk('Globales: Aprende sobre / Skills (1 global, 6 programas)')
     } catch (err) {
-      console.error('Seed aprendeSobre (por programa) error:', err)
+      seedFail('Globales: Aprende sobre', err)
     }
 
     try {
       const blogRows = loadBlogPostsSeedRows()
+      seedOk(`Blog: sincronizando ${blogRows.length} entradas…`)
       const allowedBlogSlugs = new Set(blogRows.map((r) => r.slug))
       const allBlog = await payload.find({ collection: 'blog-posts', limit: 500, depth: 0 })
       for (const doc of allBlog.docs) {
@@ -1261,17 +1288,19 @@ export async function GET() {
           await payload.create({ collection: 'blog-posts', data: data as any })
         }
       }
+      seedOk(`Blog: ${blogRows.length} entradas listas (blog-posts)`)
     } catch (blogErr) {
-      console.error('Seed blog-posts error:', blogErr)
+      seedFail('Blog (blog-posts)', blogErr)
     }
 
+    seedDone()
     return NextResponse.json({
       success: true,
       message:
         'Seeded: home, preparatoria, ingenierías, ingenieria-en-videojuegos, licenciaturas (administración, mercadotecnia), experiencia-hybridge, blog (47 entradas WP) + forms + fechas-inicio + planes-estudio + testimonios',
     })
   } catch (error: any) {
-    console.error('Seed error:', error)
+    seedFail('Seed abortado (error general)', error)
     const message = error?.message || String(error)
     const stack = process.env.NODE_ENV === 'development' ? error?.stack : undefined
     return NextResponse.json({ success: false, error: message, ...(stack && { stack }) }, { status: 500 })

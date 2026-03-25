@@ -24,10 +24,17 @@ export const BLOG_FEATURED_SLUGS = new Set([
   'prepa-en-linea-sofia',
 ])
 
+/** Clasificación manual: WP los marcó como testimonio pero son contenido de comunidad. */
+const FORCE_COMUNIDAD_SLUGS = new Set([
+  'dani-mi-testimonio-hybridge',
+  'educacion-a-distancia-disenando-experiencias-cuerpo-docente',
+])
+
 /** 47 entradas importadas desde WordPress (hybridge.education), con URLs de YouTube en markdown cuando aplica. */
 export function loadBlogPostsSeedRows(): BlogPostSeedRow[] {
   return (data as Omit<BlogPostSeedRow, 'featured'>[]).map((row) => ({
     ...row,
     featured: BLOG_FEATURED_SLUGS.has(row.slug),
+    contentType: FORCE_COMUNIDAD_SLUGS.has(row.slug) ? 'comunidad' : row.contentType,
   }))
 }

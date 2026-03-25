@@ -17,14 +17,7 @@ import { BlogPosts } from './src/collections/BlogPosts'
 import { HeaderGlobal } from './src/globals/Header'
 import { FooterGlobal } from './src/globals/Footer'
 import { StudentsWorkWithGlobal } from './src/globals/StudentsWorkWith'
-import {
-  AprendeSobrePrepaGlobal,
-  AprendeSobreSoftwareGlobal,
-  AprendeSobreInteligenciaArtificialGlobal,
-  AprendeSobreVideojuegosGlobal,
-  AprendeSobreLicenciaturaAdministracionInnovacionGlobal,
-  AprendeSobreMercadotecniaGlobal,
-} from './src/globals/AprendeSobre'
+import { AprendeSobreSkillsGlobal } from './src/globals/AprendeSobre'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -54,17 +47,12 @@ export default buildConfig({
     HeaderGlobal,
     FooterGlobal,
     StudentsWorkWithGlobal,
-    AprendeSobrePrepaGlobal,
-    AprendeSobreSoftwareGlobal,
-    AprendeSobreInteligenciaArtificialGlobal,
-    AprendeSobreVideojuegosGlobal,
-    AprendeSobreLicenciaturaAdministracionInnovacionGlobal,
-    AprendeSobreMercadotecniaGlobal,
+    AprendeSobreSkillsGlobal,
   ],
   db: postgresAdapter({
     pool: { connectionString: process.env.DATABASE_URL || '' },
-    // Desarrollo: push activo salvo PAYLOAD_DB_PUSH=false. El seed elimina tablas del global antiguo
-    // `aprendeSobre` para evitar prompts interactivos de "rename" al pasar a tres globals.
+    // Desarrollo: push activo salvo PAYLOAD_DB_PUSH=false. El seed elimina tablas legacy
+    // `aprende_sobre*` para evitar prompts interactivos de "rename" en Drizzle.
     push:
       process.env.PAYLOAD_DB_PUSH === 'true' ||
       (process.env.NODE_ENV === 'development' && process.env.PAYLOAD_DB_PUSH !== 'false') ||

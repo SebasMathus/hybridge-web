@@ -14,7 +14,10 @@ import {
   perfilIngresoAdministracionInnovacionSplitBlock,
   perfilIngresoMercadotecniaSplitBlock,
 } from '@/seedData/pageBlocksMarketing'
-import { APRENDE_SOBRE_GLOBAL_SLUGS, APRENDE_SOBRE_SEED_DATA } from '@/seedData/aprendeSobreSeed'
+import {
+  APRENDE_SOBRE_PROGRAMS_SEED,
+  APRENDE_SOBRE_SKILLS_GLOBAL_SLUG,
+} from '@/seedData/aprendeSobreSeed'
 import { dropLegacyAprendeSobreBeforePayloadInit } from '@/lib/dropLegacyAprendeSobreTables'
 import { loadBlogPostsSeedRows } from '@/seedData/blogPosts'
 
@@ -97,12 +100,12 @@ const homeLayout = (universidadFechaId: string | number, universidadTestimonials
   {
     blockType: 'heroCarousel',
     slides: [
-      { line1: 'Ingeniería en', line2: 'Software', description: 'El mejor programa de ingeniería para las personas que aspiran a dominar el mundo de la tecnología.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/ingenieria-en-software#form-ingenieria-software', ctaTrackId: 'home-hero-software' },
-      { line1: 'Ingeniería en', line2: 'Inteligencia Artificial', description: 'Lidera en el campo de la inteligencia artificial.', imageUrl: IMG('2024/10/j.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/ingenieria-en-inteligencia-artificial#form-ingenieria-inteligencia-artificial', ctaTrackId: 'home-hero-ia' },
-      { line1: 'Licenciatura en', line2: 'Administración e Innovación', description: 'Aprende a administrar negocios digitales e innovar con las nuevas tecnologías.', imageUrl: IMG('2024/11/sdc-1024x1024.png'), ctaLabel: 'Inscríbete ya', ctaUrl: '/licenciatura-en-administracion-e-innovacion#form-licenciatura-administracion-innovacion', ctaTrackId: 'home-hero-admin' },
-      { line1: 'Licenciatura en', line2: 'Mercadotecnia y Negocios Digitales', description: 'Lidera estrategias innovadoras de marketing digital para la Nueva Economía.', imageUrl: IMG('2024/11/SDFGB@2x.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/contacto-licenciatura-en-mercadotecnia/', ctaTrackId: 'home-hero-mkt' },
-      { line1: 'Ingeniería en Tecnologías', line2: 'Inmersivas y Videojuegos', description: 'Construye mundos virtuales.', imageUrl: IMG('2024/10/j.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/ingenieria-en-videojuegos#form-ingenieria-videojuegos', ctaTrackId: 'home-hero-vj' },
-      { line1: 'Prepa en', line2: 'Línea', description: 'Haz la prepa en 2 años de la manera más disruptiva que te hayas imaginado con clases en vivo y desde la mejor plataforma educativa del país.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/preparatoria#form-prepa', ctaTrackId: 'home-hero-prepa' },
+      { line1: 'Ingeniería en', line2: 'Software', description: 'El mejor programa de ingeniería para las personas que aspiran a dominar el mundo de la tecnología.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Más información', ctaUrl: '/ingenieria-en-software', ctaTrackId: 'home-hero-software' },
+      { line1: 'Ingeniería en', line2: 'Inteligencia Artificial', description: 'Lidera en el campo de la inteligencia artificial.', imageUrl: IMG('2024/10/j.jpg'), ctaLabel: 'Más información', ctaUrl: '/ingenieria-en-inteligencia-artificial', ctaTrackId: 'home-hero-ia' },
+      { line1: 'Ingeniería en Tecnologías', line2: 'Inmersivas y Videojuegos', description: 'Construye mundos virtuales.', imageUrl: IMG('2024/10/j.jpg'), ctaLabel: 'Más información', ctaUrl: '/ingenieria-en-videojuegos', ctaTrackId: 'home-hero-vj' },
+      { line1: 'Prepa en', line2: 'Línea', description: 'Haz la prepa en 2 años de la manera más disruptiva que te hayas imaginado con clases en vivo y desde la mejor plataforma educativa del país.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Más información', ctaUrl: '/preparatoria', ctaTrackId: 'home-hero-prepa' },
+      { line1: 'Licenciatura en', line2: 'Mercadotecnia y Negocios Digitales', description: 'Lidera estrategias innovadoras de marketing digital para la Nueva Economía.', imageUrl: IMG('2024/11/SDFGB@2x.jpg'), ctaLabel: 'Más información', ctaUrl: '/licenciatura-en-mercadotecnia', ctaTrackId: 'home-hero-mkt' },
+      { line1: 'Licenciatura en', line2: 'Administración e Innovación', description: 'Aprende a administrar negocios digitales e innovar con las nuevas tecnologías.', imageUrl: IMG('2024/11/sdc-1024x1024.png'), ctaLabel: 'Más información', ctaUrl: '/licenciatura-en-administracion-e-innovacion', ctaTrackId: 'home-hero-admin' },
     ],
   },
   { ...waBlock, trackId: 'home-wa-bar' },
@@ -1207,14 +1210,12 @@ export async function GET() {
     } catch (_) {}
 
     try {
-      for (const gslug of APRENDE_SOBRE_GLOBAL_SLUGS) {
-        await payload.updateGlobal({
-          slug: gslug,
-          data: APRENDE_SOBRE_SEED_DATA as any,
-        })
-      }
+      await payload.updateGlobal({
+        slug: APRENDE_SOBRE_SKILLS_GLOBAL_SLUG,
+        data: APRENDE_SOBRE_PROGRAMS_SEED as any,
+      })
     } catch (err) {
-      console.error('Seed aprendeSobre (por programa) error:', err)
+      console.error('Seed aprendeSobreSkills error:', err)
     }
 
     try {

@@ -1,5 +1,18 @@
 import type { Field, GlobalConfig } from 'payload'
 
+export const APRENDE_SOBRE_PROGRAM_KEYS = [
+  'preparatoria',
+  'ingenieria-en-software',
+  'ingenieria-en-inteligencia-artificial',
+  'ingenieria-en-videojuegos',
+  'licenciatura-en-administracion-e-innovacion',
+  'licenciatura-en-mercadotecnia',
+] as const
+
+export type AprendeSobreProgramKey = (typeof APRENDE_SOBRE_PROGRAM_KEYS)[number]
+
+export const APRENDE_SOBRE_SKILLS_GLOBAL_SLUG = 'aprendeSobreSkills'
+
 export const APRENDE_SOBRE_ICON_KEYS = [
   'javascript',
   'python',
@@ -11,9 +24,19 @@ export const APRENDE_SOBRE_ICON_KEYS = [
 
 export type AprendeSobreIconKey = (typeof APRENDE_SOBRE_ICON_KEYS)[number]
 
-/* `text` en lugar de `select`: varios globals con el mismo select crean enums Postgres distintos
- * y Drizzle pide confirmación interactiva en cada `push`, bloqueando el servidor en dev. */
-const aprendeSobreFields: Field[] = [
+const programRowFields: Field[] = [
+  {
+    name: 'programKey',
+    type: 'select',
+    required: true,
+    admin: {
+      description: 'Debe coincidir con el slug de la página del programa.',
+    },
+    options: APRENDE_SOBRE_PROGRAM_KEYS.map((value) => ({
+      label: value,
+      value,
+    })),
+  },
   {
     name: 'chips',
     type: 'array',
@@ -59,46 +82,20 @@ const aprendeSobreFields: Field[] = [
   },
 ]
 
-function aprendeSobreGlobal(slug: string, label: string): GlobalConfig {
-  return {
-    slug,
-    label,
-    fields: aprendeSobreFields,
-  }
+/** Un solo global en Admin: tabla de programas (chips + skills por fila). */
+export const AprendeSobreSkillsGlobal: GlobalConfig = {
+  slug: APRENDE_SOBRE_SKILLS_GLOBAL_SLUG,
+  label: 'Aprende sobre / Skills',
+  fields: [
+    {
+      name: 'programs',
+      type: 'array',
+      minRows: 1,
+      labels: { singular: 'Programa', plural: 'Programas' },
+      admin: {
+        description: 'Una fila por programa; el slug de la página debe coincidir con «Programa».',
+      },
+      fields: programRowFields,
+    },
+  ],
 }
-
-/** Admin: chips + skills para la página de Preparatoria */
-export const AprendeSobrePrepaGlobal = aprendeSobreGlobal(
-  'aprendeSobrePrepa',
-  'Aprende sobre / Skills — Preparatoria',
-)
-
-/** Admin: chips + skills para Ingeniería en Software */
-export const AprendeSobreSoftwareGlobal = aprendeSobreGlobal(
-  'aprendeSobreSoftware',
-  'Aprende sobre / Skills — Ingeniería en Software',
-)
-
-/** Admin: chips + skills para Ingeniería en Inteligencia Artificial */
-export const AprendeSobreInteligenciaArtificialGlobal = aprendeSobreGlobal(
-  'aprendeSobreInteligenciaArtificial',
-  'Aprende sobre / Skills — Ingeniería en IA',
-)
-
-/** Admin: chips + skills — Ingeniería en Videojuegos y Tecnologías Inmersivas */
-export const AprendeSobreVideojuegosGlobal = aprendeSobreGlobal(
-  'aprendeSobreVideojuegos',
-  'Aprende sobre / Skills — Videojuegos e Inmersivas',
-)
-
-/** Admin: chips + skills — Licenciatura en Administración e Innovación */
-export const AprendeSobreLicenciaturaAdministracionInnovacionGlobal = aprendeSobreGlobal(
-  'aprendeSobreLicenciaturaAdministracionInnovacion',
-  'Aprende sobre / Skills — Lic. Administración e Innovación',
-)
-
-/** Admin: chips + skills — Licenciatura en Mercadotecnia y Negocios Digitales */
-export const AprendeSobreMercadotecniaGlobal = aprendeSobreGlobal(
-  'aprendeSobreMercadotecnia',
-  'Aprende sobre / Skills — Lic. Mercadotecnia y Negocios Digitales',
-)

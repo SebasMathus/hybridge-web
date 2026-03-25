@@ -1,4 +1,10 @@
-/** Misma data inicial por programa; editable por separado en Admin (3 globals). */
+import {
+  APRENDE_SOBRE_PROGRAM_KEYS,
+  APRENDE_SOBRE_SKILLS_GLOBAL_SLUG,
+  type AprendeSobreProgramKey,
+} from '@/globals/AprendeSobre'
+
+/** Misma data inicial por programa; editable en Admin (un global con tabla por programa). */
 export const APRENDE_SOBRE_SEED_DATA = {
   chips: [
     { label: 'Programación' },
@@ -18,11 +24,12 @@ export const APRENDE_SOBRE_SEED_DATA = {
   ],
 }
 
-export const APRENDE_SOBRE_GLOBAL_SLUGS = [
-  'aprendeSobrePrepa',
-  'aprendeSobreSoftware',
-  'aprendeSobreInteligenciaArtificial',
-  'aprendeSobreVideojuegos',
-  'aprendeSobreLicenciaturaAdministracionInnovacion',
-  'aprendeSobreMercadotecnia',
-] as const
+export { APRENDE_SOBRE_PROGRAM_KEYS, APRENDE_SOBRE_SKILLS_GLOBAL_SLUG }
+
+export const APRENDE_SOBRE_PROGRAMS_SEED = {
+  programs: APRENDE_SOBRE_PROGRAM_KEYS.map((programKey: AprendeSobreProgramKey) => ({
+    programKey,
+    chips: APRENDE_SOBRE_SEED_DATA.chips,
+    skills: APRENDE_SOBRE_SEED_DATA.skills,
+  })),
+}

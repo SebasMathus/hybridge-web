@@ -137,20 +137,6 @@ export default async function DynamicPage({ params }: Props) {
   const showStudentsWorkWith = UNIVERSIDAD_STUDENTS_WORK_SLUGS.has(slug)
   const showAprendeSobre = UNIVERSIDAD_STUDENTS_WORK_SLUGS.has(slug)
 
-  const aprendeSobreGlobalSlug =
-    slug === 'preparatoria'
-      ? 'aprendeSobrePrepa'
-      : slug === 'ingenieria-en-software'
-        ? 'aprendeSobreSoftware'
-        : slug === 'ingenieria-en-inteligencia-artificial'
-          ? 'aprendeSobreInteligenciaArtificial'
-          : slug === 'ingenieria-en-videojuegos'
-            ? 'aprendeSobreVideojuegos'
-            : slug === 'licenciatura-en-administracion-e-innovacion'
-              ? 'aprendeSobreLicenciaturaAdministracionInnovacion'
-              : slug === 'licenciatura-en-mercadotecnia'
-                ? 'aprendeSobreMercadotecnia'
-                : null
   let page: any
   let studentsWorkWith: any = null
   let aprendeSobre: any = null
@@ -174,9 +160,13 @@ export default async function DynamicPage({ params }: Props) {
       }
     }
 
-    if (showAprendeSobre && aprendeSobreGlobalSlug) {
+    if (showAprendeSobre) {
       try {
-        aprendeSobre = await payload.findGlobal({ slug: aprendeSobreGlobalSlug, locale: lang })
+        const aprendeGlobal = await payload.findGlobal({ slug: 'aprendeSobreSkills', locale: lang })
+        const rows = aprendeGlobal?.programs
+        aprendeSobre = Array.isArray(rows)
+          ? rows.find((p: { programKey?: string }) => p?.programKey === slug) ?? null
+          : null
       } catch (_) {
         aprendeSobre = null
       }

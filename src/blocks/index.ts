@@ -15,7 +15,7 @@ export const HeroCarouselBlock: Block = {
         { name: 'description', type: 'textarea' },
         { name: 'image', type: 'upload', relationTo: 'media' },
         { name: 'imageUrl', type: 'text' },
-        { name: 'ctaLabel', type: 'text', defaultValue: 'Inscríbete ya' },
+        { name: 'ctaLabel', type: 'text', defaultValue: 'Más información' },
         { name: 'ctaUrl', type: 'text', required: true },
         { name: 'ctaTrackId', type: 'text' },
       ],
