@@ -9,12 +9,12 @@ type Props = { data: any; locale: Locale }
 
 const defaultCols: Record<string, any[]> = {
   es: [
-    { title: 'Enlaces de interés', links: [{ label: 'Blog', url: '/blog/' }, { label: 'Eventos', url: '/eventos-hybridge/' }, { label: 'Tecnología Educativa', url: '/tecnologia-educativa/' }] },
+    { title: 'Enlaces de interés', links: [{ label: 'Testimonios', url: '/blog/testimonios/' }, { label: 'Eventos', url: '/eventos-hybridge/' }, { label: 'Tecnología Educativa', url: '/tecnologia-educativa/' }] },
     { title: 'Programas', links: [{ label: 'Preparatoria', url: '/preparatoria/' }, { label: 'Ingeniería en Software', url: '/ingenieria-en-software/' }, { label: 'Lic. en Administración e Innovación', url: '/licenciatura-en-administracion-e-innovacion/' }, { label: 'Ingeniería en Inteligencia Artificial', url: '/ingenieria-en-inteligencia-artificial/' }, { label: 'Lic. en Mercadotecnia y Negocios Digitales', url: '/licenciatura-en-mercadotecnia/' }, { label: 'Ing. en Tecnologías Inmersivas y Videojuegos', url: '/ingenieria-en-videojuegos/' }] },
     { title: 'Más información', links: [{ label: 'Aviso de privacidad', url: '/aviso-de-privacidad/' }, { label: 'Reconocimientos de Validez Oficial', url: '/reconocimientos-validez-oficial-hybridge/' }, { label: 'Términos y condiciones', url: '/terms-and-conditions/' }] },
   ],
   en: [
-    { title: 'Links', links: [{ label: 'Blog', url: '/blog/' }, { label: 'Events', url: '/eventos-hybridge/' }] },
+    { title: 'Links', links: [{ label: 'Testimonials', url: '/blog/testimonios/' }, { label: 'Events', url: '/eventos-hybridge/' }] },
     { title: 'Programs', links: [{ label: 'High School', url: '/preparatoria/' }, { label: 'Software Engineering', url: '/ingenieria-en-software/' }, { label: 'AI Engineering', url: '/ingenieria-en-inteligencia-artificial/' }] },
     { title: 'More info', links: [{ label: 'Privacy Policy', url: '/aviso-de-privacidad/' }, { label: 'Terms', url: '/terms-and-conditions/' }] },
   ],

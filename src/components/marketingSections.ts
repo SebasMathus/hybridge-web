@@ -7,7 +7,7 @@
  * Slugs de bloque (blockType):
  * - `modeloEducativo`, `oportunidades2026`, `industryLeaders`, `talleresHybridge`,
  *   `hybridgeApp`, `benefitsHybridge`
- * - Perfil de ingreso: bloque estándar `splitContent` (ver seed `perfilIngresoSplitBlock`).
+ * - Perfil de ingreso: bloques `splitContent` por programa (ver `perfilIngreso*SplitBlock` en `seedData/pageBlocksMarketing`).
  */
 
 export {

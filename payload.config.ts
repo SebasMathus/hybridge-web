@@ -1,4 +1,5 @@
 import { buildConfig } from 'payload'
+import type { PayloadEmailAdapter } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
@@ -12,29 +13,58 @@ import { FechasInicio } from './src/collections/FechasInicio'
 import { PlanesEstudio } from './src/collections/PlanesEstudio'
 import { Testimonios } from './src/collections/Testimonios'
 import { FacultyMembers } from './src/collections/FacultyMembers'
+import { BlogPosts } from './src/collections/BlogPosts'
 import { HeaderGlobal } from './src/globals/Header'
 import { FooterGlobal } from './src/globals/Footer'
 import { StudentsWorkWithGlobal } from './src/globals/StudentsWorkWith'
-import { AprendeSobreGlobal } from './src/globals/AprendeSobre'
+import {
+  AprendeSobrePrepaGlobal,
+  AprendeSobreSoftwareGlobal,
+  AprendeSobreInteligenciaArtificialGlobal,
+  AprendeSobreVideojuegosGlobal,
+  AprendeSobreLicenciaturaAdministracionInnovacionGlobal,
+  AprendeSobreMercadotecniaGlobal,
+} from './src/globals/AprendeSobre'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+/** Evita el WARN de Payload al no tener adaptador; en dev solo registramos el intento de envío. */
+const consoleEmailAdapter: PayloadEmailAdapter = ({ payload }) => ({
+  name: 'console',
+  defaultFromAddress: 'noreply@hybridge.education',
+  defaultFromName: 'Hybridge',
+  sendEmail: async (message) => {
+    payload.logger.info(
+      { subject: message.subject, to: message.to },
+      '[email] console adapter (no SMTP configured)',
+    )
+  },
+})
 
 export default buildConfig({
   admin: {
     user: Users.slug,
     meta: { titleSuffix: ' | Hybridge' },
   },
+  email: consoleEmailAdapter,
   editor: lexicalEditor({}),
-  collections: [Users, Media, Pages, Forms, FormSubmissions, FechasInicio, PlanesEstudio, Testimonios, FacultyMembers],
-  globals: [HeaderGlobal, FooterGlobal, StudentsWorkWithGlobal, AprendeSobreGlobal],
+  collections: [Users, Media, Pages, Forms, FormSubmissions, FechasInicio, PlanesEstudio, Testimonios, FacultyMembers, BlogPosts],
+  globals: [
+    HeaderGlobal,
+    FooterGlobal,
+    StudentsWorkWithGlobal,
+    AprendeSobrePrepaGlobal,
+    AprendeSobreSoftwareGlobal,
+    AprendeSobreInteligenciaArtificialGlobal,
+    AprendeSobreVideojuegosGlobal,
+    AprendeSobreLicenciaturaAdministracionInnovacionGlobal,
+    AprendeSobreMercadotecniaGlobal,
+  ],
   db: postgresAdapter({
     pool: { connectionString: process.env.DATABASE_URL || '' },
-    // En desarrollo evitamos prompts interactivos (p. ej. "Accept warnings and push schema?")
-    // cuando estamos iterando cambios de esquema. Las tablas suelen existir ya por runs previos/seed.
-    //
-    // Desarrollo: push activo por defecto (sincroniza bloques nuevos en `Pages.layout`).
-    // Desactivar con PAYLOAD_DB_PUSH=false. En prod, push solo si no lo desactivas explícitamente.
+    // Desarrollo: push activo salvo PAYLOAD_DB_PUSH=false. El seed elimina tablas del global antiguo
+    // `aprendeSobre` para evitar prompts interactivos de "rename" al pasar a tres globals.
     push:
       process.env.PAYLOAD_DB_PUSH === 'true' ||
       (process.env.NODE_ENV === 'development' && process.env.PAYLOAD_DB_PUSH !== 'false') ||

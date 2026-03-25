@@ -2,10 +2,23 @@ import { getPayloadClient } from '@/lib/payload'
 import type { Locale } from '@/lib/utils'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import type { Metadata } from 'next'
+import type { ReactNode } from 'react'
 
 type Props = {
-  children: React.ReactNode
+  children: ReactNode
   params: Promise<{ locale: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params
+  const isEn = locale === 'en'
+  return {
+    title: 'Hybridge Education',
+    description: isEn
+      ? 'The school and university of the future.'
+      : 'La escuela y universidad del futuro.',
+  }
 }
 
 export default async function LocaleLayout({ children, params }: Props) {

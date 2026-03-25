@@ -1,6 +1,12 @@
 import type { CollectionConfig } from 'payload'
 
-export type FacultyProgram = 'preparatoria' | 'ingenieria-en-software'
+export type FacultyProgram =
+  | 'preparatoria'
+  | 'ingenieria-en-software'
+  | 'ingenieria-en-inteligencia-artificial'
+  | 'ingenieria-en-videojuegos'
+  | 'licenciatura-en-administracion-e-innovacion'
+  | 'licenciatura-en-mercadotecnia'
 
 export const FacultyMembers: CollectionConfig = {
   slug: 'faculty-members',
@@ -74,6 +80,22 @@ export const FacultyMembers: CollectionConfig = {
           options: [
             { label: 'Preparatoria', value: 'preparatoria' },
             { label: 'Ingeniería en Software', value: 'ingenieria-en-software' },
+            {
+              label: 'Ingeniería en Inteligencia Artificial',
+              value: 'ingenieria-en-inteligencia-artificial',
+            },
+            {
+              label: 'Ing. en Videojuegos y Tecnologías Inmersivas',
+              value: 'ingenieria-en-videojuegos',
+            },
+            {
+              label: 'Lic. en Administración e Innovación',
+              value: 'licenciatura-en-administracion-e-innovacion',
+            },
+            {
+              label: 'Lic. en Mercadotecnia y Negocios Digitales',
+              value: 'licenciatura-en-mercadotecnia',
+            },
           ],
         },
       ],

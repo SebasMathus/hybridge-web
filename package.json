@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "WATCHPACK_POLLING=true CHOKIDAR_USEPOLLING=true next dev --hostname localhost -p 3000",
+    "dev:push": "PAYLOAD_DB_PUSH=true WATCHPACK_POLLING=true CHOKIDAR_USEPOLLING=true next dev --hostname localhost -p 3000",
     "build": "next build",
     "start": "next start",
-    "seed": "curl -s http://localhost:3000/api/seed"
+    "seed": "curl -s http://localhost:3000/api/seed",
+    "generate:blog-seed": "curl -sS 'https://hybridge.education/wp-json/wp/v2/posts?per_page=100&_embed=1' -o tmp-wp-all.json && node scripts/generate-wp-blog-seed.mjs"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.79.1",
@@ -14,10 +16,13 @@
     "@payloadcms/richtext-lexical": "3.79.1",
     "@payloadcms/storage-s3": "3.79.1",
     "graphql": "^16.13.1",
+    "isomorphic-dompurify": "^3.7.1",
     "next": "15.4.11",
     "payload": "3.79.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
     "simple-icons": "^16.12.0",
     "swiper": "11.2.6"
   },
@@ -26,7 +31,9 @@
     "@types/node": "22.15.3",
     "@types/react": "19.1.2",
     "@types/react-dom": "19.1.2",
+    "entities": "^8.0.0",
     "tailwindcss": "4.1.4",
+    "turndown": "^7.2.2",
     "typescript": "5.8.3"
   }
 }

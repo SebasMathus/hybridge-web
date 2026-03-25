@@ -279,7 +279,13 @@ const FACULTY_MEMBERS_BASE_SEED: FacultyMemberSeed[] = [
     subjects: [],
     description: '',
     hobbies: [],
-    programs: ['ingenieria-en-software'],
+    programs: [
+      'ingenieria-en-software',
+      'ingenieria-en-inteligencia-artificial',
+      'ingenieria-en-videojuegos',
+      'licenciatura-en-administracion-e-innovacion',
+      'licenciatura-en-mercadotecnia',
+    ],
   },
   {
     slug: 'sahori-solana',
@@ -291,7 +297,13 @@ const FACULTY_MEMBERS_BASE_SEED: FacultyMemberSeed[] = [
     subjects: [],
     description: '',
     hobbies: [],
-    programs: ['ingenieria-en-software'],
+    programs: [
+      'ingenieria-en-software',
+      'ingenieria-en-inteligencia-artificial',
+      'ingenieria-en-videojuegos',
+      'licenciatura-en-administracion-e-innovacion',
+      'licenciatura-en-mercadotecnia',
+    ],
   },
   {
     slug: 'alberto-preciado',
@@ -303,7 +315,13 @@ const FACULTY_MEMBERS_BASE_SEED: FacultyMemberSeed[] = [
     subjects: [],
     description: '',
     hobbies: [],
-    programs: ['ingenieria-en-software'],
+    programs: [
+      'ingenieria-en-software',
+      'ingenieria-en-inteligencia-artificial',
+      'ingenieria-en-videojuegos',
+      'licenciatura-en-administracion-e-innovacion',
+      'licenciatura-en-mercadotecnia',
+    ],
   },
   {
     slug: 'sebastian-mathus',
@@ -315,7 +333,13 @@ const FACULTY_MEMBERS_BASE_SEED: FacultyMemberSeed[] = [
     subjects: [],
     description: '',
     hobbies: [],
-    programs: ['ingenieria-en-software'],
+    programs: [
+      'ingenieria-en-software',
+      'ingenieria-en-inteligencia-artificial',
+      'ingenieria-en-videojuegos',
+      'licenciatura-en-administracion-e-innovacion',
+      'licenciatura-en-mercadotecnia',
+    ],
   },
   {
     slug: 'martin-mathus',
@@ -327,7 +351,13 @@ const FACULTY_MEMBERS_BASE_SEED: FacultyMemberSeed[] = [
     subjects: [],
     description: '',
     hobbies: [],
-    programs: ['ingenieria-en-software'],
+    programs: [
+      'ingenieria-en-software',
+      'ingenieria-en-inteligencia-artificial',
+      'ingenieria-en-videojuegos',
+      'licenciatura-en-administracion-e-innovacion',
+      'licenciatura-en-mercadotecnia',
+    ],
   },
   {
     slug: 'fernanda-arriaga',
@@ -339,7 +369,13 @@ const FACULTY_MEMBERS_BASE_SEED: FacultyMemberSeed[] = [
     subjects: [],
     description: '',
     hobbies: [],
-    programs: ['ingenieria-en-software'],
+    programs: [
+      'ingenieria-en-software',
+      'ingenieria-en-inteligencia-artificial',
+      'ingenieria-en-videojuegos',
+      'licenciatura-en-administracion-e-innovacion',
+      'licenciatura-en-mercadotecnia',
+    ],
   },
   {
     slug: 'daniela-anaya',
@@ -351,7 +387,13 @@ const FACULTY_MEMBERS_BASE_SEED: FacultyMemberSeed[] = [
     subjects: [],
     description: '',
     hobbies: [],
-    programs: ['ingenieria-en-software'],
+    programs: [
+      'ingenieria-en-software',
+      'ingenieria-en-inteligencia-artificial',
+      'ingenieria-en-videojuegos',
+      'licenciatura-en-administracion-e-innovacion',
+      'licenciatura-en-mercadotecnia',
+    ],
   },
   {
     slug: 'jose-esteva',
@@ -363,7 +405,13 @@ const FACULTY_MEMBERS_BASE_SEED: FacultyMemberSeed[] = [
     subjects: [],
     description: '',
     hobbies: [],
-    programs: ['ingenieria-en-software'],
+    programs: [
+      'ingenieria-en-software',
+      'ingenieria-en-inteligencia-artificial',
+      'ingenieria-en-videojuegos',
+      'licenciatura-en-administracion-e-innovacion',
+      'licenciatura-en-mercadotecnia',
+    ],
   },
   {
     slug: 'gerardo-mathus',
@@ -375,7 +423,13 @@ const FACULTY_MEMBERS_BASE_SEED: FacultyMemberSeed[] = [
     subjects: [],
     description: '',
     hobbies: [],
-    programs: ['ingenieria-en-software'],
+    programs: [
+      'ingenieria-en-software',
+      'ingenieria-en-inteligencia-artificial',
+      'ingenieria-en-videojuegos',
+      'licenciatura-en-administracion-e-innovacion',
+      'licenciatura-en-mercadotecnia',
+    ],
   },
   {
     slug: 'ivan-martinez',
@@ -387,7 +441,13 @@ const FACULTY_MEMBERS_BASE_SEED: FacultyMemberSeed[] = [
     subjects: [],
     description: '',
     hobbies: [],
-    programs: ['ingenieria-en-software'],
+    programs: [
+      'ingenieria-en-software',
+      'ingenieria-en-inteligencia-artificial',
+      'ingenieria-en-videojuegos',
+      'licenciatura-en-administracion-e-innovacion',
+      'licenciatura-en-mercadotecnia',
+    ],
   },
   {
     slug: 'maria-fernanda-mariscal',

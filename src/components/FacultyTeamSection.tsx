@@ -2,7 +2,13 @@ import React from 'react'
 import { getPayloadClient } from '@/lib/payload'
 import { FacultyTeamGrid, type FacultyTeamMember } from './FacultyTeamGrid'
 
-export type ProgramKey = 'preparatoria' | 'ingenieria-en-software'
+export type ProgramKey =
+  | 'preparatoria'
+  | 'ingenieria-en-software'
+  | 'ingenieria-en-inteligencia-artificial'
+  | 'ingenieria-en-videojuegos'
+  | 'licenciatura-en-administracion-e-innovacion'
+  | 'licenciatura-en-mercadotecnia'
 
 export async function FacultyTeamSection({ program }: { program: ProgramKey }) {
   let members: FacultyTeamMember[] = []

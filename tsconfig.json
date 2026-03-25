@@ -16,7 +16,8 @@
     "plugins": [{ "name": "next" }],
     "paths": {
       "@/*": ["./src/*"],
-      "@payload-config": ["./payload.config.ts"]
+      "@payload-config": ["./payload.config.ts"],
+      "@payloadcms-next-internals/*": ["./node_modules/@payloadcms/next/dist/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

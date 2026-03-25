@@ -8,8 +8,15 @@ import {
   industryLeadersBlock,
   talleresHybridgeBlock,
   hybridgeAppBlock,
-  perfilIngresoSplitBlock,
+  perfilIngresoSoftwareSplitBlock,
+  perfilIngresoIASplitBlock,
+  perfilIngresoVideojuegosSplitBlock,
+  perfilIngresoAdministracionInnovacionSplitBlock,
+  perfilIngresoMercadotecniaSplitBlock,
 } from '@/seedData/pageBlocksMarketing'
+import { APRENDE_SOBRE_GLOBAL_SLUGS, APRENDE_SOBRE_SEED_DATA } from '@/seedData/aprendeSobreSeed'
+import { dropLegacyAprendeSobreBeforePayloadInit } from '@/lib/dropLegacyAprendeSobreTables'
+import { loadBlogPostsSeedRows } from '@/seedData/blogPosts'
 
 const WA = 'https://wa.me/message/2JJMWGRX5DSDO1'
 const WA_INSC = 'https://wa.me/+525592256413?text=¡Hola!%20Me%20gustaria%20inscribirme'
@@ -91,10 +98,10 @@ const homeLayout = (universidadFechaId: string | number, universidadTestimonials
     blockType: 'heroCarousel',
     slides: [
       { line1: 'Ingeniería en', line2: 'Software', description: 'El mejor programa de ingeniería para las personas que aspiran a dominar el mundo de la tecnología.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/ingenieria-en-software#form-ingenieria-software', ctaTrackId: 'home-hero-software' },
-      { line1: 'Ingeniería en', line2: 'Inteligencia Artificial', description: 'Lidera en el campo de la inteligencia artificial.', imageUrl: IMG('2024/10/j.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/contacto-ingenieria-inteligencia-artificial/', ctaTrackId: 'home-hero-ia' },
-      { line1: 'Licenciatura en', line2: 'Administración e Innovación', description: 'Aprende a administrar negocios digitales e innovar con las nuevas tecnologías.', imageUrl: IMG('2024/11/sdc-1024x1024.png'), ctaLabel: 'Inscríbete ya', ctaUrl: '/licenciatura-en-administracion-e-innovacion/', ctaTrackId: 'home-hero-admin' },
+      { line1: 'Ingeniería en', line2: 'Inteligencia Artificial', description: 'Lidera en el campo de la inteligencia artificial.', imageUrl: IMG('2024/10/j.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/ingenieria-en-inteligencia-artificial#form-ingenieria-inteligencia-artificial', ctaTrackId: 'home-hero-ia' },
+      { line1: 'Licenciatura en', line2: 'Administración e Innovación', description: 'Aprende a administrar negocios digitales e innovar con las nuevas tecnologías.', imageUrl: IMG('2024/11/sdc-1024x1024.png'), ctaLabel: 'Inscríbete ya', ctaUrl: '/licenciatura-en-administracion-e-innovacion#form-licenciatura-administracion-innovacion', ctaTrackId: 'home-hero-admin' },
       { line1: 'Licenciatura en', line2: 'Mercadotecnia y Negocios Digitales', description: 'Lidera estrategias innovadoras de marketing digital para la Nueva Economía.', imageUrl: IMG('2024/11/SDFGB@2x.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/contacto-licenciatura-en-mercadotecnia/', ctaTrackId: 'home-hero-mkt' },
-      { line1: 'Ingeniería en Tecnologías', line2: 'Inmersivas y Videojuegos', description: 'Construye mundos virtuales.', imageUrl: IMG('2024/10/j.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/contacto-ingenieria-videojuegos/', ctaTrackId: 'home-hero-vj' },
+      { line1: 'Ingeniería en Tecnologías', line2: 'Inmersivas y Videojuegos', description: 'Construye mundos virtuales.', imageUrl: IMG('2024/10/j.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/ingenieria-en-videojuegos#form-ingenieria-videojuegos', ctaTrackId: 'home-hero-vj' },
       { line1: 'Prepa en', line2: 'Línea', description: 'Haz la prepa en 2 años de la manera más disruptiva que te hayas imaginado con clases en vivo y desde la mejor plataforma educativa del país.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '/preparatoria#form-prepa', ctaTrackId: 'home-hero-prepa' },
     ],
   },
@@ -183,6 +190,81 @@ const swPlanData = {
     { title: 'SÉPTIMO CUATRIMESTRE', subjects: swSubjects(['Herramientas para DevOps', 'Desarrollo de Aplicaciones Móvil', 'Análisis y Procesamiento de Datos', 'Ciberseguridad y Hackeo Ético', 'Derecho en el Mundo Digital']) },
     { title: 'OCTAVO CUATRIMESTRE', subjects: swSubjects(['Aplicaciones de la Ingeniería de Software', 'Software de Código Abierto y Colaborativo', 'Lenguaje Natural', 'Finanzas y Negocios Digitales', 'Ética en el Mundo Digital']) },
     { title: 'NOVENO CUATRIMESTRE', subjects: swSubjects(['Diseño de Productos Digitales', 'Metodologías Ágiles', 'Emprendimiento e Innovación', 'Proyecto Terminal', 'Servicio Social']) },
+  ],
+}
+const iaPlanData = {
+  slug: 'ingenieria-inteligencia-artificial',
+  title: 'Ingeniería en Inteligencia Artificial',
+  heading: 'Plan de estudios',
+  subheading: '',
+  description: 'Adquiere las habilidades para destacar en la era digital.',
+  semesters: [
+    { title: 'PRIMER CUATRIMESTRE', subjects: swSubjects(['Introducción a la Ingeniería en Inteligencia Artificial', 'Experiencia de Usuario', 'Tecnología, Sociedad y Futuros Posibles I', 'Análisis y Diseño de Algoritmos', 'Matemáticas para Ingeniería']) },
+    { title: 'SEGUNDO CUATRIMESTRE', subjects: swSubjects(['Fundamentos de Redes Computacionales', 'Probabilidad y Estadística', 'Tecnología, Sociedad y Futuros Posibles II', 'Programación Orientada a Objetos', 'Bases de Datos']) },
+    { title: 'TERCER CUATRIMESTRE', subjects: swSubjects(['Cloud Computing y Redes Virtuales', 'Ciencia de Datos', 'Programación Avanzada', 'Álgebra Lineal', 'Persona y Sociedad']) },
+    { title: 'CUARTO CUATRIMESTRE', subjects: swSubjects(['Arquitectura y Patrones de Diseño', 'Inteligencia Artificial', 'Fundamentos de Desarrollo Web', 'Cálculo Diferencial', 'Mundo Contemporáneo']) },
+    { title: 'QUINTO CUATRIMESTRE', subjects: swSubjects(['Administración de Sistemas Operativos y Servidores', 'Aprendizaje de Máquina', 'Desarrollo Web Back-end', 'Cálculo Integral', 'Comunicación Oral y Escrita']) },
+    { title: 'SEXTO CUATRIMESTRE', subjects: swSubjects(['Pruebas Unitarias y Funcionales de Software', 'Sistemas de Aprendizaje Profundo', 'Análisis y Procesamiento de Datos', 'Código Abierto para Inteligencia Artificial', 'Ecuaciones Diferenciales']) },
+    { title: 'SÉPTIMO CUATRIMESTRE', subjects: swSubjects(['Herramientas para DevOps', 'Lenguaje Natural', 'Minería de Datos', 'Estadística Bayesiana', 'Derecho en el Mundo Digital']) },
+    { title: 'OCTAVO CUATRIMESTRE', subjects: swSubjects(['Arquitectura de Producto', 'Business Intelligence', 'Metodologías y Marcos de Trabajo Ágiles', 'Ética en el Mundo Digital', 'Plan de Vida y Carrera']) },
+    { title: 'NOVENO CUATRIMESTRE', subjects: swSubjects(['Seminario']) },
+  ],
+}
+/* Plan alineado con hybridge.education (RVOE 2962); ortografía unificada en español. */
+const vjPlanData = {
+  slug: 'ingenieria-videojuegos-tecnologias-inmersivas',
+  title: 'Ingeniería en Videojuegos y Tecnologías Inmersivas',
+  heading: 'Plan de estudios',
+  subheading: '',
+  description: 'Adquiere las habilidades para destacar en la era digital.',
+  semesters: [
+    { title: 'PRIMER CUATRIMESTRE', subjects: swSubjects(['Introducción a la Ingeniería en Videojuegos y Tecnologías Inmersivas', 'Experiencia de Usuario', 'Tecnología, Sociedad y Futuros Posibles I', 'Análisis y Diseño de Algoritmos', 'Matemáticas para Ingeniería']) },
+    { title: 'SEGUNDO CUATRIMESTRE', subjects: swSubjects(['Fundamentos de Desarrollo de Videojuegos', 'Probabilidad y Estadística', 'Tecnología, Sociedad y Futuros Posibles II', 'Programación Orientada a Objetos', 'Bases de Datos']) },
+    { title: 'TERCER CUATRIMESTRE', subjects: swSubjects(['Cloud Computing y Redes Virtuales', 'Efectos Visuales', 'Programación Avanzada', 'Álgebra Lineal', 'Persona y Sociedad']) },
+    { title: 'CUARTO CUATRIMESTRE', subjects: swSubjects(['Arquitectura y Patrones de Diseño', 'Diseño de Personajes y Escenarios', 'Fundamentos de Desarrollo Web', 'Cálculo Diferencial', 'Mundo Contemporáneo']) },
+    { title: 'QUINTO CUATRIMESTRE', subjects: swSubjects(['Animación en 3D', 'Producción Audiovisual', 'Storytelling', 'Cálculo Integral', 'Comunicación Oral y Escrita']) },
+    { title: 'SEXTO CUATRIMESTRE', subjects: swSubjects(['Desarrollo y Comercialización de Videojuegos', 'Gamificación', 'Pruebas Unitarias y Funcionales de Software', 'Optativa', 'Ecuaciones Diferenciales']) },
+    { title: 'SÉPTIMO CUATRIMESTRE', subjects: swSubjects(['Realidad Aumentada', 'Computación Gráfica', 'Herramientas para DevOps', 'Optativa', 'Derecho en el Mundo Digital']) },
+    { title: 'OCTAVO CUATRIMESTRE', subjects: swSubjects(['Realidad Virtual', 'Optativa', 'Metodologías y Marcos de Trabajo Ágiles', 'Ética en el Mundo Digital', 'Plan de Vida y Carrera']) },
+    { title: 'NOVENO CUATRIMESTRE', subjects: swSubjects(['Seminario']) },
+  ],
+}
+/* Plan oficial Lic. Administración e Innovación (RVOE 2961). */
+const ladmPlanData = {
+  slug: 'licenciatura-administracion-innovacion',
+  title: 'Licenciatura en Administración e Innovación',
+  heading: 'Plan de estudios',
+  subheading: '',
+  description: 'Formación en administración, negocios digitales e innovación para la Nueva Economía.',
+  semesters: [
+    { title: 'PRIMER CUATRIMESTRE', subjects: swSubjects(['Fundamentos de Administración', 'Experiencia de Usuario', 'Tecnología, Sociedad y Futuros Posibles I', 'Taller de Comprensión Lectora', 'Manejo de Datos e Informática']) },
+    { title: 'SEGUNDO CUATRIMESTRE', subjects: swSubjects(['Fundamentos de Marketing', 'Comunicación Oral y Escrita', 'Tecnología, Sociedad y Futuros Posibles II', 'Innovación y Creación de Valor', 'Pensamiento Matemático']) },
+    { title: 'TERCER CUATRIMESTRE', subjects: swSubjects(['Marketing Digital', 'Diseño de Productos Digitales', 'Persona y Sociedad', 'Contabilidad Financiera', 'Probabilidad y Estadística']) },
+    { title: 'CUARTO CUATRIMESTRE', subjects: swSubjects(['Comportamiento Organizacional', 'Economía', 'Mundo Contemporáneo', 'Administración Financiera', 'Algoritmos']) },
+    { title: 'QUINTO CUATRIMESTRE', subjects: swSubjects(['Finanzas y Negocios Digitales', 'Estrategia de Negocios', 'Recursos Humanos', 'Derecho Laboral', 'Metodologías y Marcos de Trabajo Ágiles']) },
+    { title: 'SEXTO CUATRIMESTRE', subjects: swSubjects(['Emprendimiento', 'Liderazgo', 'Sustentabilidad', 'Derecho en el Mundo Digital', 'Business Intelligence']) },
+    { title: 'SÉPTIMO CUATRIMESTRE', subjects: swSubjects(['Casos de Negocios I', 'Ética en el Mundo Digital', 'Optativa', 'Optativa', 'Optativa']) },
+    { title: 'OCTAVO CUATRIMESTRE', subjects: swSubjects(['Casos de Negocios II', 'Plan de Vida y Carrera', 'Optativa', 'Optativa', 'Optativa']) },
+    { title: 'NOVENO CUATRIMESTRE', subjects: swSubjects(['Seminario']) },
+  ],
+}
+/* Plan Lic. Mercadotecnia (RVOE 3055), alineado con hybridge.education. */
+const mercPlanData = {
+  slug: 'licenciatura-mercadotecnia-negocios-digitales',
+  title: 'Licenciatura en Mercadotecnia y Negocios Digitales',
+  heading: 'Plan de estudios',
+  subheading: '',
+  description: 'Formación en marketing digital, negocios y crecimiento para la Nueva Economía.',
+  semesters: [
+    { title: 'PRIMER CUATRIMESTRE', subjects: swSubjects(['Fundamentos de Mercadotecnia', 'Experiencia de Usuario', 'Tecnología, Sociedad y Futuros Posibles I', 'Taller de Comprensión Lectora', 'Manejo de Datos e Informática']) },
+    { title: 'SEGUNDO CUATRIMESTRE', subjects: swSubjects(['Marketing Digital', 'Comunicación Oral y Escrita', 'Tecnología, Sociedad y Futuros Posibles II', 'Innovación y Creación de Valor', 'Pensamiento Matemático']) },
+    { title: 'TERCER CUATRIMESTRE', subjects: swSubjects(['Comportamiento del Consumidor', 'Diseño de Productos Digitales', 'Persona y Sociedad', 'Contabilidad Financiera', 'Probabilidad y Estadística']) },
+    { title: 'CUARTO CUATRIMESTRE', subjects: swSubjects(['Optimización y Analítica Web', 'Gestión de Contenidos Digitales', 'Mundo Contemporáneo', 'Administración Financiera', 'Economía']) },
+    { title: 'QUINTO CUATRIMESTRE', subjects: swSubjects(['Finanzas y Negocios Digitales', 'Estrategia de Negocios', 'Herramientas para Gestión de Clientes y Ventas', 'Derecho Laboral', 'Metodologías y Marcos de Trabajo Ágiles']) },
+    { title: 'SEXTO CUATRIMESTRE', subjects: swSubjects(['Emprendimiento', 'Liderazgo', 'Sustentabilidad', 'Derecho en el Mundo Digital', 'Business Intelligence']) },
+    { title: 'SÉPTIMO CUATRIMESTRE', subjects: swSubjects(['Casos de Negocios I', 'Ética en el Mundo Digital', 'Optativa', 'Optativa', 'Optativa']) },
+    { title: 'OCTAVO CUATRIMESTRE', subjects: swSubjects(['Casos de Negocios II', 'Plan de Vida y Carrera', 'Optativa', 'Optativa', 'Optativa']) },
+    { title: 'NOVENO CUATRIMESTRE', subjects: swSubjects(['Seminario']) },
   ],
 }
 
@@ -307,12 +389,328 @@ const swLayout = (swFormId: string | number, universidadFechaId: string | number
   industryLeadersBlock(),
   { blockType: 'formBlock', form: swFormId },
   benefitsHybridgeBlock(),
-  perfilIngresoSplitBlock(),
+  perfilIngresoSoftwareSplitBlock(),
   { ...waBlock, trackId: 'sw-wa-bar-bottom' },
+]
+const iaLayout = (iaFormId: string | number, universidadFechaId: string | number, iaPlanId: string | number, universidadTestimonialsId: string | number) => [
+  { blockType: 'heroBanner', heading: 'Ingeniería en\nInteligencia Artificial', subheading: 'Lidera en el campo de la inteligencia artificial', imageUrl: IMG('2024/10/j.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '#form-ingenieria-inteligencia-artificial', ctaTrackId: 'ia-hero-cta' },
+  { ...waBlock, trackId: 'ia-wa-bar' },
+  modeloEducativoBlock(),
+  {
+    blockType: 'splitContent', eyebrow: 'Sobre nuestra', heading: 'Ingeniería en Inteligencia Artificial',
+    body: 'Hybridge ofrece una formación completa en ingeniería, nuevas tecnologías y habilidades para la nueva economía.\n\nNuestro programa de Ingeniería en Inteligencia Artificial cuenta con Reconocimiento de Validez Oficial de Estudios (RVOE), lo cual significa que al graduarte obtendrás tu título oficial de Educación Superior.',
+    imageUrl: IMG('2024/10/j.jpg'), imagePosition: 'right', backgroundColor: 'white',
+    buttons: [{ label: 'Inscríbete ya', url: '#form-ingenieria-inteligencia-artificial', variant: 'primary', trackId: 'ia-about-cta' }],
+  },
+  testimonialsPlanBlock(universidadTestimonialsId),
+  oportunidades2026Block(),
+  {
+    blockType: 'featuresGrid', heading: 'Haz tu ingeniería en solo 3 años', subheading: 'RVOE No. 2960', backgroundColor: 'white',
+    features: [
+      { iconText: '💻', label: 'Modalidad', value: 'En línea' },
+      { iconText: '⏳', label: 'Duración', value: '3 años (9 cuatrimestres)' },
+      { iconText: '🚀', label: 'Enfoque en', value: 'nuevas Tecnologías y Emprendimiento' },
+      { iconText: '✅', label: 'Avalado por la SEP', value: 'Validez oficial' },
+    ],
+  },
+  {
+    blockType: 'splitContent', eyebrow: 'Comunidad', heading: 'Hybridge',
+    body: 'Hybridge es mucho más que solo un lugar para aprender tecnología. Al estar comprometidos con la construcción del futuro de la educación, entendemos la relevancia de reinventar las comunidades de aprendizaje.\nEn Hybridge serás parte de un ecosistema que conecta a estudiantes, académicos, innovadores, líderes de la industria, emprendedoras, empresas y fondos de inversión.',
+    imageUrl: IMG('2024/11/sdc-1024x1024.png'), imagePosition: 'left', backgroundColor: 'cream',
+    buttons: [{ label: 'Inscríbete ya', url: '#form-ingenieria-inteligencia-artificial', variant: 'primary', trackId: 'ia-comunidad-cta' }],
+  },
+  hybridgeAppBlock(),
+  ctaFechaInicio(universidadFechaId, 'ia'),
+  talleresHybridgeBlock(),
+  curriculumPlanBlock(iaPlanId),
+  { blockType: 'videoSection', heading: 'CONOCE MÁS SOBRE NUESTRA INGENIERÍA', youtubeUrl: 'https://www.youtube.com/watch?v=prfszaQ8GLc', backgroundColor: 'cream' },
+  industryLeadersBlock(),
+  { blockType: 'formBlock', form: iaFormId },
+  benefitsHybridgeBlock(),
+  perfilIngresoIASplitBlock(),
+  { ...waBlock, trackId: 'ia-wa-bar-bottom' },
+]
+const vjLayout = (vjFormId: string | number, universidadFechaId: string | number, vjPlanId: string | number, universidadTestimonialsId: string | number) => [
+  {
+    blockType: 'heroBanner',
+    heading: 'Ingeniería en\nVideojuegos y Tecnologías Inmersivas',
+    subheading: 'Construye mundos virtuales',
+    imageUrl: IMG('2024/10/j.jpg'),
+    ctaLabel: 'Inscríbete ya',
+    ctaUrl: '#form-ingenieria-videojuegos',
+    ctaTrackId: 'vj-hero-cta',
+  },
+  { ...waBlock, trackId: 'vj-wa-bar' },
+  modeloEducativoBlock(),
+  {
+    blockType: 'splitContent',
+    eyebrow: 'Sobre nuestra',
+    heading: 'Ingeniería en Videojuegos',
+    body: 'Hybridge ofrece una formación completa en ingeniería, nuevas tecnologías y habilidades para la nueva economía.\n\nNuestro programa de Ingeniería en Videojuegos y Tecnologías Inmersivas cuenta con Reconocimiento de Validez Oficial de Estudios (RVOE), lo cual significa que al graduarte obtendrás tu título oficial de Educación Superior.',
+    imageUrl: IMG('2024/10/j.jpg'),
+    imagePosition: 'right',
+    backgroundColor: 'white',
+    buttons: [{ label: 'Inscríbete ya', url: '#form-ingenieria-videojuegos', variant: 'primary', trackId: 'vj-about-cta' }],
+  },
+  testimonialsPlanBlock(universidadTestimonialsId),
+  oportunidades2026Block(),
+  {
+    blockType: 'featuresGrid',
+    heading: 'Haz tu ingeniería en solo 3 años',
+    subheading: 'RVOE No. 2962',
+    backgroundColor: 'white',
+    features: [
+      { iconText: '💻', label: 'Modalidad', value: 'En línea' },
+      { iconText: '⏳', label: 'Duración', value: '3 años (9 cuatrimestres)' },
+      { iconText: '🚀', label: 'Enfoque en', value: 'nuevas Tecnologías y Emprendimiento' },
+      { iconText: '✅', label: 'Avalado por la SEP', value: 'Validez oficial' },
+    ],
+  },
+  {
+    blockType: 'splitContent',
+    eyebrow: 'Comunidad',
+    heading: 'Hybridge',
+    body: 'Hybridge es mucho más que solo un lugar para aprender tecnología. Al estar comprometidos con la construcción del futuro de la educación, entendemos la relevancia de reinventar las comunidades de aprendizaje.\nEn Hybridge serás parte de un ecosistema que conecta a estudiantes, académicos, innovadores, líderes de la industria, emprendedoras, empresas y fondos de inversión.',
+    imageUrl: IMG('2024/11/sdc-1024x1024.png'),
+    imagePosition: 'left',
+    backgroundColor: 'cream',
+    buttons: [{ label: 'Inscríbete ya', url: '#form-ingenieria-videojuegos', variant: 'primary', trackId: 'vj-comunidad-cta' }],
+  },
+  hybridgeAppBlock(),
+  ctaFechaInicio(universidadFechaId, 'vj'),
+  talleresHybridgeBlock(),
+  curriculumPlanBlock(vjPlanId),
+  { blockType: 'videoSection', heading: 'CONOCE MÁS SOBRE NUESTRA INGENIERÍA', youtubeUrl: 'https://youtu.be/CyIuRcXmcoU', backgroundColor: 'cream' },
+  industryLeadersBlock(),
+  { blockType: 'formBlock', form: vjFormId },
+  benefitsHybridgeBlock(),
+  perfilIngresoVideojuegosSplitBlock(),
+  { ...waBlock, trackId: 'vj-wa-bar-bottom' },
+]
+
+const LADM_ABOUT_BODY =
+  'El programa de Licenciatura en Administración e Innovación es un programa con validez oficial dirigido a personas que buscan desarrollar habilidades para crear valor en la Nueva Economía. Este programa ofrece una formación única en administración, finanzas, emprendimiento, liderazgo y mercadotecnia, combinando estos conocimientos con un sólido entendimiento de los negocios digitales y las nuevas tecnologías.\n\nYa sea que busques trabajar en la industria tecnológica, emprender un negocio o participar en la transformación digital de cualquier industria, este programa te prepara para liderar y gestionar equipos en el dinámico ecosistema digital, promoviendo la innovación y la adaptabilidad en la era de la información.'
+
+const ladmLayout = (
+  ladmFormId: string | number,
+  universidadFechaId: string | number,
+  ladmPlanId: string | number,
+  universidadTestimonialsId: string | number,
+) => [
+  {
+    blockType: 'heroBanner',
+    heading: 'Licenciatura en\nAdministración e Innovación',
+    subheading: 'Aprende a administrar negocios digitales e innovar con las nuevas tecnologías',
+    imageUrl: IMG('2024/11/sdc-1024x1024.png'),
+    ctaLabel: 'Inscríbete ya',
+    ctaUrl: '#form-licenciatura-administracion-innovacion',
+    ctaTrackId: 'ladm-hero-cta',
+  },
+  { ...waBlock, trackId: 'ladm-wa-bar' },
+  modeloEducativoBlock(),
+  {
+    blockType: 'splitContent',
+    eyebrow: 'Sobre nuestra',
+    heading: 'Licenciatura en Administración e Innovación',
+    body: LADM_ABOUT_BODY,
+    imageUrl: IMG('2024/11/sdc-1024x1024.png'),
+    imagePosition: 'right',
+    backgroundColor: 'white',
+    buttons: [{ label: 'Inscríbete ya', url: '#form-licenciatura-administracion-innovacion', variant: 'primary', trackId: 'ladm-about-cta' }],
+  },
+  testimonialsPlanBlock(universidadTestimonialsId),
+  oportunidades2026Block(),
+  {
+    blockType: 'featuresGrid',
+    heading: 'Haz tu licenciatura en sólo 3 años',
+    subheading: 'RVOE No. 2961',
+    backgroundColor: 'white',
+    features: [
+      { iconText: '💻', label: 'Modalidad', value: 'En línea' },
+      { iconText: '⏳', label: 'Duración', value: '3 años (9 cuatrimestres)' },
+      { iconText: '🚀', label: 'Enfoque en', value: 'Administración, innovación y negocios digitales' },
+      { iconText: '✅', label: 'Avalado por la SEP', value: 'Validez oficial' },
+    ],
+  },
+  {
+    blockType: 'splitContent',
+    eyebrow: 'Comunidad',
+    heading: 'Hybridge',
+    body: 'Hybridge es mucho más que solo un lugar para aprender tecnología. Al estar comprometidos con la construcción del futuro de la educación, entendemos la relevancia de reinventar las comunidades de aprendizaje.\nEn Hybridge serás parte de un ecosistema que conecta a estudiantes, académicos, innovadores, líderes de la industria, emprendedoras, empresas y fondos de inversión.',
+    imageUrl: IMG('2024/11/sdc-1024x1024.png'),
+    imagePosition: 'left',
+    backgroundColor: 'cream',
+    buttons: [{ label: 'Inscríbete ya', url: '#form-licenciatura-administracion-innovacion', variant: 'primary', trackId: 'ladm-comunidad-cta' }],
+  },
+  hybridgeAppBlock(),
+  ctaFechaInicio(universidadFechaId, 'ladm'),
+  talleresHybridgeBlock(),
+  curriculumPlanBlock(ladmPlanId),
+  {
+    blockType: 'videoSection',
+    heading: 'CONOCE MÁS SOBRE NUESTRA LICENCIATURA',
+    youtubeUrl: 'https://youtu.be/U8I6olwnXCE',
+    backgroundColor: 'cream',
+  },
+  industryLeadersBlock(),
+  { blockType: 'formBlock', form: ladmFormId },
+  benefitsHybridgeBlock(),
+  perfilIngresoAdministracionInnovacionSplitBlock(),
+  { ...waBlock, trackId: 'ladm-wa-bar-bottom' },
+]
+
+const MERCADOTECNIA_ABOUT_BODY =
+  'El programa de Licenciatura en Mercadotecnia y Negocios Digitales es un programa con validez oficial dirigido a personas que buscan liderar estrategias comerciales y de crecimiento en la Nueva Economía. Este programa ofrece una formación innovadora en marketing digital, inteligencia de mercado, liderazgo y emprendimiento, combinando estos conocimientos con un sólido entendimiento de los negocios digitales y las nuevas tecnologías.\n\nYa sea que busques dirigir estrategias de marketing digital, posicionar marcas en entornos virtuales, o emprender un negocio, este programa te prepara para dominar los ecosistemas digitales para impulsar el crecimiento comercial e innovación en un mundo cada vez más conectado'
+
+/* Misma secuencia que Ingeniería en Software; textos y plan propios de Mercadotecnia. */
+const mercLayout = (
+  mercFormId: string | number,
+  universidadFechaId: string | number,
+  mercPlanId: string | number,
+  universidadTestimonialsId: string | number,
+) => [
+  {
+    blockType: 'heroBanner',
+    heading: 'Licenciatura en\nMercadotecnia y Negocios Digitales',
+    subheading: 'Lidera estrategias innovadoras de marketing digital para la Nueva Economía',
+    imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'),
+    ctaLabel: 'Inscríbete ya',
+    ctaUrl: '#form-licenciatura-mercadotecnia-negocios-digitales',
+    ctaTrackId: 'merc-hero-cta',
+  },
+  { ...waBlock, trackId: 'merc-wa-bar' },
+  modeloEducativoBlock(),
+  {
+    blockType: 'splitContent',
+    eyebrow: 'Sobre nuestra',
+    heading: 'Licenciatura en Mercadotecnia y Negocios Digitales',
+    body: MERCADOTECNIA_ABOUT_BODY,
+    imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'),
+    imagePosition: 'right',
+    backgroundColor: 'white',
+    buttons: [{ label: 'Inscríbete ya', url: '#form-licenciatura-mercadotecnia-negocios-digitales', variant: 'primary', trackId: 'merc-about-cta' }],
+  },
+  testimonialsPlanBlock(universidadTestimonialsId),
+  oportunidades2026Block(),
+  {
+    blockType: 'featuresGrid',
+    heading: 'Haz tu licenciatura en sólo 3 años',
+    subheading: 'RVOE No. 3055',
+    backgroundColor: 'white',
+    features: [
+      { iconText: '💻', label: 'Modalidad', value: 'En línea' },
+      { iconText: '⏳', label: 'Duración', value: '3 años (9 cuatrimestres)' },
+      { iconText: '🚀', label: 'Enfoque en', value: 'nuevas Tecnologías y Emprendimiento' },
+      { iconText: '✅', label: 'Avalado por la SEP', value: 'Validez oficial' },
+    ],
+  },
+  {
+    blockType: 'splitContent',
+    eyebrow: 'Comunidad',
+    heading: 'Hybridge',
+    body: 'Hybridge es mucho más que solo un lugar para aprender tecnología. Al estar comprometidos con la construcción del futuro de la educación, entendemos la relevancia de reinventar las comunidades de aprendizaje.\nEn Hybridge serás parte de un ecosistema que conecta a estudiantes, académicos, innovadores, líderes de la industria, emprendedoras, empresas y fondos de inversión.',
+    imageUrl: IMG('2024/11/sdc-1024x1024.png'),
+    imagePosition: 'left',
+    backgroundColor: 'cream',
+    buttons: [{ label: 'Inscríbete ya', url: '#form-licenciatura-mercadotecnia-negocios-digitales', variant: 'primary', trackId: 'merc-comunidad-cta' }],
+  },
+  hybridgeAppBlock(),
+  ctaFechaInicio(universidadFechaId, 'merc'),
+  talleresHybridgeBlock(),
+  curriculumPlanBlock(mercPlanId),
+  { blockType: 'videoSection', heading: 'CONOCE MÁS SOBRE NUESTRA LICENCIATURA', youtubeUrl: 'https://youtu.be/8T5tlcb4jJo', backgroundColor: 'cream' },
+  industryLeadersBlock(),
+  { blockType: 'formBlock', form: mercFormId },
+  benefitsHybridgeBlock(),
+  perfilIngresoMercadotecniaSplitBlock(),
+  { ...waBlock, trackId: 'merc-wa-bar-bottom' },
+]
+
+/* ════════ EXPERIENCIA HYBRIDGE (marketing / Hub) ════════ */
+const experienciaHybridgeLayout = () => [
+  {
+    blockType: 'videoSection',
+    heading: 'CONOCE NUESTRO HUB',
+    subheading: 'Experiencia Hybridge',
+    youtubeUrl: 'https://www.youtube.com/watch?v=rwVpq7ibMbk',
+    backgroundColor: 'cream',
+  },
+  { ...waBlock, trackId: 'exp-wa-bar-top' },
+  {
+    blockType: 'splitContent',
+    eyebrow: 'CONOCE NUESTRO HUB',
+    heading: 'Llevamos estudiar en línea al siguiente nivel',
+    body: 'Estudia prepa y universidad en línea dentro de un ecosistema digital propio: clases en vivo con expertos, contenido disponible siempre y una experiencia que se adapta a ti.',
+    imageUrl: IMG('2024/11/sdc-1024x1024.png'),
+    imagePosition: 'right',
+    backgroundColor: 'white',
+  },
+  {
+    blockType: 'pillarsGrid',
+    backgroundColor: 'cream',
+    pillars: [
+      {
+        title: 'Hybridge Meet',
+        description:
+          'Conéctate a clases en vivo con expertos de la industria. Participa, pregunta y aprende en tiempo real en sesiones dinámicas que combinan lo mejor de la educación presencial con la flexibilidad digital.',
+        icon: '💻',
+      },
+      {
+        title: 'Hybridge App',
+        description:
+          'Tu experiencia de estudio en la palma de tu mano. Accede a tus clases, actividades y contenidos desde cualquier lugar, en cualquier momento. Estudiar en línea ahora se adapta completamente a tu ritmo y estilo de vida.',
+        icon: '📱',
+      },
+      {
+        title: 'Hybridge Cloud',
+        description:
+          'Nunca pierdes una clase. Todas tus sesiones en vivo se almacenan automáticamente para que puedas repetirlas, repasarlas o estudiarlas cuando quieras, desde donde quieras.',
+        icon: '☁️',
+      },
+    ],
+  },
+  hybridgeAppBlock(),
+  {
+    blockType: 'splitContent',
+    eyebrow: 'Todo en un',
+    heading: 'solo lugar',
+    body: 'Nuestro Hub reúne todo lo que necesitas para estudiar en línea: clases en vivo, contenidos, asesorías y evaluaciones dentro de una sola plataforma.\n\nUna experiencia continua, simple y poderosa para estudiar prepa en línea o universidad en línea sin fricciones.',
+    imageUrl: IMG('2024/11/SDFGB@2x.jpg'),
+    imagePosition: 'left',
+    backgroundColor: 'white',
+    buttons: [{ label: 'Habla con un asesor', url: WA_ASES, variant: 'primary', trackId: 'exp-todo-asesor' }],
+  },
+  {
+    blockType: 'splitContent',
+    eyebrow: 'Integraciones',
+    heading: 'únicas',
+    body: 'Sabemos que usar mil herramientas separadas rompe el aprendizaje. Por eso, el Hub reúne todo: video, calendario, chat, contenidos y evaluaciones. Más interacción, inmersión y colaboración en un solo flujo.',
+    imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'),
+    imagePosition: 'left',
+    backgroundColor: 'cream',
+    buttons: [{ label: 'Habla con un asesor', url: WA_ASES, variant: 'primary', trackId: 'exp-integraciones-asesor' }],
+  },
+  {
+    blockType: 'splitContent',
+    eyebrow: 'Los pilares de nuestra experiencia',
+    heading: 'Colaboración, interacción, inmersión y adaptación',
+    body: 'Así vivimos la experiencia en Hybridge:',
+    imageUrl: IMG('2024/11/sdc-1024x1024.png'),
+    imagePosition: 'right',
+    backgroundColor: 'white',
+    bulletPoints: [
+      { text: 'Colaboración: trabajas con tu grupo y profes en tiempo real.' },
+      { text: 'Interacción: actividades y contenidos que te piden participar.' },
+      { text: 'Inmersión: media, proyectos y retos con sentido.' },
+      { text: 'Adaptación: el Hub se ajusta a tu ritmo y objetivos.' },
+    ],
+  },
+  { ...waBlock, trackId: 'exp-wa-bar-bottom' },
 ]
 
 export async function GET() {
   try {
+    await dropLegacyAprendeSobreBeforePayloadInit(process.env.DATABASE_URL || '')
     const payload = await getPayloadClient()
 
     // Ensure Fechas de inicio exist (prepa, universidad)
@@ -348,9 +746,13 @@ export async function GET() {
       }, { status: 500 })
     }
 
-    // Ensure forms exist (prepa, ingenieria-software)
+    // Ensure forms exist (prepa, ingeniería×3, licenciaturas)
     let prepaFormId: string | number
     let swFormId: string | number
+    let iaFormId: string | number
+    let vjFormId: string | number
+    let ladmFormId: string | number
+    let mercFormId: string | number
     const prepaFormRes = await payload.find({ collection: 'forms', where: { slug: { equals: 'prepa' } }, limit: 1 })
     if (prepaFormRes.docs.length) {
       prepaFormId = prepaFormRes.docs[0].id
@@ -381,10 +783,110 @@ export async function GET() {
       })
       swFormId = created.id
     }
+    const iaFormRes = await payload.find({ collection: 'forms', where: { slug: { equals: 'ingenieria-inteligencia-artificial' } }, limit: 1 })
+    if (iaFormRes.docs.length) {
+      iaFormId = iaFormRes.docs[0].id
+    } else {
+      const created = await payload.create({
+        collection: 'forms',
+        data: {
+          title: 'Ingeniería en Inteligencia Artificial',
+          slug: 'ingenieria-inteligencia-artificial',
+          showWhatsAppConsent: true,
+          successMessage: 'Gracias. Nos pondremos en contacto contigo pronto.',
+        },
+      })
+      iaFormId = created.id
+    }
+    const vjFormRes = await payload.find({ collection: 'forms', where: { slug: { equals: 'ingenieria-videojuegos' } }, limit: 1 })
+    if (vjFormRes.docs.length) {
+      vjFormId = vjFormRes.docs[0].id
+    } else {
+      const created = await payload.create({
+        collection: 'forms',
+        data: {
+          title: 'Ingeniería en Videojuegos y Tecnologías Inmersivas',
+          slug: 'ingenieria-videojuegos',
+          showWhatsAppConsent: true,
+          successMessage: 'Gracias. Nos pondremos en contacto contigo pronto.',
+        },
+      })
+      vjFormId = created.id
+    }
+    const ladmFormRes = await payload.find({
+      collection: 'forms',
+      where: { slug: { equals: 'licenciatura-administracion-innovacion' } },
+      limit: 1,
+    })
+    if (ladmFormRes.docs.length) {
+      ladmFormId = ladmFormRes.docs[0].id
+    } else {
+      const created = await payload.create({
+        collection: 'forms',
+        data: {
+          title: 'Licenciatura en Administración e Innovación',
+          slug: 'licenciatura-administracion-innovacion',
+          showWhatsAppConsent: true,
+          successMessage: 'Gracias. Nos pondremos en contacto contigo pronto.',
+        },
+      })
+      ladmFormId = created.id
+    }
+    const mercFormRes = await payload.find({
+      collection: 'forms',
+      where: { slug: { equals: 'licenciatura-mercadotecnia-negocios-digitales' } },
+      limit: 1,
+    })
+    if (mercFormRes.docs.length) {
+      mercFormId = mercFormRes.docs[0].id
+    } else {
+      const created = await payload.create({
+        collection: 'forms',
+        data: {
+          title: 'Licenciatura en Mercadotecnia y Negocios Digitales',
+          slug: 'licenciatura-mercadotecnia-negocios-digitales',
+          showWhatsAppConsent: true,
+          successMessage: 'Gracias. Nos pondremos en contacto contigo pronto.',
+        },
+      })
+      mercFormId = created.id
+    }
+    try {
+      const legacyDemo = await payload.find({
+        collection: 'forms',
+        where: { slug: { equals: 'experiencia-hybridge-demo' } },
+        limit: 100,
+      })
+      for (const doc of legacyDemo.docs) {
+        try {
+          const subs = await payload.find({
+            collection: 'form-submissions',
+            where: { form: { equals: doc.id } },
+            limit: 500,
+          })
+          for (const sub of subs.docs) {
+            try {
+              await payload.delete({ collection: 'form-submissions', id: sub.id })
+            } catch {
+              /* idempotente */
+            }
+          }
+          await payload.delete({ collection: 'forms', id: doc.id })
+        } catch {
+          /* idempotente */
+        }
+      }
+    } catch {
+      /* colección forms ausente */
+    }
 
-    // Ensure Planes de estudio exist (prepa, ingenieria-software)
+    // Ensure Planes de estudio exist (prepa, ingenierías, videojuegos, licenciaturas)
     let prepaPlanId: string | number
     let swPlanId: string | number
+    let iaPlanId: string | number
+    let vjPlanId: string | number
+    let ladmPlanId: string | number
+    let mercPlanId: string | number
     const prepaPlanRes = await payload.find({ collection: 'planes-estudio', where: { slug: { equals: 'prepa' } }, limit: 1 })
     if (prepaPlanRes.docs.length) {
       prepaPlanId = prepaPlanRes.docs[0].id
@@ -404,6 +906,62 @@ export async function GET() {
         data: swPlanData as any,
       })
       swPlanId = created.id
+    }
+    const iaPlanRes = await payload.find({ collection: 'planes-estudio', where: { slug: { equals: 'ingenieria-inteligencia-artificial' } }, limit: 1 })
+    if (iaPlanRes.docs.length) {
+      iaPlanId = iaPlanRes.docs[0].id
+      await payload.update({ collection: 'planes-estudio', id: iaPlanId, data: iaPlanData as any })
+    } else {
+      const created = await payload.create({
+        collection: 'planes-estudio',
+        data: iaPlanData as any,
+      })
+      iaPlanId = created.id
+    }
+    const vjPlanRes = await payload.find({
+      collection: 'planes-estudio',
+      where: { slug: { equals: 'ingenieria-videojuegos-tecnologias-inmersivas' } },
+      limit: 1,
+    })
+    if (vjPlanRes.docs.length) {
+      vjPlanId = vjPlanRes.docs[0].id
+      await payload.update({ collection: 'planes-estudio', id: vjPlanId, data: vjPlanData as any })
+    } else {
+      const created = await payload.create({
+        collection: 'planes-estudio',
+        data: vjPlanData as any,
+      })
+      vjPlanId = created.id
+    }
+    const ladmPlanRes = await payload.find({
+      collection: 'planes-estudio',
+      where: { slug: { equals: 'licenciatura-administracion-innovacion' } },
+      limit: 1,
+    })
+    if (ladmPlanRes.docs.length) {
+      ladmPlanId = ladmPlanRes.docs[0].id
+      await payload.update({ collection: 'planes-estudio', id: ladmPlanId, data: ladmPlanData as any })
+    } else {
+      const created = await payload.create({
+        collection: 'planes-estudio',
+        data: ladmPlanData as any,
+      })
+      ladmPlanId = created.id
+    }
+    const mercPlanRes = await payload.find({
+      collection: 'planes-estudio',
+      where: { slug: { equals: 'licenciatura-mercadotecnia-negocios-digitales' } },
+      limit: 1,
+    })
+    if (mercPlanRes.docs.length) {
+      mercPlanId = mercPlanRes.docs[0].id
+      await payload.update({ collection: 'planes-estudio', id: mercPlanId, data: mercPlanData as any })
+    } else {
+      const created = await payload.create({
+        collection: 'planes-estudio',
+        data: mercPlanData as any,
+      })
+      mercPlanId = created.id
     }
 
     // Ensure Testimonios exist (prepa, universidad). Si la tabla no existe (push: false), devolver mensaje claro.
@@ -541,17 +1099,97 @@ export async function GET() {
       }
     }
 
+    const allowedFacultySlugs = new Set(FACULTY_MEMBERS_SEED.map((m) => m.slug))
+    try {
+      const strayFaculty = await payload.find({ collection: 'faculty-members', limit: 1000, depth: 0 })
+      for (const doc of strayFaculty.docs) {
+        const s = doc.slug != null ? String(doc.slug) : ''
+        if (s && !allowedFacultySlugs.has(s)) {
+          try {
+            await payload.delete({ collection: 'faculty-members', id: doc.id })
+          } catch {
+            /* idempotente: ya eliminado */
+          }
+        }
+      }
+    } catch (_) {
+      /* colección ausente o error de esquema: no bloquear el seed */
+    }
+
     // Delete existing pages with these slugs
-    for (const slug of ['home', 'preparatoria', 'ingenieria-en-software']) {
-      const existing = await payload.find({ collection: 'pages', where: { slug: { equals: slug } }, limit: 1 })
+    for (const slug of [
+      'home',
+      'preparatoria',
+      'ingenieria-en-software',
+      'ingenieria-en-inteligencia-artificial',
+      'ingenieria-en-videojuegos',
+      'licenciatura-en-administracion-e-innovacion',
+      'licenciatura-en-mercadotecnia',
+      'experiencia-hybridge',
+    ]) {
+      const existing = await payload.find({ collection: 'pages', where: { slug: { equals: slug } }, limit: 100 })
       for (const doc of existing.docs) {
-        await payload.delete({ collection: 'pages', id: doc.id })
+        try {
+          await payload.delete({ collection: 'pages', id: doc.id })
+        } catch {
+          /* idempotente: borradores/versiones o ya eliminado */
+        }
       }
     }
 
     await payload.create({ collection: 'pages', data: { title: 'Inicio', slug: 'home', layout: homeLayout(universidadFechaId, universidadTestimonialsId) as any, meta: { title: 'Hybridge Education - La mejor escuela en línea', description: 'Preparatoria y universidad en línea con validez oficial.' } } })
     await payload.create({ collection: 'pages', data: { title: 'Preparatoria', slug: 'preparatoria', layout: prepaLayout(prepaFormId, prepaFechaId, prepaPlanId, prepaTestimonialsId) as any, meta: { title: 'Preparatoria en Línea - Hybridge', description: 'Haz la prepa en 2 años de la manera más disruptiva.' } } })
     await payload.create({ collection: 'pages', data: { title: 'Ingeniería en Software', slug: 'ingenieria-en-software', layout: swLayout(swFormId, universidadFechaId, swPlanId, universidadTestimonialsId) as any, meta: { title: 'Ingeniería en Software - Hybridge', description: 'El mejor programa de ingeniería para dominar la tecnología.' } } })
+    await payload.create({ collection: 'pages', data: { title: 'Ingeniería en Inteligencia Artificial', slug: 'ingenieria-en-inteligencia-artificial', layout: iaLayout(iaFormId, universidadFechaId, iaPlanId, universidadTestimonialsId) as any, meta: { title: 'Ingeniería en Inteligencia Artificial - Hybridge', description: 'Lidera en el campo de la inteligencia artificial.' } } })
+    await payload.create({
+      collection: 'pages',
+      data: {
+        title: 'Ingeniería en Videojuegos y Tecnologías Inmersivas',
+        slug: 'ingenieria-en-videojuegos',
+        layout: vjLayout(vjFormId, universidadFechaId, vjPlanId, universidadTestimonialsId) as any,
+        meta: {
+          title: 'Ingeniería en Videojuegos y Tecnologías Inmersivas - Hybridge',
+          description: 'Construye mundos virtuales.',
+        },
+      },
+    })
+    await payload.create({
+      collection: 'pages',
+      data: {
+        title: 'Licenciatura en Administración e Innovación',
+        slug: 'licenciatura-en-administracion-e-innovacion',
+        layout: ladmLayout(ladmFormId, universidadFechaId, ladmPlanId, universidadTestimonialsId) as any,
+        meta: {
+          title: 'Licenciatura en Administración e Innovación - Hybridge',
+          description: 'Aprende a administrar negocios digitales e innovar con las nuevas tecnologías.',
+        },
+      },
+    })
+    await payload.create({
+      collection: 'pages',
+      data: {
+        title: 'Licenciatura en Mercadotecnia y Negocios Digitales',
+        slug: 'licenciatura-en-mercadotecnia',
+        layout: mercLayout(mercFormId, universidadFechaId, mercPlanId, universidadTestimonialsId) as any,
+        meta: {
+          title: 'Licenciatura en Mercadotecnia y Negocios Digitales - Hybridge',
+          description: 'Lidera estrategias innovadoras de marketing digital para la Nueva Economía.',
+        },
+      },
+    })
+    await payload.create({
+      collection: 'pages',
+      data: {
+        title: 'Experiencia Hybridge',
+        slug: 'experiencia-hybridge',
+        layout: experienciaHybridgeLayout() as any,
+        meta: {
+          title: 'Experiencia Hybridge - Hybridge',
+          description:
+            'Haz la prepa o la universidad en línea con la experiencia más conectada y flexible: Hybridge Meet, Calendario, Cloud y un solo Hub.',
+        },
+      },
+    })
 
     try {
       await payload.updateGlobal({ slug: 'footer', data: { tagline: 'La mejor escuela en línea para tecnologías digitales.' } as any })
@@ -580,33 +1218,58 @@ export async function GET() {
     } catch (_) {}
 
     try {
-      const chips = [
-        { label: 'Programación' },
-        { label: 'Negocios' },
-        { label: 'UI / UX' },
-        { label: 'Inteligencia Artificial' },
-        { label: 'Desarrollo' },
-        { label: 'Datos' },
-      ]
-
-      const skills = [
-        { iconKey: 'javascript', opacity: 0.5, size: 28 },
-        { iconKey: 'python', opacity: 0.5, size: 28 },
-        { iconKey: 'googlecloud', opacity: 0.5, size: 28 },
-        { iconKey: 'cloudflare', opacity: 0.5, size: 28 },
-        { iconKey: 'figma', opacity: 0.5, size: 28 },
-        { iconKey: 'react', opacity: 0.5, size: 28 },
-      ]
-
-      await payload.updateGlobal({
-        slug: 'aprendeSobre',
-        data: { chips, skills } as any,
-      })
+      for (const gslug of APRENDE_SOBRE_GLOBAL_SLUGS) {
+        await payload.updateGlobal({
+          slug: gslug,
+          data: APRENDE_SOBRE_SEED_DATA as any,
+        })
+      }
     } catch (err) {
-      console.error('Seed aprendeSobre error:', err)
+      console.error('Seed aprendeSobre (por programa) error:', err)
     }
 
-    return NextResponse.json({ success: true, message: 'Seeded: home, preparatoria, ingenieria-en-software + forms + fechas-inicio + planes-estudio + testimonios' })
+    try {
+      const blogRows = loadBlogPostsSeedRows()
+      const allowedBlogSlugs = new Set(blogRows.map((r) => r.slug))
+      const allBlog = await payload.find({ collection: 'blog-posts', limit: 500, depth: 0 })
+      for (const doc of allBlog.docs) {
+        const s = doc.slug != null ? String(doc.slug) : ''
+        if (s && !allowedBlogSlugs.has(s)) {
+          try {
+            await payload.delete({ collection: 'blog-posts', id: doc.id })
+          } catch {
+            /* idempotente */
+          }
+        }
+      }
+      for (const row of blogRows) {
+        const existing = await payload.find({ collection: 'blog-posts', where: { slug: { equals: row.slug } }, limit: 1 })
+        const data = {
+          slug: row.slug,
+          title: { es: row.titleEs, en: row.titleEn },
+          publishedAt: row.publishedAt,
+          authorName: { es: row.authorName, en: row.authorName },
+          contentType: row.contentType,
+          featured: row.featured,
+          featuredImageUrl: row.featuredImageUrl,
+          metaDescription: { es: row.metaDescriptionEs, en: row.metaDescriptionEn },
+          bodyMarkdown: { es: row.bodyMarkdownEs, en: row.bodyMarkdownEn },
+        }
+        if (existing.docs.length) {
+          await payload.update({ collection: 'blog-posts', id: existing.docs[0].id, data: data as any })
+        } else {
+          await payload.create({ collection: 'blog-posts', data: data as any })
+        }
+      }
+    } catch (blogErr) {
+      console.error('Seed blog-posts error:', blogErr)
+    }
+
+    return NextResponse.json({
+      success: true,
+      message:
+        'Seeded: home, preparatoria, ingenierías, ingenieria-en-videojuegos, licenciaturas (administración, mercadotecnia), experiencia-hybridge, blog (47 entradas WP) + forms + fechas-inicio + planes-estudio + testimonios',
+    })
   } catch (error: any) {
     console.error('Seed error:', error)
     const message = error?.message || String(error)

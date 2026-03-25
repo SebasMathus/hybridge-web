@@ -103,14 +103,23 @@ export function hybridgeAppBlock() {
   }
 }
 
-export function perfilIngresoSplitBlock() {
-  return {
-    blockType: 'splitContent' as const,
-    eyebrow: '',
-    heading: 'PERFIL DE INGRESO',
-    body:
-      'Dirigido a personas innovadoras con pasión por la tecnología, formación en ingeniería, nuevas tecnologías y habilidades del futuro.\n\nEl/la estudiante de Hybridge:',
-    bulletPoints: [
+const perfilIngresoBase = (body: string, bulletPoints: { text: string }[]) => ({
+  blockType: 'splitContent' as const,
+  eyebrow: '',
+  heading: 'PERFIL DE INGRESO',
+  body,
+  bulletPoints,
+  imageUrl: wp('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'),
+  imagePosition: 'right' as const,
+  backgroundColor: 'white' as const,
+  buttons: [],
+})
+
+/** Ingeniería en Software — alineado con hybridge.education/ingenieria-en-software */
+export function perfilIngresoSoftwareSplitBlock() {
+  return perfilIngresoBase(
+    'Dirigido a personas innovadoras que aspiran a dominar el mundo de la tecnología y la transformación digital.\n\nEl/la estudiante de Hybridge:',
+    [
       { text: 'Busca la forma más flexible y disruptiva de estudiar Ingeniería.' },
       { text: 'Es curioso/a y busca aprender de la manera más innovadora posible.' },
       { text: 'Entiende que las cosas han cambiado y que los retos del futuro demandan una educación diferente.' },
@@ -118,9 +127,74 @@ export function perfilIngresoSplitBlock() {
       { text: 'Cuenta con certificado de bachillerato.' },
       { text: 'Cuenta con lo necesario para hacer un programa en línea.' },
     ],
-    imageUrl: wp('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'),
-    imagePosition: 'right' as const,
-    backgroundColor: 'white' as const,
-    buttons: [],
-  }
+  )
+}
+
+/** Ingeniería en Inteligencia Artificial — hybridge.education/ingenieria-en-inteligencia-artificial */
+export function perfilIngresoIASplitBlock() {
+  return perfilIngresoBase(
+    'Dirigido a personas innovadoras que aspiran a liderar en inteligencia artificial, aprendizaje automático y aplicaciones de software.\n\nEl/la estudiante de Hybridge:',
+    [
+      { text: 'Busca la forma más flexible y disruptiva de estudiar Ingeniería.' },
+      { text: 'Es curioso/a y busca aprender de la manera más innovadora posible.' },
+      { text: 'Está interesado/a en liderar en el incipiente campo de la inteligencia artificial.' },
+      { text: 'Busca trabajar en el sector tecnológico.' },
+      { text: 'Entiende que las cosas han cambiado y que los retos del futuro demandan una educación diferente.' },
+      { text: 'Cuenta con certificado de bachillerato.' },
+      { text: 'Cuenta con lo necesario para hacer un programa en línea.' },
+    ],
+  )
+}
+
+/** Ingeniería en Videojuegos / Inmersivas — hybridge.education/ingenieria-en-videojuegos */
+export function perfilIngresoVideojuegosSplitBlock() {
+  return perfilIngresoBase(
+    'Dirigido a personas creativas y apasionadas por el diseño de experiencias digitales, videojuegos y tecnologías inmersivas.\n\nEl/la estudiante de Hybridge:',
+    [
+      { text: 'Busca la forma más flexible y disruptiva de estudiar Ingeniería.' },
+      { text: 'Es curioso/a y busca aprender de la manera más innovadora posible.' },
+      { text: 'Le apasiona el desarrollo de experiencias inmersivas y videojuegos.' },
+      { text: 'Entiende que el futuro se construye con nuevas narrativas y tecnologías emergentes.' },
+      { text: 'Busca trabajar en el sector tecnológico.' },
+      { text: 'Entiende que las cosas han cambiado y que los retos del futuro demandan una educación diferente.' },
+      { text: 'Cuenta con certificado de bachillerato.' },
+      { text: 'Cuenta con lo necesario para hacer un programa en línea.' },
+    ],
+  )
+}
+
+/** Licenciatura en Administración e Innovación — hybridge.education/licenciatura-en-administracion-e-innovacion */
+export function perfilIngresoAdministracionInnovacionSplitBlock() {
+  return perfilIngresoBase(
+    'Dirigido a personas que buscan crear valor en la Nueva Economía mediante administración, negocios digitales e innovación.\n\nEl/la estudiante de Hybridge:',
+    [
+      { text: 'Busca la forma más flexible y disruptiva de estudiar una Licenciatura.' },
+      { text: 'Es curioso/a y busca aprender de la manera más innovadora posible.' },
+      { text: 'Está interesado/a en los nuevos modelos de negocio.' },
+      { text: 'Entiende que las cosas han cambiado y que los retos del futuro demandan una educación diferente.' },
+      { text: 'Cuenta con certificado de bachillerato.' },
+      { text: 'Cuenta con lo necesario para hacer un programa en línea.' },
+    ],
+  )
+}
+
+/** Licenciatura en Mercadotecnia y Negocios Digitales — hybridge.education/licenciatura-en-mercadotecnia */
+export function perfilIngresoMercadotecniaSplitBlock() {
+  return perfilIngresoBase(
+    'Dirigido a personas que buscan liderar estrategias comerciales y de crecimiento en la Nueva Economía.\n\nEl/la estudiante de Hybridge:',
+    [
+      { text: 'Busca la forma más flexible y disruptiva de estudiar Licenciatura.' },
+      { text: 'Está interesado/a en las estrategias comerciales de crecimiento y de posicionamiento de mercado por medio de canales digitales.' },
+      { text: 'Es curioso/a y busca aprender de la manera más innovadora posible.' },
+      { text: 'Está interesado/a en los nuevos modelos de negocio.' },
+      { text: 'Entiende que las cosas han cambiado y que los retos del futuro demandan una educación diferente.' },
+      { text: 'Cuenta con certificado de bachillerato.' },
+      { text: 'Cuenta con lo necesario para hacer un programa en línea.' },
+    ],
+  )
+}
+
+/** @deprecated Usa la variante por programa (p. ej. `perfilIngresoSoftwareSplitBlock`). */
+export function perfilIngresoSplitBlock() {
+  return perfilIngresoSoftwareSplitBlock()
 }

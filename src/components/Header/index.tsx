@@ -22,7 +22,7 @@ export const Header = ({ data, locale }: Props) => {
       { label: 'Lic. en Mercadotecnia y Negocios Digitales', url: `/${locale}/licenciatura-en-mercadotecnia` },
       { label: 'Ing. en Tecnologías Inmersivas y Videojuegos', url: `/${locale}/ingenieria-en-videojuegos` },
     ]},
-    { label: 'Blog', url: `/${locale}/blog` },
+    { label: locale === 'en' ? 'Testimonials' : 'Testimonios', url: `/${locale}/blog/testimonios` },
     { label: 'Experiencia Hybridge', url: `/${locale}/experiencia-hybridge` },
   ]
   const headerCss: React.CSSProperties = { position: 'sticky', top: 0, zIndex: 100, background: '#0D0D0D' }
