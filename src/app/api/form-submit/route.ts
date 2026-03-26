@@ -6,6 +6,7 @@ export async function POST(request: Request) {
     const body = await request.json()
     const {
       formSlug,
+      sourceUrl,
       firstName,
       lastName,
       email,
@@ -18,7 +19,7 @@ export async function POST(request: Request) {
       whatsappConsent,
     } = body
 
-    if (!formSlug || !firstName || !lastName || !email || !phone || age == null || !state || !howDidYouHear || !message || !privacyAccepted) {
+    if (!formSlug || !sourceUrl || !firstName || !lastName || !email || !phone || age == null || !state || !howDidYouHear || !message || !privacyAccepted) {
       return NextResponse.json({ error: 'Faltan campos requeridos.' }, { status: 400 })
     }
 
@@ -37,6 +38,7 @@ export async function POST(request: Request) {
       collection: 'form-submissions',
       data: {
         form: form.id,
+        sourceUrl: String(sourceUrl).trim(),
         firstName: String(firstName).trim(),
         lastName: String(lastName).trim(),
         email: String(email).trim(),

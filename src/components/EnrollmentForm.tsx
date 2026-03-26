@@ -46,6 +46,7 @@ export function EnrollmentForm({ formSlug, title, showWhatsAppConsent, successMe
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           formSlug,
+          sourceUrl: typeof window !== 'undefined' ? window.location.href : '',
           ...data,
           age: Number(data.age) || undefined,
         }),
