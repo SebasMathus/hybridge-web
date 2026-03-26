@@ -48,6 +48,13 @@ export default async function HomePage({ params }: Props) {
         ? { ...b, url: resolveWACtaUrl(waCtaEntries, 'home') }
         : b,
     )
+    const moveWhatsAppAfterFirstBlock = (arr: any[]) => {
+      const wa = arr.find((b: any) => b?.blockType === 'whatsappBar')
+      if (!wa || arr.length < 2) return arr
+      const withoutWa = arr.filter((b: any) => b?.blockType !== 'whatsappBar')
+      if (!withoutWa.length) return [wa]
+      return [withoutWa[0], { ...wa, trackId: wa.trackId || 'home-wa-bar-top' }, ...withoutWa.slice(1)]
+    }
     const stripAccents = (s: string) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 
     // Colocamos el bloque justo antes del grid de pilares para "nuestra tecnología educativa".
@@ -61,13 +68,22 @@ export default async function HomePage({ params }: Props) {
 
     const pillarsIndex = pillsTargetIndex === -1 ? blocks.findIndex((b: any) => b?.blockType === 'pillarsGrid') : pillsTargetIndex
     const blocksBeforePillars = pillarsIndex === -1 ? blocks : blocks.slice(0, pillarsIndex)
+    const blocksBeforePillarsOrdered = moveWhatsAppAfterFirstBlock(blocksBeforePillars)
     const blocksAfterPillars = pillarsIndex === -1 ? [] : blocks.slice(pillarsIndex)
-    const blocksBeforePillarsFirst = blocksBeforePillars.slice(0, 1)
-    const blocksBeforePillarsRest = blocksBeforePillars.slice(1)
+    const blocksBeforePillarsFirst = blocksBeforePillarsOrdered.slice(0, 1)
+    const waBeforeStudents =
+      blocksBeforePillarsOrdered[1]?.blockType === 'whatsappBar'
+        ? [blocksBeforePillarsOrdered[1]]
+        : []
+    const blocksBeforePillarsRest =
+      blocksBeforePillarsOrdered[1]?.blockType === 'whatsappBar'
+        ? blocksBeforePillarsOrdered.slice(2)
+        : blocksBeforePillarsOrdered.slice(1)
 
     return (
       <>
         <RenderBlocks blocks={blocksBeforePillarsFirst} locale={lang} />
+        <RenderBlocks blocks={waBeforeStudents} locale={lang} />
         <StudentsWorkWithSection data={studentsWorkWith as any} />
         <RenderBlocks blocks={blocksBeforePillarsRest} locale={lang} />
         {lang === 'es' ? <ActiveStudentsHybridge /> : null}

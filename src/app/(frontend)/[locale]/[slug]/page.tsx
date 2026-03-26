@@ -224,8 +224,10 @@ export default async function DynamicPage({ params }: Props) {
   }
 
   const normalizedBlocks = enforceTopAndBottomWhatsapp(blocks)
-  const blocksBefore = showStudentsWorkWith ? normalizedBlocks.slice(0, 1) : normalizedBlocks
-  const blocksAfter = showStudentsWorkWith ? normalizedBlocks.slice(1) : normalizedBlocks
+  const blocksBeforeCount =
+    showStudentsWorkWith && normalizedBlocks[1]?.blockType === 'whatsappBar' ? 2 : 1
+  const blocksBefore = showStudentsWorkWith ? normalizedBlocks.slice(0, blocksBeforeCount) : normalizedBlocks
+  const blocksAfter = showStudentsWorkWith ? normalizedBlocks.slice(blocksBeforeCount) : normalizedBlocks
 
   const isUniversidadAboutSplitForChips = (b: any) => {
     if (b?.blockType !== 'splitContent') return false
