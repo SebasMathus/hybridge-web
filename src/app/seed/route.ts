@@ -1118,6 +1118,8 @@ export async function GET() {
       'ingenieria-en-inteligencia-artificial',
       'ingenieria-en-videojuegos',
       'licenciatura-en-administracion-e-innovacion',
+      'licenciatura-en-administracion-e-innovacion-tk',
+      'licenciatura-en-administracion-e-innovacion-yt',
       'licenciatura-en-mercadotecnia',
       'experiencia-hybridge',
     ]) {

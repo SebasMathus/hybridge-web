@@ -20,6 +20,7 @@ export function pageKeyFromPath(pathname: string): string {
   const seg = clean.split('/').filter(Boolean)
   if (seg.length === 1 && (seg[0] === 'es' || seg[0] === 'en')) return 'home'
   const maybeSlug = seg.length >= 2 ? seg[1] : ''
+  const maybeChannel = seg.length >= 3 ? seg[2] : ''
   const known = new Set([
     'preparatoria',
     'ingenieria-en-software',
@@ -29,6 +30,9 @@ export function pageKeyFromPath(pathname: string): string {
     'licenciatura-en-mercadotecnia',
     'experiencia-hybridge',
   ])
+  if ((maybeChannel === 'tk' || maybeChannel === 'yt') && known.has(maybeSlug)) {
+    return `${maybeSlug}-${maybeChannel}`
+  }
   return known.has(maybeSlug) ? maybeSlug : 'global'
 }
 

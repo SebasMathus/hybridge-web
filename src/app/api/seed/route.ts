@@ -1133,9 +1133,15 @@ export async function GET() {
     }
     seedOk('Limpieza faculty huérfanos (si aplica)')
 
-    seedOk('Páginas CMS: eliminando entradas previas por slug…')
-    // Delete existing pages with these slugs
-    for (const slug of [
+    const campaignProgramSlugs = [
+      'preparatoria',
+      'ingenieria-en-software',
+      'ingenieria-en-inteligencia-artificial',
+      'ingenieria-en-videojuegos',
+      'licenciatura-en-mercadotecnia',
+    ] as const
+    const channels = ['tk', 'yt'] as const
+    const pageSlugsToDelete = [
       'home',
       'preparatoria',
       'ingenieria-en-software',
@@ -1144,7 +1150,14 @@ export async function GET() {
       'licenciatura-en-administracion-e-innovacion',
       'licenciatura-en-mercadotecnia',
       'experiencia-hybridge',
-    ]) {
+      'licenciatura-en-administracion-e-innovacion-tk',
+      'licenciatura-en-administracion-e-innovacion-yt',
+      ...campaignProgramSlugs.flatMap((base) => channels.map((ch) => `${base}-${ch}`)),
+    ]
+
+    seedOk('Páginas CMS: eliminando entradas previas por slug…')
+    // Delete existing pages with these slugs
+    for (const slug of pageSlugsToDelete) {
       const existing = await payload.find({ collection: 'pages', where: { slug: { equals: slug } }, limit: 100 })
       for (const doc of existing.docs) {
         try {
@@ -1156,18 +1169,19 @@ export async function GET() {
     }
     seedOk('Páginas CMS: borrado previo listo — creando páginas…')
 
-    await payload.create({ collection: 'pages', data: { title: 'Inicio', slug: 'home', layout: homeLayout(universidadFechaId, universidadTestimonialsId) as any, meta: { title: 'Hybridge Education - La mejor escuela en línea', description: 'Preparatoria y universidad en línea con validez oficial.' } } })
+    await payload.create({ collection: 'pages', data: { title: 'Inicio', pageType: 'main', slug: 'home', layout: homeLayout(universidadFechaId, universidadTestimonialsId) as any, meta: { title: 'Hybridge Education - La mejor escuela en línea', description: 'Preparatoria y universidad en línea con validez oficial.' } } })
     seedOk('Página: home')
-    await payload.create({ collection: 'pages', data: { title: 'Preparatoria', slug: 'preparatoria', layout: prepaLayout(prepaFormId, prepaFechaId, prepaPlanId, prepaTestimonialsId) as any, meta: { title: 'Preparatoria en Línea - Hybridge', description: 'Haz la prepa en 2 años de la manera más disruptiva.' } } })
+    await payload.create({ collection: 'pages', data: { title: 'Preparatoria', pageType: 'main', slug: 'preparatoria', layout: prepaLayout(prepaFormId, prepaFechaId, prepaPlanId, prepaTestimonialsId) as any, meta: { title: 'Preparatoria en Línea - Hybridge', description: 'Haz la prepa en 2 años de la manera más disruptiva.' } } })
     seedOk('Página: preparatoria')
-    await payload.create({ collection: 'pages', data: { title: 'Ingeniería en Software', slug: 'ingenieria-en-software', layout: swLayout(swFormId, universidadFechaId, swPlanId, universidadTestimonialsId) as any, meta: { title: 'Ingeniería en Software - Hybridge', description: 'El mejor programa de ingeniería para dominar la tecnología.' } } })
+    await payload.create({ collection: 'pages', data: { title: 'Ingeniería en Software', pageType: 'main', slug: 'ingenieria-en-software', layout: swLayout(swFormId, universidadFechaId, swPlanId, universidadTestimonialsId) as any, meta: { title: 'Ingeniería en Software - Hybridge', description: 'El mejor programa de ingeniería para dominar la tecnología.' } } })
     seedOk('Página: ingenieria-en-software')
-    await payload.create({ collection: 'pages', data: { title: 'Ingeniería en Inteligencia Artificial', slug: 'ingenieria-en-inteligencia-artificial', layout: iaLayout(iaFormId, universidadFechaId, iaPlanId, universidadTestimonialsId) as any, meta: { title: 'Ingeniería en Inteligencia Artificial - Hybridge', description: 'Lidera en el campo de la inteligencia artificial.' } } })
+    await payload.create({ collection: 'pages', data: { title: 'Ingeniería en Inteligencia Artificial', pageType: 'main', slug: 'ingenieria-en-inteligencia-artificial', layout: iaLayout(iaFormId, universidadFechaId, iaPlanId, universidadTestimonialsId) as any, meta: { title: 'Ingeniería en Inteligencia Artificial - Hybridge', description: 'Lidera en el campo de la inteligencia artificial.' } } })
     seedOk('Página: ingenieria-en-inteligencia-artificial')
     await payload.create({
       collection: 'pages',
       data: {
         title: 'Ingeniería en Videojuegos y Tecnologías Inmersivas',
+        pageType: 'main',
         slug: 'ingenieria-en-videojuegos',
         layout: vjLayout(vjFormId, universidadFechaId, vjPlanId, universidadTestimonialsId) as any,
         meta: {
@@ -1181,6 +1195,7 @@ export async function GET() {
       collection: 'pages',
       data: {
         title: 'Licenciatura en Administración e Innovación',
+        pageType: 'main',
         slug: 'licenciatura-en-administracion-e-innovacion',
         layout: ladmLayout(ladmFormId, universidadFechaId, ladmPlanId, universidadTestimonialsId) as any,
         meta: {
@@ -1194,6 +1209,7 @@ export async function GET() {
       collection: 'pages',
       data: {
         title: 'Licenciatura en Mercadotecnia y Negocios Digitales',
+        pageType: 'main',
         slug: 'licenciatura-en-mercadotecnia',
         layout: mercLayout(mercFormId, universidadFechaId, mercPlanId, universidadTestimonialsId) as any,
         meta: {
@@ -1207,6 +1223,7 @@ export async function GET() {
       collection: 'pages',
       data: {
         title: 'Experiencia Hybridge',
+        pageType: 'main',
         slug: 'experiencia-hybridge',
         layout: experienciaHybridgeLayout() as any,
         meta: {
@@ -1217,6 +1234,56 @@ export async function GET() {
       },
     })
     seedOk('Página: experiencia-hybridge')
+
+    const campaignPagesData = [
+      {
+        title: 'Preparatoria',
+        baseSlug: 'preparatoria',
+        layout: prepaLayout(prepaFormId, prepaFechaId, prepaPlanId, prepaTestimonialsId),
+        meta: { title: 'Preparatoria en Línea - Hybridge', description: 'Haz la prepa en 2 años de la manera más disruptiva.' },
+      },
+      {
+        title: 'Ingeniería en Software',
+        baseSlug: 'ingenieria-en-software',
+        layout: swLayout(swFormId, universidadFechaId, swPlanId, universidadTestimonialsId),
+        meta: { title: 'Ingeniería en Software - Hybridge', description: 'El mejor programa de ingeniería para dominar la tecnología.' },
+      },
+      {
+        title: 'Ingeniería en Inteligencia Artificial',
+        baseSlug: 'ingenieria-en-inteligencia-artificial',
+        layout: iaLayout(iaFormId, universidadFechaId, iaPlanId, universidadTestimonialsId),
+        meta: { title: 'Ingeniería en Inteligencia Artificial - Hybridge', description: 'Lidera en el campo de la inteligencia artificial.' },
+      },
+      {
+        title: 'Ingeniería en Videojuegos y Tecnologías Inmersivas',
+        baseSlug: 'ingenieria-en-videojuegos',
+        layout: vjLayout(vjFormId, universidadFechaId, vjPlanId, universidadTestimonialsId),
+        meta: { title: 'Ingeniería en Videojuegos y Tecnologías Inmersivas - Hybridge', description: 'Construye mundos virtuales.' },
+      },
+      {
+        title: 'Licenciatura en Mercadotecnia y Negocios Digitales',
+        baseSlug: 'licenciatura-en-mercadotecnia',
+        layout: mercLayout(mercFormId, universidadFechaId, mercPlanId, universidadTestimonialsId),
+        meta: { title: 'Licenciatura en Mercadotecnia y Negocios Digitales - Hybridge', description: 'Lidera estrategias innovadoras de marketing digital para la Nueva Economía.' },
+      },
+    ] as const
+    for (const pageData of campaignPagesData) {
+      for (const campaignChannel of channels) {
+        await payload.create({
+          collection: 'pages',
+          data: {
+            title: `${pageData.title} (${campaignChannel.toUpperCase()})`,
+            pageType: 'campaign',
+            campaignBaseSlug: pageData.baseSlug,
+            campaignChannel,
+            slug: `${pageData.baseSlug}-${campaignChannel}`,
+            layout: pageData.layout as any,
+            meta: pageData.meta as any,
+          },
+        })
+      }
+    }
+    seedOk('Páginas CMS: campañas TK/YT para programas')
 
     try {
       await payload.updateGlobal({ slug: 'footer', data: { tagline: 'La mejor escuela en línea para tecnologías digitales.' } as any })
@@ -1260,10 +1327,21 @@ export async function GET() {
         'licenciatura-en-mercadotecnia',
         'experiencia-hybridge',
       ]
+      const campaignProgramPageKeys = [
+        'preparatoria',
+        'ingenieria-en-software',
+        'ingenieria-en-inteligencia-artificial',
+        'ingenieria-en-videojuegos',
+        'licenciatura-en-mercadotecnia',
+      ]
       await payload.create({ collection: 'wa-cta', data: { pageKey: 'global', url: WA_CTA_HOME_URL } as any })
       await payload.create({ collection: 'wa-cta', data: { pageKey: 'home', url: WA_CTA_HOME_URL } as any })
       for (const pageKey of programPageKeys) {
         await payload.create({ collection: 'wa-cta', data: { pageKey, url: WA_CTA_PROGRAMS_URL } as any })
+      }
+      for (const pageKey of campaignProgramPageKeys) {
+        await payload.create({ collection: 'wa-cta', data: { pageKey: `${pageKey}-tk`, url: WA_CTA_PROGRAMS_URL } as any })
+        await payload.create({ collection: 'wa-cta', data: { pageKey: `${pageKey}-yt`, url: WA_CTA_PROGRAMS_URL } as any })
       }
       seedOk('Colección: WA CTA (global/home/programas)')
     } catch (err) {
