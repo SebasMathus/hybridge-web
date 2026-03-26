@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   siApplemusic,
-  siApple,
   siAutodesk,
   siFigma,
   siGithub,
@@ -20,16 +19,12 @@ type Benefit = {
 const BENEFITS: Benefit[] = [
   { label: 'Spotify', size: 'md', pulse: 'normal' },
   { label: 'Apple\nmusic', size: 'sm', pulse: 'slow' },
-  { label: 'Apple', size: 'md', pulse: 'fast' },
   { label: 'Bookmate', size: 'sm', pulse: 'normal' },
   { label: 'Microsoft', size: 'md', pulse: 'slow' },
   { label: 'Github\nEducation', size: 'sm', pulse: 'fast' },
   { label: 'Figma\nEducation', size: 'md', pulse: 'normal' },
   { label: 'Copilot', size: 'sm', pulse: 'slow' },
-  { label: 'Sixflags', size: 'md', pulse: 'normal' },
-  { label: 'Hurricane\nHarbor', size: 'sm', pulse: 'fast' },
   { label: 'Jetbrains', size: 'md', pulse: 'slow' },
-  { label: 'Noorns', size: 'sm', pulse: 'normal' },
   { label: 'Youtube', size: 'md', pulse: 'fast' },
   { label: 'Autodesk\nMaya', size: 'sm', pulse: 'slow' },
   { label: 'Tableau', size: 'md', pulse: 'normal' },
@@ -41,14 +36,13 @@ type SimpleIcon = { title: string; hex: string; path: string }
 const ICON_BY_LABEL: Record<string, SimpleIcon | undefined> = {
   Spotify: siSpotify,
   'Apple\nmusic': siApplemusic,
-  Apple: siApple,
   'Github\nEducation': siGithub,
   'Figma\nEducation': siFigma,
   Copilot: siGithubcopilot,
   Youtube: siYoutube,
   Jetbrains: siJetbrains,
   'Autodesk\nMaya': siAutodesk,
-  // Missing in simple-icons (for now): Microsoft, Tableau, Adobe, Sixflags, Bookmate, Noorns, Hurricane Harbor
+  // Missing in simple-icons (for now): Microsoft, Tableau, Adobe, Bookmate
 }
 
 function SimpleIconSvg({ icon, className }: { icon: SimpleIcon; className?: string }) {
@@ -129,8 +123,8 @@ export function BenefitsHybridgeGrid() {
 
         .hb-benefits__grid {
           display: grid;
-          grid-template-columns: repeat(8, minmax(0, 1fr));
-          gap: 22px 28px;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 18px 18px;
           justify-items: center;
           align-items: start;
         }
@@ -188,11 +182,13 @@ export function BenefitsHybridgeGrid() {
         .hb-benefits__item--pulse-normal { animation: hbPulse 3.8s ease-in-out infinite; }
         .hb-benefits__item--pulse-fast { animation: hbPulse 3.1s ease-in-out infinite; }
 
-        @media (max-width: 1024px) {
-          .hb-benefits__grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+        @media (min-width: 640px) {
+          .hb-benefits__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        }
+        @media (min-width: 1024px) {
+          .hb-benefits__grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 22px 28px; }
         }
         @media (max-width: 768px) {
-          .hb-benefits__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px 18px; }
           .hb-benefits__item { max-width: 100px; }
           .hb-benefits__label { font-size: 0.85rem; }
         }
