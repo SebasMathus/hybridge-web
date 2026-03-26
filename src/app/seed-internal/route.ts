@@ -20,6 +20,7 @@ import {
 } from '@/seedData/aprendeSobreSeed'
 import { dropLegacyAprendeSobreBeforePayloadInit } from '@/lib/dropLegacyAprendeSobreTables'
 import { loadBlogPostsSeedRows } from '@/seedData/blogPosts'
+import { legalDefaults } from '@/lib/legalDefaults'
 
 const WA = 'https://wa.me/message/2JJMWGRX5DSDO1'
 const WA_INSC = 'https://wa.me/+525592256413?text=¡Hola!%20Me%20gustaria%20inscribirme'
@@ -1219,6 +1220,29 @@ export async function GET() {
         } as any,
       })
     } catch (_) {}
+
+    try {
+      await payload.updateGlobal({
+        slug: 'legal',
+        locale: 'es',
+        data: {
+          avisoDePrivacidad: {
+            title: legalDefaults.avisoDePrivacidad.title,
+            markdown: legalDefaults.avisoDePrivacidad.markdown,
+          },
+          termsAndConditions: {
+            title: legalDefaults.termsAndConditions.title,
+            markdown: legalDefaults.termsAndConditions.markdown,
+          },
+          rvoes: {
+            title: legalDefaults.rvoes.title,
+            markdown: legalDefaults.rvoes.markdown,
+          },
+        } as any,
+      })
+    } catch (_) {
+      // best-effort
+    }
 
     try {
       await payload.updateGlobal({

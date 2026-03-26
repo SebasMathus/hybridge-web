@@ -21,6 +21,7 @@ import {
 import { dropLegacyAprendeSobreBeforePayloadInit } from '@/lib/dropLegacyAprendeSobreTables'
 import { loadBlogPostsSeedRows } from '@/seedData/blogPosts'
 import { seedStart, seedOk, seedFail, seedDone } from '@/lib/seedLog'
+import { legalDefaults } from '@/lib/legalDefaults'
 
 const WA = 'https://wa.me/message/2JJMWGRX5DSDO1'
 const WA_INSC = 'https://wa.me/+525592256413?text=¡Hola!%20Me%20gustaria%20inscribirme'
@@ -1243,6 +1244,30 @@ export async function GET() {
       })
     } catch (_) {}
     seedOk('Globales: studentsWorkWith (es/en)')
+
+    try {
+      await payload.updateGlobal({
+        slug: 'legal',
+        locale: 'es',
+        data: {
+          avisoDePrivacidad: {
+            title: legalDefaults.avisoDePrivacidad.title,
+            markdown: legalDefaults.avisoDePrivacidad.markdown,
+          },
+          termsAndConditions: {
+            title: legalDefaults.termsAndConditions.title,
+            markdown: legalDefaults.termsAndConditions.markdown,
+          },
+          rvoes: {
+            title: legalDefaults.rvoes.title,
+            markdown: legalDefaults.rvoes.markdown,
+          },
+        } as any,
+      })
+      seedOk('Globales: legal (es)')
+    } catch (err) {
+      seedFail('Globales: legal (es)', err)
+    }
 
     try {
       await payload.updateGlobal({

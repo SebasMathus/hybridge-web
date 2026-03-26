@@ -18,6 +18,7 @@ import { HeaderGlobal } from './src/globals/Header'
 import { FooterGlobal } from './src/globals/Footer'
 import { StudentsWorkWithGlobal } from './src/globals/StudentsWorkWith'
 import { AprendeSobreSkillsGlobal } from './src/globals/AprendeSobre'
+import { LegalGlobal } from './src/globals/Legal'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -41,8 +42,8 @@ export default buildConfig({
     meta: {
       titleSuffix: ' | Hybridge',
       icons: {
-        icon: '/Iso_amarillo.png',
-        apple: '/Iso_amarillo.png',
+        icon: '/fav_icon.png',
+        apple: '/fav_icon.png',
       },
     },
   },
@@ -54,6 +55,7 @@ export default buildConfig({
     FooterGlobal,
     StudentsWorkWithGlobal,
     AprendeSobreSkillsGlobal,
+    LegalGlobal,
   ],
   db: postgresAdapter({
     pool: { connectionString: process.env.DATABASE_URL || '' },
