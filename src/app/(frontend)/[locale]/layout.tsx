@@ -2,6 +2,7 @@ import { getPayloadClient } from '@/lib/payload'
 import type { Locale } from '@/lib/utils'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { FloatingWhatsAppButton } from '@/components/FloatingWhatsAppButton'
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 
@@ -24,6 +25,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params
   const lang = (locale === 'en' ? 'en' : 'es') as Locale
+  const whatsappHref =
+    'https://api.whatsapp.com/send/?phone=5215528875759&text=folio_3514a8%3A+%C2%A1Hola%21+%C2%A1Quiero+estudiar+en+Hybridge%21&type=phone_number&app_absent=0'
 
   let headerData = {} as Record<string, unknown>
   let footerData = {} as Record<string, unknown>
@@ -41,6 +44,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       <Header data={headerData} locale={lang} />
       <main>{children}</main>
       <Footer data={footerData} locale={lang} />
+      <FloatingWhatsAppButton href={whatsappHref} ariaLabel="WhatsApp Hybridge" />
     </>
   )
 }
