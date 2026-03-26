@@ -14,6 +14,7 @@ import { PlanesEstudio } from './src/collections/PlanesEstudio'
 import { Testimonios } from './src/collections/Testimonios'
 import { FacultyMembers } from './src/collections/FacultyMembers'
 import { BlogPosts } from './src/collections/BlogPosts'
+import { WACtas } from './src/collections/WACtas'
 import { HeaderGlobal } from './src/globals/Header'
 import { FooterGlobal } from './src/globals/Footer'
 import { StudentsWorkWithGlobal } from './src/globals/StudentsWorkWith'
@@ -49,7 +50,7 @@ export default buildConfig({
   },
   email: consoleEmailAdapter,
   editor: lexicalEditor({}),
-  collections: [Users, Media, Pages, Forms, FormSubmissions, FechasInicio, PlanesEstudio, Testimonios, FacultyMembers, BlogPosts],
+  collections: [Users, Media, Pages, Forms, FormSubmissions, FechasInicio, PlanesEstudio, Testimonios, FacultyMembers, BlogPosts, WACtas],
   globals: [
     HeaderGlobal,
     FooterGlobal,

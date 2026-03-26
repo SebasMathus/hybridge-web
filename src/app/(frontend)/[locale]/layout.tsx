@@ -3,6 +3,7 @@ import type { Locale } from '@/lib/utils'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { FloatingWhatsAppButton } from '@/components/FloatingWhatsAppButton'
+import type { WACtaEntry } from '@/lib/waCta'
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 
@@ -25,16 +26,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params
   const lang = (locale === 'en' ? 'en' : 'es') as Locale
-  const whatsappHref =
-    'https://api.whatsapp.com/send/?phone=5215528875759&text=folio_3514a8%3A+%C2%A1Hola%21+%C2%A1Quiero+estudiar+en+Hybridge%21&type=phone_number&app_absent=0'
 
   let headerData = {} as Record<string, unknown>
   let footerData = {} as Record<string, unknown>
+  let waCtaEntries: WACtaEntry[] = []
 
   try {
     const payload = await getPayloadClient()
     headerData = (await payload.findGlobal({ slug: 'header', locale: lang })) as Record<string, unknown>
     footerData = (await payload.findGlobal({ slug: 'footer', locale: lang })) as Record<string, unknown>
+    const waResult = await payload.find({
+      collection: 'wa-cta',
+      limit: 100,
+      depth: 0,
+    })
+    waCtaEntries = waResult.docs.map((doc: any) => ({
+      pageKey: doc?.pageKey ? String(doc.pageKey) : '',
+      url: doc?.url ? String(doc.url) : '',
+    }))
   } catch (_) {
     // Keep empty header/footer so the app still renders
   }
@@ -44,7 +53,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       <Header data={headerData} locale={lang} />
       <main>{children}</main>
       <Footer data={footerData} locale={lang} />
-      <FloatingWhatsAppButton href={whatsappHref} ariaLabel="WhatsApp Hybridge" />
+      <FloatingWhatsAppButton entries={waCtaEntries} ariaLabel="WhatsApp Hybridge" />
     </>
   )
 }

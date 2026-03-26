@@ -8,6 +8,7 @@ import { AprendeSobreChipsSection, AprendeSobreSkillsSection } from '@/component
 import { ActiveStudentsHybridge } from '@/components/ActiveStudentsHybridge'
 import { notFound } from 'next/navigation'
 import { hybridgeAppBlock } from '@/seedData/pageBlocksMarketing'
+import { resolveWACtaUrl, type WACtaEntry } from '@/lib/waCta'
 
 export const dynamic = 'force-dynamic'
 
@@ -140,6 +141,7 @@ export default async function DynamicPage({ params }: Props) {
   let page: any
   let studentsWorkWith: any = null
   let aprendeSobre: any = null
+  let waCtaEntries: WACtaEntry[] = []
   try {
     const payload = await getPayloadClient()
     const result = await payload.find({
@@ -171,6 +173,16 @@ export default async function DynamicPage({ params }: Props) {
         aprendeSobre = null
       }
     }
+
+    try {
+      const waResult = await payload.find({ collection: 'wa-cta', limit: 100, depth: 0 })
+      waCtaEntries = waResult.docs.map((doc: any) => ({
+        pageKey: doc?.pageKey ? String(doc.pageKey) : '',
+        url: doc?.url ? String(doc.url) : '',
+      }))
+    } catch (_) {
+      waCtaEntries = []
+    }
   } catch (_) {
     return <div className="container-hb section-pad">Error de base de datos. Configura `DATABASE_URL` en `.env` y vuelve a intentar.</div>
   }
@@ -188,13 +200,21 @@ export default async function DynamicPage({ params }: Props) {
   const stripAccents = (s: string) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 
   const enforceTopAndBottomWhatsapp = (arr: any[]) => {
-    if (!WHATSAPP_LAYOUT_SLUGS.has(slug)) return arr
+    const resolvedWaUrl = resolveWACtaUrl(waCtaEntries, slug)
+    if (!WHATSAPP_LAYOUT_SLUGS.has(slug)) {
+      return arr.map((b) =>
+        b?.blockType === 'whatsappBar'
+          ? { ...b, url: resolvedWaUrl }
+          : b,
+      )
+    }
 
     const waTemplate = arr.find((b) => b?.blockType === 'whatsappBar') || {
       blockType: 'whatsappBar',
       text: 'Quiero más información',
-      url: 'https://wa.me/message/2JJMWGRX5DSDO1',
+      url: resolvedWaUrl,
     }
+    waTemplate.url = resolvedWaUrl
     const nonWa = arr.filter((b) => b?.blockType !== 'whatsappBar')
     if (!nonWa.length) return [waTemplate, { ...waTemplate }]
 

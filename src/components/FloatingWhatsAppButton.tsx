@@ -1,11 +1,16 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
+import { pageKeyFromPath, resolveWACtaUrl, type WACtaEntry } from '@/lib/waCta'
+
 type Props = {
-  href: string
+  entries?: WACtaEntry[]
   ariaLabel?: string
 }
 
-export function FloatingWhatsAppButton({ href, ariaLabel = 'WhatsApp' }: Props) {
+export function FloatingWhatsAppButton({ entries = [], ariaLabel = 'WhatsApp' }: Props) {
+  const pathname = usePathname() || '/es'
+  const href = resolveWACtaUrl(entries, pageKeyFromPath(pathname))
   return (
     <>
       <a

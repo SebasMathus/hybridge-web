@@ -22,6 +22,7 @@ import { dropLegacyAprendeSobreBeforePayloadInit } from '@/lib/dropLegacyAprende
 import { loadBlogPostsSeedRows } from '@/seedData/blogPosts'
 import { seedStart, seedOk, seedFail, seedDone } from '@/lib/seedLog'
 import { legalDefaults } from '@/lib/legalDefaults'
+import { WA_CTA_HOME_URL, WA_CTA_PROGRAMS_URL } from '@/lib/waCta'
 
 const WA = 'https://wa.me/message/2JJMWGRX5DSDO1'
 const WA_INSC = 'https://wa.me/+525592256413?text=¡Hola!%20Me%20gustaria%20inscribirme'
@@ -1244,6 +1245,30 @@ export async function GET() {
       })
     } catch (_) {}
     seedOk('Globales: studentsWorkWith (es/en)')
+
+    try {
+      const existing = await payload.find({ collection: 'wa-cta', limit: 100, depth: 0 })
+      for (const doc of existing.docs) {
+        await payload.delete({ collection: 'wa-cta', id: doc.id })
+      }
+      const programPageKeys = [
+        'preparatoria',
+        'ingenieria-en-software',
+        'ingenieria-en-inteligencia-artificial',
+        'ingenieria-en-videojuegos',
+        'licenciatura-en-administracion-e-innovacion',
+        'licenciatura-en-mercadotecnia',
+        'experiencia-hybridge',
+      ]
+      await payload.create({ collection: 'wa-cta', data: { pageKey: 'global', url: WA_CTA_HOME_URL } as any })
+      await payload.create({ collection: 'wa-cta', data: { pageKey: 'home', url: WA_CTA_HOME_URL } as any })
+      for (const pageKey of programPageKeys) {
+        await payload.create({ collection: 'wa-cta', data: { pageKey, url: WA_CTA_PROGRAMS_URL } as any })
+      }
+      seedOk('Colección: WA CTA (global/home/programas)')
+    } catch (err) {
+      seedFail('Colección: WA CTA', err)
+    }
 
     try {
       await payload.updateGlobal({

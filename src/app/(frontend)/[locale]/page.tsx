@@ -4,6 +4,7 @@ import { RenderBlocks } from '@/components/blocks/RenderBlocks'
 import { BenefitsHybridgeGrid } from '@/components/BenefitsHybridgeGrid'
 import { ActiveStudentsHybridge } from '@/components/ActiveStudentsHybridge'
 import { StudentsWorkWithSection } from '@/components/StudentsWorkWithSection'
+import { resolveWACtaUrl, type WACtaEntry } from '@/lib/waCta'
 
 export const dynamic = 'force-dynamic'
 
@@ -23,16 +24,30 @@ export default async function HomePage({ params }: Props) {
       depth: 2,
     })
     let studentsWorkWith: any = null
+    let waCtaEntries: WACtaEntry[] = []
     try {
       studentsWorkWith = await payload.findGlobal({ slug: 'studentsWorkWith', locale: lang })
     } catch (_) {
       // If global content isn't created yet in DB, keep section hidden
       studentsWorkWith = null
     }
+    try {
+      const waResult = await payload.find({ collection: 'wa-cta', limit: 100, depth: 0 })
+      waCtaEntries = waResult.docs.map((doc: any) => ({
+        pageKey: doc?.pageKey ? String(doc.pageKey) : '',
+        url: doc?.url ? String(doc.url) : '',
+      }))
+    } catch (_) {
+      waCtaEntries = []
+    }
     const page = result.docs[0]
     if (!page) return <div className="container-hb section-pad">Visita <a href="/api/seed">/api/seed</a> para crear las paginas, luego recarga.</div>
 
-    const blocks = page.layout || []
+    const blocks = (page.layout || []).map((b: any) =>
+      b?.blockType === 'whatsappBar'
+        ? { ...b, url: resolveWACtaUrl(waCtaEntries, 'home') }
+        : b,
+    )
     const stripAccents = (s: string) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 
     // Colocamos el bloque justo antes del grid de pilares para "nuestra tecnología educativa".
