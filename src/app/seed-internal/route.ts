@@ -21,7 +21,9 @@ import {
 import { dropLegacyAprendeSobreBeforePayloadInit } from '@/lib/dropLegacyAprendeSobreTables'
 import { loadBlogPostsSeedRows } from '@/seedData/blogPosts'
 import { legalDefaults } from '@/lib/legalDefaults'
-import { WA_CTA_HOME_URL, WA_CTA_PROGRAMS_URL, WA_CTA_ALIANZA_99_MINUTOS_URL } from '@/lib/waCta'
+import { WA_CTA_HOME_URL, WA_CTA_PROGRAMS_URL, WA_CTA_ALLIANCE_LANDING_URL } from '@/lib/waCta'
+import { ALLIANCE_LANDINGS, ALLIANCE_SLUGS, ALLIANCE_SLUGS_RETIRED } from '@/lib/allianceLandingConfig'
+import { PREPA_ALLIANCE_PAGES, PREPA_ALLIANCE_SLUGS } from '@/lib/prepaAllianceConfig'
 
 const WA = 'https://wa.me/message/2JJMWGRX5DSDO1'
 const WA_INSC = 'https://wa.me/+525592256413?text=¡Hola!%20Me%20gustaria%20inscribirme'
@@ -1141,7 +1143,9 @@ export async function GET() {
     // Delete existing pages with these slugs
     for (const slug of [
       'home',
-      'alianzas-99-minutos',
+      ...ALLIANCE_SLUGS,
+      ...ALLIANCE_SLUGS_RETIRED,
+      ...PREPA_ALLIANCE_SLUGS,
       'preparatoria',
       'ingenieria-en-software',
       'ingenieria-en-inteligencia-artificial',
@@ -1163,16 +1167,36 @@ export async function GET() {
     }
 
     await payload.create({ collection: 'pages', data: { title: 'Inicio', slug: 'home', layout: homeLayout(universidadFechaId, universidadTestimonialsId) as any, meta: { title: 'Hybridge Education - La mejor escuela en línea', description: 'Preparatoria y universidad en línea con validez oficial.' } } })
-    await payload.create({
-      collection: 'pages',
-      data: {
-        title: 'Alianza 99 Minutos',
-        pageType: 'alliance',
-        slug: 'alianzas-99-minutos',
-        layout: homeLayout(universidadFechaId, universidadTestimonialsId) as any,
-        meta: { title: 'Alianza 99 Minutos - Hybridge', description: 'Landing de alianza 99 minutos.' },
-      },
-    })
+    for (const a of ALLIANCE_LANDINGS) {
+      await payload.create({
+        collection: 'pages',
+        data: {
+          title: a.title,
+          pageType: 'alliance',
+          slug: a.slug,
+          layout: homeLayout(universidadFechaId, universidadTestimonialsId) as any,
+          meta: {
+            title: `${a.title} - Hybridge`,
+            description: `Landing de alianza ${a.slug}.`,
+          },
+        },
+      })
+    }
+    for (const p of PREPA_ALLIANCE_PAGES) {
+      await payload.create({
+        collection: 'pages',
+        data: {
+          title: p.title,
+          pageType: 'main',
+          slug: p.slug,
+          layout: prepaLayout(prepaFormId, prepaFechaId, prepaPlanId, prepaTestimonialsId) as any,
+          meta: {
+            title: `${p.title} - Hybridge`,
+            description: 'Preparatoria en línea — alianza Hybridge.',
+          },
+        },
+      })
+    }
     await payload.create({ collection: 'pages', data: { title: 'Preparatoria', slug: 'preparatoria', layout: prepaLayout(prepaFormId, prepaFechaId, prepaPlanId, prepaTestimonialsId) as any, meta: { title: 'Preparatoria en Línea - Hybridge', description: 'Haz la prepa en 2 años de la manera más disruptiva.' } } })
     await payload.create({ collection: 'pages', data: { title: 'Ingeniería en Software', slug: 'ingenieria-en-software', layout: swLayout(swFormId, universidadFechaId, swPlanId, universidadTestimonialsId) as any, meta: { title: 'Ingeniería en Software - Hybridge', description: 'El mejor programa de ingeniería para dominar la tecnología.' } } })
     await payload.create({ collection: 'pages', data: { title: 'Ingeniería en Inteligencia Artificial', slug: 'ingenieria-en-inteligencia-artificial', layout: iaLayout(iaFormId, universidadFechaId, iaPlanId, universidadTestimonialsId) as any, meta: { title: 'Ingeniería en Inteligencia Artificial - Hybridge', description: 'Lidera en el campo de la inteligencia artificial.' } } })
@@ -1271,10 +1295,18 @@ export async function GET() {
       for (const pageKey of programPageKeys) {
         await payload.create({ collection: 'wa-cta', data: { pageKey, url: WA_CTA_PROGRAMS_URL } as any })
       }
-      await payload.create({
-        collection: 'wa-cta',
-        data: { pageKey: 'alianzas-99-minutos', url: WA_CTA_ALIANZA_99_MINUTOS_URL } as any,
-      })
+      for (const a of ALLIANCE_LANDINGS) {
+        await payload.create({
+          collection: 'wa-cta',
+          data: { pageKey: a.slug, url: WA_CTA_ALLIANCE_LANDING_URL } as any,
+        })
+      }
+      for (const p of PREPA_ALLIANCE_PAGES) {
+        await payload.create({
+          collection: 'wa-cta',
+          data: { pageKey: p.slug, url: WA_CTA_PROGRAMS_URL } as any,
+        })
+      }
     } catch (_) {
       // best-effort
     }

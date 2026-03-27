@@ -1,3 +1,6 @@
+import { ALLIANCE_WA_CTA_OPTIONS, isAllianceSlug } from '@/lib/allianceLandingConfig'
+import { PREPA_ALLIANCE_WA_CTA_OPTIONS, isPrepaAllianceSlug } from '@/lib/prepaAllianceConfig'
+
 /** Opciones del select `pageKey` en WA CTA — única fuente para labels y columnas de admin. */
 export const WA_CTA_PAGE_KEY_OPTIONS = [
   { label: 'Global', value: 'global' },
@@ -27,7 +30,8 @@ export const WA_CTA_PAGE_KEY_OPTIONS = [
   { label: 'Lic. Mercadotecnia (TikTok)', value: 'licenciatura-en-mercadotecnia-tk' },
   { label: 'Lic. Mercadotecnia (YouTube)', value: 'licenciatura-en-mercadotecnia-yt' },
   { label: 'Experiencia Hybridge', value: 'experiencia-hybridge' },
-  { label: 'Alianza 99 Minutos', value: 'alianzas-99-minutos' },
+  ...PREPA_ALLIANCE_WA_CTA_OPTIONS,
+  ...ALLIANCE_WA_CTA_OPTIONS,
 ] as const
 
 export function waCtaPageLabel(pageKey: string): string {
@@ -39,7 +43,8 @@ export function waCtaPageLabel(pageKey: string): string {
 export function waCtaPageTipo(pageKey: string): string {
   if (pageKey === 'global') return 'Global'
   if (pageKey === 'home') return 'Inicio'
-  if (pageKey.startsWith('alianzas-')) return 'Alianza'
+  if (isPrepaAllianceSlug(pageKey)) return 'Alianza Prepa'
+  if (isAllianceSlug(pageKey)) return 'Alianza'
   if (/-(tk|yt)$/.test(pageKey)) return 'Campaña'
   return 'Programa'
 }

@@ -40,17 +40,23 @@ const consoleEmailAdapter: PayloadEmailAdapter = ({ payload }) => ({
 export default buildConfig({
   admin: {
     user: Users.slug,
-    meta: {
-      titleSuffix: ' | Hybridge',
-      icons: {
-        icon: '/fav_icon.png',
-        apple: '/fav_icon.png',
-      },
-    },
+    meta: { titleSuffix: ' | Hybridge' },
   },
   email: consoleEmailAdapter,
   editor: lexicalEditor({}),
-  collections: [Users, Media, Pages, Forms, FormSubmissions, FechasInicio, PlanesEstudio, Testimonios, FacultyMembers, BlogPosts, WACtas],
+  collections: [
+    Users,
+    Media,
+    Pages,
+    Forms,
+    FormSubmissions,
+    WACtas,
+    FechasInicio,
+    PlanesEstudio,
+    Testimonios,
+    FacultyMembers,
+    BlogPosts,
+  ],
   globals: [
     HeaderGlobal,
     FooterGlobal,

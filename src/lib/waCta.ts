@@ -1,3 +1,6 @@
+import { isAllianceSlug } from '@/lib/allianceLandingConfig'
+import { isPrepaAllianceSlug } from '@/lib/prepaAllianceConfig'
+
 export const WA_CTA_HOME_URL =
   'https://api.whatsapp.com/send/?phone=5215528875759&text=folio_3514a8%3A+%C2%A1Hola%21+%C2%A1Quiero+estudiar+en+Hybridge%21&type=phone_number&app_absent=0'
 
@@ -5,6 +8,9 @@ export const WA_CTA_PROGRAMS_URL = 'https://wa.me/message/RNYDE2HK3NGNG1'
 
 /** Landing alianza 99 Minutos — todos los CTAs WhatsApp de esa página. */
 export const WA_CTA_ALIANZA_99_MINUTOS_URL = 'https://wa.me/message/NBAZURLGSWMYH1'
+
+/** Misma URL por defecto para todas las landings de alianza (ajustar en WA CTA por slug si aplica). */
+export const WA_CTA_ALLIANCE_LANDING_URL = WA_CTA_ALIANZA_99_MINUTOS_URL
 
 export type WACtaEntry = {
   pageKey?: string
@@ -23,7 +29,8 @@ export function pageKeyFromPath(pathname: string): string {
   const seg = clean.split('/').filter(Boolean)
   if (seg.length === 1 && (seg[0] === 'es' || seg[0] === 'en')) return 'home'
   const maybeSlug = seg.length >= 2 ? seg[1] : ''
-  if (maybeSlug.startsWith('alianzas-')) return maybeSlug
+  if (maybeSlug && isPrepaAllianceSlug(maybeSlug)) return maybeSlug
+  if (maybeSlug && isAllianceSlug(maybeSlug)) return maybeSlug
   const maybeChannel = seg.length >= 3 ? seg[2] : ''
   const known = new Set([
     'preparatoria',

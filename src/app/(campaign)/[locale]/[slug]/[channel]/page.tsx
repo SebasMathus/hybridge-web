@@ -10,6 +10,7 @@ import { AprendeSobreChipsSection, AprendeSobreSkillsSection } from '@/component
 import { type WACtaEntry } from '@/lib/waCta'
 import { getFechasInicioTexts, resolveWhatsAppHrefForPageKey } from '@/lib/fechaInicioWhatsApp'
 import { injectCampaignHeroPrice } from '@/lib/campaignPricing'
+import { partitionPreparatoriaCampaignForStudentsWork } from '@/lib/preparatoriaCampaignBlockOrder'
 
 export const dynamic = 'force-dynamic'
 
@@ -148,8 +149,13 @@ export default async function CampaignProgramPage({ params }: Props) {
     b?.blockType === 'ctaFechaInicio' ? { ...b, allianceWaUrl: resolvedWaUrl } : b,
   )
 
-  const blocksBefore = withCampaignCtaWa.slice(0, 2)
-  const blocksAfter = withCampaignCtaWa.slice(2)
+  const prepaPartition =
+    slug === 'preparatoria'
+      ? partitionPreparatoriaCampaignForStudentsWork(withCampaignCtaWa)
+      : null
+  const blocksBefore = prepaPartition ? prepaPartition.beforeStudents : withCampaignCtaWa.slice(0, 2)
+  const formAfterStudents = prepaPartition?.formBlock ?? null
+  const blocksAfter = prepaPartition ? prepaPartition.afterStudents : withCampaignCtaWa.slice(2)
 
   const isUniversidadAboutSplitForChips = (b: any) => {
     if (b?.blockType !== 'splitContent') return false
@@ -197,6 +203,7 @@ export default async function CampaignProgramPage({ params }: Props) {
     <>
       <RenderBlocks blocks={blocksBefore} locale={lang} />
       <StudentsWorkWithSection data={studentsWorkWith} />
+      {formAfterStudents ? <RenderBlocks blocks={[formAfterStudents]} locale={lang} /> : null}
       {blocksAfter.map((b: any, idx: number) => (
         <React.Fragment
           key={`${campaignPageKey}-after-${idx}-${b?.blockType ?? 'block'}-${b?.id != null ? String(b.id) : 'noid'}`}

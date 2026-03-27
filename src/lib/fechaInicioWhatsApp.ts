@@ -1,5 +1,7 @@
 import type { WACtaEntry } from '@/lib/waCta'
 import { resolveWACtaUrl } from '@/lib/waCta'
+import { isAllianceSlug } from '@/lib/allianceLandingConfig'
+import { isPrepaAllianceSlug } from '@/lib/prepaAllianceConfig'
 
 /** Mismo teléfono que los botones del bloque ctaFechaInicio (Inscríbete / asesor / llamada). */
 export const WA_PHONE_E164 = '525592256413'
@@ -40,7 +42,9 @@ export function resolveWhatsAppHrefForPageKey(
   prepaDateText: string,
   universidadDateText: string,
 ): string {
-  if (pageKey.startsWith('alianzas-')) return resolveWACtaUrl(entries, pageKey)
+  /** URLs definidas en Admin → WA CTA (colección wa-cta por pageKey). */
+  if (isAllianceSlug(pageKey)) return resolveWACtaUrl(entries, pageKey)
+  if (isPrepaAllianceSlug(pageKey)) return resolveWACtaUrl(entries, pageKey)
   /** Landings de campaña (tk/yt): la URL debe ser la de WA CTA, no el mensaje con fecha de inicio. */
   if (/-(tk|yt)$/.test(pageKey)) return resolveWACtaUrl(entries, pageKey)
   const tipo = fechaTipoForPageKey(pageKey)

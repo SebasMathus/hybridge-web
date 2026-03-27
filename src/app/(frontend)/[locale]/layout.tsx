@@ -1,8 +1,6 @@
 import { getPayloadClient } from '@/lib/payload'
-import type { Locale } from '@/lib/utils'
-import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer'
-import { FloatingWhatsAppButton } from '@/components/FloatingWhatsAppButton'
+import { getMediaUrl, type Locale } from '@/lib/utils'
+import { FrontendLocaleChrome } from '@/components/FrontendLocaleChrome'
 import type { WACtaEntry } from '@/lib/waCta'
 import { getFechasInicioTexts } from '@/lib/fechaInicioWhatsApp'
 import type { Metadata } from 'next'
@@ -58,17 +56,19 @@ export default async function LocaleLayout({ children, params }: Props) {
     // Keep empty header/footer so the app still renders
   }
 
+  const hybridgeLogoSrc = headerData?.logo ? getMediaUrl(headerData.logo) : '/Logo_blanco.png'
+
   return (
-    <>
-      <Header data={headerData} locale={lang} />
-      <main>{children}</main>
-      <Footer data={footerData} locale={lang} />
-      <FloatingWhatsAppButton
-        entries={waCtaEntries}
-        prepaFechaText={prepaFechaText}
-        universidadFechaText={universidadFechaText}
-        ariaLabel="WhatsApp Hybridge"
-      />
-    </>
+    <FrontendLocaleChrome
+      locale={lang}
+      hybridgeLogoSrc={hybridgeLogoSrc}
+      headerData={headerData}
+      footerData={footerData}
+      waCtaEntries={waCtaEntries}
+      prepaFechaText={prepaFechaText}
+      universidadFechaText={universidadFechaText}
+    >
+      {children}
+    </FrontendLocaleChrome>
   )
 }

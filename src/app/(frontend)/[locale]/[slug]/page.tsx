@@ -11,6 +11,10 @@ import { hybridgeAppBlock } from '@/seedData/pageBlocksMarketing'
 import { type WACtaEntry } from '@/lib/waCta'
 import { getFechasInicioTexts, resolveWhatsAppHrefForPageKey } from '@/lib/fechaInicioWhatsApp'
 import { injectExperienciaHybridgeAsesorCtas } from '@/lib/experienciaHybridgeCtas'
+import { isAllianceSlug } from '@/lib/allianceLandingConfig'
+import { isPrepaAllianceSlug } from '@/lib/prepaAllianceConfig'
+import { AllianceLandingPageBody } from '@/components/AllianceLandingPageBody'
+import { PrepaAllianceCampaignBody } from '@/components/PrepaAllianceCampaignBody'
 
 export const dynamic = 'force-dynamic'
 
@@ -137,8 +141,9 @@ export default async function DynamicPage({ params }: Props) {
   const { locale, slug } = await params
   const lang = (locale === 'en' ? 'en' : 'es') as Locale
 
-  const showStudentsWorkWith = UNIVERSIDAD_STUDENTS_WORK_SLUGS.has(slug)
-  const showAprendeSobre = UNIVERSIDAD_STUDENTS_WORK_SLUGS.has(slug)
+  const isPrepaAllianceRoute = isPrepaAllianceSlug(slug)
+  const showStudentsWorkWith = UNIVERSIDAD_STUDENTS_WORK_SLUGS.has(slug) || isPrepaAllianceRoute
+  const showAprendeSobre = UNIVERSIDAD_STUDENTS_WORK_SLUGS.has(slug) || isPrepaAllianceRoute
 
   let page: any
   let studentsWorkWith: any = null
@@ -171,7 +176,9 @@ export default async function DynamicPage({ params }: Props) {
         const aprendeGlobal = await payload.findGlobal({ slug: 'aprendeSobreSkills', locale: lang })
         const rows = aprendeGlobal?.programs
         aprendeSobre = Array.isArray(rows)
-          ? rows.find((p: { programKey?: string }) => p?.programKey === slug) ?? null
+          ? rows.find((p: { programKey?: string }) =>
+              p?.programKey === (isPrepaAllianceRoute ? 'preparatoria' : slug),
+            ) ?? null
           : null
       } catch (_) {
         aprendeSobre = null
@@ -199,6 +206,23 @@ export default async function DynamicPage({ params }: Props) {
   }
 
   if (!page) return notFound()
+
+  if (page.pageType === 'alliance' || isAllianceSlug(slug)) {
+    return (
+      <AllianceLandingPageBody page={page} lang={lang} slug={slug} waCtaEntries={waCtaEntries} />
+    )
+  }
+
+  if (isPrepaAllianceSlug(slug)) {
+    return (
+      <PrepaAllianceCampaignBody
+        page={page}
+        lang={lang}
+        pageSlug={slug}
+        waCtaEntries={waCtaEntries}
+      />
+    )
+  }
 
   const rawLayout = (page.layout || []) as any[]
   /* Modelo educativo para ingenierías; se oculta en Preparatoria (CMS o seed antiguo). */
