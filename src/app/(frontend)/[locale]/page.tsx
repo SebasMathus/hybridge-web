@@ -4,7 +4,8 @@ import { RenderBlocks } from '@/components/blocks/RenderBlocks'
 import { BenefitsHybridgeGrid } from '@/components/BenefitsHybridgeGrid'
 import { ActiveStudentsHybridge } from '@/components/ActiveStudentsHybridge'
 import { StudentsWorkWithSection } from '@/components/StudentsWorkWithSection'
-import { resolveWACtaUrl, type WACtaEntry } from '@/lib/waCta'
+import { type WACtaEntry } from '@/lib/waCta'
+import { getFechasInicioTexts, resolveWhatsAppHrefForPageKey } from '@/lib/fechaInicioWhatsApp'
 
 export const dynamic = 'force-dynamic'
 
@@ -25,6 +26,8 @@ export default async function HomePage({ params }: Props) {
     })
     let studentsWorkWith: any = null
     let waCtaEntries: WACtaEntry[] = []
+    let prepaFechaText = ''
+    let universidadFechaText = ''
     try {
       studentsWorkWith = await payload.findGlobal({ slug: 'studentsWorkWith', locale: lang })
     } catch (_) {
@@ -37,15 +40,23 @@ export default async function HomePage({ params }: Props) {
         pageKey: doc?.pageKey ? String(doc.pageKey) : '',
         url: doc?.url ? String(doc.url) : '',
       }))
+      try {
+        const fechas = await getFechasInicioTexts(payload)
+        prepaFechaText = fechas.prepaText
+        universidadFechaText = fechas.universidadText
+      } catch (_) {
+        /* fechas-inicio opcional */
+      }
     } catch (_) {
       waCtaEntries = []
     }
     const page = result.docs[0]
     if (!page) return <div className="container-hb section-pad">Visita <a href="/api/seed">/api/seed</a> para crear las paginas, luego recarga.</div>
 
+    const homeWaUrl = resolveWhatsAppHrefForPageKey(waCtaEntries, 'home', prepaFechaText, universidadFechaText)
     const blocks = (page.layout || []).map((b: any) =>
       b?.blockType === 'whatsappBar'
-        ? { ...b, url: resolveWACtaUrl(waCtaEntries, 'home') }
+        ? { ...b, url: homeWaUrl }
         : b,
     )
     const moveWhatsAppAfterFirstBlock = (arr: any[]) => {

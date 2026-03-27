@@ -3,6 +3,7 @@ import { getPayloadClient } from '@/lib/payload'
 import { getMediaUrl, type Locale } from '@/lib/utils'
 import { FloatingWhatsAppButton } from '@/components/FloatingWhatsAppButton'
 import type { WACtaEntry } from '@/lib/waCta'
+import { getFechasInicioTexts } from '@/lib/fechaInicioWhatsApp'
 import type { ReactNode } from 'react'
 
 type Props = {
@@ -17,6 +18,8 @@ export default async function AllianceLocaleLayout({ children, params }: Props) 
   let logoSrc = '/Logo_blanco.png'
   let allianceLogoSrc = '/api/media/file/logo_99minutos.svg'
   let waCtaEntries: WACtaEntry[] = []
+  let prepaFechaText = ''
+  let universidadFechaText = ''
 
   try {
     const payload = await getPayloadClient()
@@ -38,6 +41,13 @@ export default async function AllianceLocaleLayout({ children, params }: Props) 
       pageKey: doc?.pageKey ? String(doc.pageKey) : '',
       url: doc?.url ? String(doc.url) : '',
     }))
+    try {
+      const fechas = await getFechasInicioTexts(payload)
+      prepaFechaText = fechas.prepaText
+      universidadFechaText = fechas.universidadText
+    } catch (_) {
+      /* fechas-inicio opcional */
+    }
   } catch (_) {
     // fail-safe defaults
   }
@@ -63,7 +73,12 @@ export default async function AllianceLocaleLayout({ children, params }: Props) 
       </header>
 
       <main>{children}</main>
-      <FloatingWhatsAppButton entries={waCtaEntries} ariaLabel="WhatsApp Hybridge" />
+      <FloatingWhatsAppButton
+        entries={waCtaEntries}
+        prepaFechaText={prepaFechaText}
+        universidadFechaText={universidadFechaText}
+        ariaLabel="WhatsApp Hybridge"
+      />
     </>
   )
 }

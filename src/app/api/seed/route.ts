@@ -22,7 +22,7 @@ import { dropLegacyAprendeSobreBeforePayloadInit } from '@/lib/dropLegacyAprende
 import { loadBlogPostsSeedRows } from '@/seedData/blogPosts'
 import { seedStart, seedOk, seedFail, seedDone } from '@/lib/seedLog'
 import { legalDefaults } from '@/lib/legalDefaults'
-import { WA_CTA_HOME_URL, WA_CTA_PROGRAMS_URL } from '@/lib/waCta'
+import { WA_CTA_HOME_URL, WA_CTA_PROGRAMS_URL, WA_CTA_ALIANZA_99_MINUTOS_URL } from '@/lib/waCta'
 
 const WA = 'https://wa.me/message/2JJMWGRX5DSDO1'
 const WA_INSC = 'https://wa.me/+525592256413?text=¡Hola!%20Me%20gustaria%20inscribirme'
@@ -133,6 +133,7 @@ const homeLayout = (universidadFechaId: string | number, universidadTestimonials
       { type: 'Hybridge', name: 'Preparatoria', description: 'Haz la prepa en 2 años de la manera más disruptiva.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), url: '/preparatoria/' },
     ],
   },
+  hybridgeAppBlock(),
   ctaFechaInicio(universidadFechaId, 'home'),
   {
     blockType: 'splitContent', heading: '¿Qué nos mueve?',
@@ -275,13 +276,13 @@ const mercPlanData = {
 }
 
 const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number, prepaPlanId: string | number, prepaTestimonialsId: string | number) => [
-  { blockType: 'heroBanner', heading: 'Prepa en Línea', subheading: 'Haz la prepa en 2 años de la manera más disruptiva que te hayas imaginado con clases en vivo y desde la mejor plataforma educativa del país.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '#form-prepa', ctaTrackId: 'prepa-hero-cta' },
+  { blockType: 'heroBanner', heading: 'Prepa en Línea', subheading: 'Haz la prepa en 2 años de la manera más disruptiva que te hayas imaginado con clases en vivo y desde la mejor plataforma educativa del país.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: '¡Inscríbete ya!', ctaUrl: '#form-prepa', ctaTrackId: 'prepa-hero-cta' },
   { ...waBlock, trackId: 'prepa-wa-bar' },
   {
     blockType: 'splitContent', eyebrow: 'Sobre Hybridge Prepa', heading: 'PREPARATORIA HYBRIDGE',
     body: 'Hemos creado la mejor preparatoria en línea con enfoque en Nuevas Tecnologías y Emprendimiento que puedes terminar en solo 2 años.\n\nEn Hybridge entendemos que todas las personas somos diferentes y tenemos intereses distintos; por eso hemos creado un modelo flexible y adaptable a cualquier necesidad.',
     imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), imagePosition: 'right', backgroundColor: 'white',
-    buttons: [{ label: 'Inscríbete ya', url: '#form-prepa', variant: 'primary', trackId: 'prepa-about-cta' }],
+    buttons: [{ label: '¡Inscríbete ya!', url: '#form-prepa', variant: 'primary', trackId: 'prepa-about-cta' }],
   },
   {
     blockType: 'orgulloPrepa',
@@ -310,7 +311,7 @@ const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number
     imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'),
     imagePosition: 'left',
     backgroundColor: 'white',
-    buttons: [{ label: 'Inscríbete ya', url: '#form-prepa', variant: 'primary', trackId: 'prepa-mueve-cta' }],
+    buttons: [{ label: '¡Inscríbete ya!', url: '#form-prepa', variant: 'primary', trackId: 'prepa-mueve-cta' }],
   },
   testimonialsPlanBlock(prepaTestimonialsId),
   {
@@ -330,7 +331,7 @@ const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number
       { text: 'Sabemos que cada estudiante es único y por lo tanto cada uno tiene su forma particular de aprender. Por eso, parte de nuestra oferta educativa incluye sesiones para resolver dudas en las cuales puedes obtener asesoría directa sobre temas específicos.' },
     ],
     imageUrl: IMG('2024/11/sdc-1024x1024.png'), imagePosition: 'left', backgroundColor: 'cream',
-    buttons: [{ label: 'Inscríbete ya', url: '#form-prepa', variant: 'primary', trackId: 'prepa-masque-cta' }],
+    buttons: [{ label: '¡Inscríbete ya!', url: '#form-prepa', variant: 'primary', trackId: 'prepa-masque-cta' }],
   },
   {
     blockType: 'splitContent',
@@ -340,7 +341,7 @@ const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number
     imageUrl: IMG('2024/11/SDFGB@2x.jpg'),
     imagePosition: 'right',
     backgroundColor: 'white',
-    buttons: [{ label: 'Inscríbete ya', url: '#form-prepa', variant: 'primary', trackId: 'prepa-comunidad-cta' }],
+    buttons: [{ label: '¡Inscríbete ya!', url: '#form-prepa', variant: 'primary', trackId: 'prepa-comunidad-cta' }],
   },
   ctaFechaInicio(prepaFechaId, 'prepa'),
   curriculumPlanBlock(prepaPlanId),
@@ -360,14 +361,14 @@ const prepaLayout = (prepaFormId: string | number, prepaFechaId: string | number
 
 /* ════════ ING SOFTWARE ════════ */
 const swLayout = (swFormId: string | number, universidadFechaId: string | number, swPlanId: string | number, universidadTestimonialsId: string | number) => [
-  { blockType: 'heroBanner', heading: 'Ingeniería en Software', subheading: 'El mejor programa para las personas que aspiran a dominar el mundo de la tecnología.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '#form-ingenieria-software', ctaTrackId: 'sw-hero-cta' },
+  { blockType: 'heroBanner', heading: 'Ingeniería en Software', subheading: 'El mejor programa para las personas que aspiran a dominar el mundo de la tecnología.', imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), ctaLabel: '¡Inscríbete ya!', ctaUrl: '#form-ingenieria-software', ctaTrackId: 'sw-hero-cta' },
   { ...waBlock, trackId: 'sw-wa-bar' },
   modeloEducativoBlock(),
   {
     blockType: 'splitContent', eyebrow: 'Sobre nuestra', heading: 'Ingeniería en Software',
     body: 'Hybridge ofrece una formación completa en ingeniería, nuevas tecnologías y habilidades para la nueva economía.\n\nNuestro programa de Ingeniería en Software cuenta con Reconocimiento de Validez Oficial de Estudios (RVOE), lo cual significa que al graduarte obtendrás tu título oficial de Educación Superior.',
     imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'), imagePosition: 'right', backgroundColor: 'white',
-    buttons: [{ label: 'Inscríbete ya', url: '#form-ingenieria-software', variant: 'primary', trackId: 'sw-about-cta' }],
+    buttons: [{ label: '¡Inscríbete ya!', url: '#form-ingenieria-software', variant: 'primary', trackId: 'sw-about-cta' }],
   },
   testimonialsPlanBlock(universidadTestimonialsId),
   oportunidades2026Block(),
@@ -384,7 +385,7 @@ const swLayout = (swFormId: string | number, universidadFechaId: string | number
     blockType: 'splitContent', eyebrow: 'Comunidad', heading: 'Hybridge',
     body: 'Hybridge es mucho más que solo un lugar para aprender tecnología. Al estar comprometidos con la construcción del futuro de la educación, entendemos la relevancia de reinventar las comunidades de aprendizaje.\nEn Hybridge serás parte de un ecosistema que conecta a estudiantes, académicos, innovadores, líderes de la industria, emprendedoras, empresas y fondos de inversión.',
     imageUrl: IMG('2024/11/sdc-1024x1024.png'), imagePosition: 'left', backgroundColor: 'cream',
-    buttons: [{ label: 'Inscríbete ya', url: '#form-ingenieria-software', variant: 'primary', trackId: 'sw-comunidad-cta' }],
+    buttons: [{ label: '¡Inscríbete ya!', url: '#form-ingenieria-software', variant: 'primary', trackId: 'sw-comunidad-cta' }],
   },
   hybridgeAppBlock(),
   ctaFechaInicio(universidadFechaId, 'sw'),
@@ -399,14 +400,14 @@ const swLayout = (swFormId: string | number, universidadFechaId: string | number
   { ...waBlock, trackId: 'sw-wa-bar-bottom' },
 ]
 const iaLayout = (iaFormId: string | number, universidadFechaId: string | number, iaPlanId: string | number, universidadTestimonialsId: string | number) => [
-  { blockType: 'heroBanner', heading: 'Ingeniería en\nInteligencia Artificial', subheading: 'Lidera en el campo de la inteligencia artificial', imageUrl: IMG('2024/10/j.jpg'), ctaLabel: 'Inscríbete ya', ctaUrl: '#form-ingenieria-inteligencia-artificial', ctaTrackId: 'ia-hero-cta' },
+  { blockType: 'heroBanner', heading: 'Ingeniería en\nInteligencia Artificial', subheading: 'Lidera en el campo de la inteligencia artificial', imageUrl: IMG('2024/10/j.jpg'), ctaLabel: '¡Inscríbete ya!', ctaUrl: '#form-ingenieria-inteligencia-artificial', ctaTrackId: 'ia-hero-cta' },
   { ...waBlock, trackId: 'ia-wa-bar' },
   modeloEducativoBlock(),
   {
     blockType: 'splitContent', eyebrow: 'Sobre nuestra', heading: 'Ingeniería en Inteligencia Artificial',
     body: 'Hybridge ofrece una formación completa en ingeniería, nuevas tecnologías y habilidades para la nueva economía.\n\nNuestro programa de Ingeniería en Inteligencia Artificial cuenta con Reconocimiento de Validez Oficial de Estudios (RVOE), lo cual significa que al graduarte obtendrás tu título oficial de Educación Superior.',
     imageUrl: IMG('2024/10/j.jpg'), imagePosition: 'right', backgroundColor: 'white',
-    buttons: [{ label: 'Inscríbete ya', url: '#form-ingenieria-inteligencia-artificial', variant: 'primary', trackId: 'ia-about-cta' }],
+    buttons: [{ label: '¡Inscríbete ya!', url: '#form-ingenieria-inteligencia-artificial', variant: 'primary', trackId: 'ia-about-cta' }],
   },
   testimonialsPlanBlock(universidadTestimonialsId),
   oportunidades2026Block(),
@@ -423,7 +424,7 @@ const iaLayout = (iaFormId: string | number, universidadFechaId: string | number
     blockType: 'splitContent', eyebrow: 'Comunidad', heading: 'Hybridge',
     body: 'Hybridge es mucho más que solo un lugar para aprender tecnología. Al estar comprometidos con la construcción del futuro de la educación, entendemos la relevancia de reinventar las comunidades de aprendizaje.\nEn Hybridge serás parte de un ecosistema que conecta a estudiantes, académicos, innovadores, líderes de la industria, emprendedoras, empresas y fondos de inversión.',
     imageUrl: IMG('2024/11/sdc-1024x1024.png'), imagePosition: 'left', backgroundColor: 'cream',
-    buttons: [{ label: 'Inscríbete ya', url: '#form-ingenieria-inteligencia-artificial', variant: 'primary', trackId: 'ia-comunidad-cta' }],
+    buttons: [{ label: '¡Inscríbete ya!', url: '#form-ingenieria-inteligencia-artificial', variant: 'primary', trackId: 'ia-comunidad-cta' }],
   },
   hybridgeAppBlock(),
   ctaFechaInicio(universidadFechaId, 'ia'),
@@ -442,7 +443,7 @@ const vjLayout = (vjFormId: string | number, universidadFechaId: string | number
     heading: 'Ingeniería en\nVideojuegos y Tecnologías Inmersivas',
     subheading: 'Construye mundos virtuales',
     imageUrl: IMG('2024/10/j.jpg'),
-    ctaLabel: 'Inscríbete ya',
+    ctaLabel: '¡Inscríbete ya!',
     ctaUrl: '#form-ingenieria-videojuegos',
     ctaTrackId: 'vj-hero-cta',
   },
@@ -456,7 +457,7 @@ const vjLayout = (vjFormId: string | number, universidadFechaId: string | number
     imageUrl: IMG('2024/10/j.jpg'),
     imagePosition: 'right',
     backgroundColor: 'white',
-    buttons: [{ label: 'Inscríbete ya', url: '#form-ingenieria-videojuegos', variant: 'primary', trackId: 'vj-about-cta' }],
+    buttons: [{ label: '¡Inscríbete ya!', url: '#form-ingenieria-videojuegos', variant: 'primary', trackId: 'vj-about-cta' }],
   },
   testimonialsPlanBlock(universidadTestimonialsId),
   oportunidades2026Block(),
@@ -480,7 +481,7 @@ const vjLayout = (vjFormId: string | number, universidadFechaId: string | number
     imageUrl: IMG('2024/11/sdc-1024x1024.png'),
     imagePosition: 'left',
     backgroundColor: 'cream',
-    buttons: [{ label: 'Inscríbete ya', url: '#form-ingenieria-videojuegos', variant: 'primary', trackId: 'vj-comunidad-cta' }],
+    buttons: [{ label: '¡Inscríbete ya!', url: '#form-ingenieria-videojuegos', variant: 'primary', trackId: 'vj-comunidad-cta' }],
   },
   hybridgeAppBlock(),
   ctaFechaInicio(universidadFechaId, 'vj'),
@@ -508,7 +509,7 @@ const ladmLayout = (
     heading: 'Licenciatura en\nAdministración e Innovación',
     subheading: 'Aprende a administrar negocios digitales e innovar con las nuevas tecnologías',
     imageUrl: IMG('2024/11/sdc-1024x1024.png'),
-    ctaLabel: 'Inscríbete ya',
+    ctaLabel: '¡Inscríbete ya!',
     ctaUrl: '#form-licenciatura-administracion-innovacion',
     ctaTrackId: 'ladm-hero-cta',
   },
@@ -522,7 +523,7 @@ const ladmLayout = (
     imageUrl: IMG('2024/11/sdc-1024x1024.png'),
     imagePosition: 'right',
     backgroundColor: 'white',
-    buttons: [{ label: 'Inscríbete ya', url: '#form-licenciatura-administracion-innovacion', variant: 'primary', trackId: 'ladm-about-cta' }],
+    buttons: [{ label: '¡Inscríbete ya!', url: '#form-licenciatura-administracion-innovacion', variant: 'primary', trackId: 'ladm-about-cta' }],
   },
   testimonialsPlanBlock(universidadTestimonialsId),
   oportunidades2026Block(),
@@ -546,7 +547,7 @@ const ladmLayout = (
     imageUrl: IMG('2024/11/sdc-1024x1024.png'),
     imagePosition: 'left',
     backgroundColor: 'cream',
-    buttons: [{ label: 'Inscríbete ya', url: '#form-licenciatura-administracion-innovacion', variant: 'primary', trackId: 'ladm-comunidad-cta' }],
+    buttons: [{ label: '¡Inscríbete ya!', url: '#form-licenciatura-administracion-innovacion', variant: 'primary', trackId: 'ladm-comunidad-cta' }],
   },
   hybridgeAppBlock(),
   ctaFechaInicio(universidadFechaId, 'ladm'),
@@ -580,7 +581,7 @@ const mercLayout = (
     heading: 'Licenciatura en\nMercadotecnia y Negocios Digitales',
     subheading: 'Lidera estrategias innovadoras de marketing digital para la Nueva Economía',
     imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'),
-    ctaLabel: 'Inscríbete ya',
+    ctaLabel: '¡Inscríbete ya!',
     ctaUrl: '#form-licenciatura-mercadotecnia-negocios-digitales',
     ctaTrackId: 'merc-hero-cta',
   },
@@ -594,7 +595,7 @@ const mercLayout = (
     imageUrl: IMG('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'),
     imagePosition: 'right',
     backgroundColor: 'white',
-    buttons: [{ label: 'Inscríbete ya', url: '#form-licenciatura-mercadotecnia-negocios-digitales', variant: 'primary', trackId: 'merc-about-cta' }],
+    buttons: [{ label: '¡Inscríbete ya!', url: '#form-licenciatura-mercadotecnia-negocios-digitales', variant: 'primary', trackId: 'merc-about-cta' }],
   },
   testimonialsPlanBlock(universidadTestimonialsId),
   oportunidades2026Block(),
@@ -618,7 +619,7 @@ const mercLayout = (
     imageUrl: IMG('2024/11/sdc-1024x1024.png'),
     imagePosition: 'left',
     backgroundColor: 'cream',
-    buttons: [{ label: 'Inscríbete ya', url: '#form-licenciatura-mercadotecnia-negocios-digitales', variant: 'primary', trackId: 'merc-comunidad-cta' }],
+    buttons: [{ label: '¡Inscríbete ya!', url: '#form-licenciatura-mercadotecnia-negocios-digitales', variant: 'primary', trackId: 'merc-comunidad-cta' }],
   },
   hybridgeAppBlock(),
   ctaFechaInicio(universidadFechaId, 'merc'),
@@ -1369,6 +1370,10 @@ export async function GET() {
         await payload.create({ collection: 'wa-cta', data: { pageKey: `${pageKey}-tk`, url: WA_CTA_PROGRAMS_URL } as any })
         await payload.create({ collection: 'wa-cta', data: { pageKey: `${pageKey}-yt`, url: WA_CTA_PROGRAMS_URL } as any })
       }
+      await payload.create({
+        collection: 'wa-cta',
+        data: { pageKey: 'alianzas-99-minutos', url: WA_CTA_ALIANZA_99_MINUTOS_URL } as any,
+      })
       seedOk('Colección: WA CTA (global/home/programas)')
     } catch (err) {
       seedFail('Colección: WA CTA', err)
@@ -1390,6 +1395,10 @@ export async function GET() {
           rvoes: {
             title: legalDefaults.rvoes.title,
             markdown: legalDefaults.rvoes.markdown,
+          },
+          terminosYCondicionesAlianzas: {
+            title: legalDefaults.terminosYCondicionesAlianzas.title,
+            markdown: legalDefaults.terminosYCondicionesAlianzas.markdown,
           },
         } as any,
       })

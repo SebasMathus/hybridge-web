@@ -1,6 +1,9 @@
+import Link from 'next/link'
+import { btnStyles } from '@/lib/utils'
+
 type Props = { block: any; locale: string }
 
-export const PillarsGridBlock = ({ block }: Props) => {
+export const PillarsGridBlock = ({ block, locale }: Props) => {
   const pillars = block.pillars || []
   if (!pillars.length) return null
   const bg = block.backgroundColor === 'cream' ? 'var(--color-hb-bg-alt)' : 'var(--color-hb-bg)'
@@ -23,6 +26,22 @@ export const PillarsGridBlock = ({ block }: Props) => {
             </div>
           ))}
         </div>
+        {block.buttons?.length > 0 && (
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '32px', flexWrap: 'wrap', gap: '12px' }}>
+            {block.buttons.map((btn: any, i: number) => (
+              <Link
+                key={i}
+                href={btn.url?.startsWith('/') ? `/${locale}${btn.url}` : btn.url}
+                target={String(btn.url || '').startsWith('http') ? '_blank' : undefined}
+                rel={String(btn.url || '').startsWith('http') ? 'noopener noreferrer' : undefined}
+                data-track-id={btn.trackId || ''}
+                style={btnStyles[btn.variant || 'primary']}
+              >
+                {btn.label}
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
       <style>{`@media (max-width: 768px) { .container-hb > div[style*="grid"] { grid-template-columns: 1fr 1fr !important; } }`}</style>
     </section>

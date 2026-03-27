@@ -7,7 +7,9 @@ import { StudentsWorkWithSection } from '@/components/StudentsWorkWithSection'
 import { FacultyTeamSection } from '@/components/FacultyTeamSection'
 import { ActiveStudentsHybridge } from '@/components/ActiveStudentsHybridge'
 import { AprendeSobreChipsSection, AprendeSobreSkillsSection } from '@/components/AprendeSobreSection'
-import { resolveWACtaUrl, type WACtaEntry } from '@/lib/waCta'
+import { type WACtaEntry } from '@/lib/waCta'
+import { getFechasInicioTexts, resolveWhatsAppHrefForPageKey } from '@/lib/fechaInicioWhatsApp'
+import { injectCampaignHeroPrice } from '@/lib/campaignPricing'
 
 export const dynamic = 'force-dynamic'
 
@@ -44,6 +46,8 @@ export default async function CampaignProgramPage({ params }: Props) {
   let studentsWorkWith: any = null
   let aprendeSobre: any = null
   let waCtaEntries: WACtaEntry[] = []
+  let prepaFechaText = ''
+  let universidadFechaText = ''
 
   try {
     const payload = await getPayloadClient()
@@ -96,6 +100,13 @@ export default async function CampaignProgramPage({ params }: Props) {
         pageKey: doc?.pageKey ? String(doc.pageKey) : '',
         url: doc?.url ? String(doc.url) : '',
       }))
+      try {
+        const fechas = await getFechasInicioTexts(payload)
+        prepaFechaText = fechas.prepaText
+        universidadFechaText = fechas.universidadText
+      } catch (_) {
+        /* fechas-inicio opcional */
+      }
     } catch (_) {
       waCtaEntries = []
     }
@@ -107,9 +118,17 @@ export default async function CampaignProgramPage({ params }: Props) {
 
   const stripAccents = (s: string) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
   const campaignPageKey = `${slug}-${channel}`
-  const resolvedWaUrl = resolveWACtaUrl(waCtaEntries, campaignPageKey)
+  const resolvedWaUrl = resolveWhatsAppHrefForPageKey(
+    waCtaEntries,
+    campaignPageKey,
+    prepaFechaText,
+    universidadFechaText,
+  )
 
-  const baseBlocks = moveFormBeforeModeloEducativo((page.layout || []) as any[])
+  const baseBlocks = injectCampaignHeroPrice(
+    moveFormBeforeModeloEducativo((page.layout || []) as any[]),
+    slug,
+  )
   const waTemplate = baseBlocks.find((b) => b?.blockType === 'whatsappBar') || {
     blockType: 'whatsappBar',
     text: 'Quiero más información',
@@ -125,8 +144,12 @@ export default async function CampaignProgramPage({ params }: Props) {
       ]
     : [{ ...waTemplate, url: resolvedWaUrl }]
 
-  const blocksBefore = normalizedBlocks.slice(0, 2)
-  const blocksAfter = normalizedBlocks.slice(2)
+  const withCampaignCtaWa = normalizedBlocks.map((b) =>
+    b?.blockType === 'ctaFechaInicio' ? { ...b, allianceWaUrl: resolvedWaUrl } : b,
+  )
+
+  const blocksBefore = withCampaignCtaWa.slice(0, 2)
+  const blocksAfter = withCampaignCtaWa.slice(2)
 
   const isUniversidadAboutSplitForChips = (b: any) => {
     if (b?.blockType !== 'splitContent') return false

@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: hybridge-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: hybridge
+      POSTGRES_USER: hybridge
+      POSTGRES_PASSWORD: hybridge
+    ports:
+      - "5432:5432"
+    volumes:
+      - hybridge_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  hybridge_postgres_data:

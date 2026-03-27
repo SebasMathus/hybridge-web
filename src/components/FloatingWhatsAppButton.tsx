@@ -1,16 +1,30 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { pageKeyFromPath, resolveWACtaUrl, type WACtaEntry } from '@/lib/waCta'
+import { pageKeyFromPath, type WACtaEntry } from '@/lib/waCta'
+import { resolveWhatsAppHrefForPageKey } from '@/lib/fechaInicioWhatsApp'
 
 type Props = {
   entries?: WACtaEntry[]
   ariaLabel?: string
+  /** Fechas desde colección fechas-inicio (misma fuente que el bloque ctaFechaInicio). */
+  prepaFechaText?: string
+  universidadFechaText?: string
 }
 
-export function FloatingWhatsAppButton({ entries = [], ariaLabel = 'WhatsApp' }: Props) {
+export function FloatingWhatsAppButton({
+  entries = [],
+  ariaLabel = 'WhatsApp',
+  prepaFechaText = '',
+  universidadFechaText = '',
+}: Props) {
   const pathname = usePathname() || '/es'
-  const href = resolveWACtaUrl(entries, pageKeyFromPath(pathname))
+  const href = resolveWhatsAppHrefForPageKey(
+    entries,
+    pageKeyFromPath(pathname),
+    prepaFechaText,
+    universidadFechaText,
+  )
   return (
     <>
       <a

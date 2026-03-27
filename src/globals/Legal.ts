@@ -65,6 +65,32 @@ export const LegalGlobal: GlobalConfig = {
         },
       ],
     },
+    {
+      name: 'terminosYCondicionesAlianzas',
+      label: 'Términos y condiciones – alianzas',
+      type: 'group',
+      fields: [
+        {
+          name: 'title',
+          label: 'Título',
+          type: 'text',
+          required: true,
+          defaultValue: legalDefaults.terminosYCondicionesAlianzas.title,
+        },
+        {
+          name: 'markdown',
+          label: 'Contenido (Markdown)',
+          type: 'textarea',
+          required: true,
+          defaultValue: legalDefaults.terminosYCondicionesAlianzas.markdown,
+          admin: {
+            description:
+              'Usa H2 (##) para subtítulos. Este contenido se renderiza en la URL /es/terminos-y-condiciones-alianzas.',
+            rows: 18,
+          },
+        },
+      ],
+    },
   ],
 }
 

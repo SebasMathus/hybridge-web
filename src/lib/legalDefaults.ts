@@ -267,5 +267,45 @@ Nuestros programas son 100% en línea, sin embargo, contamos con instalaciones u
 - **Oficinas corporativas**: Montes Urales 424, Lomas – Virreyes, Lomas de Chapultepec V Secc., Miguel Hidalgo, 11000 Ciudad de México, CDMX.
 `,
   },
+  terminosYCondicionesAlianzas: {
+    title: 'Términos y Condiciones – Beneficios de alianzas Hybridge',
+    markdown: `Los siguientes términos y condiciones aplican a los beneficios otorgados por Hybridge a colaboradores de empresas, así como a integrantes de instituciones, organizaciones o cualquier entidad con convenio vigente.
+
+## Aplicación de los beneficios
+
+Estos beneficios son exclusivos para nuevos estudiantes que se inscriban a Hybridge durante la vigencia del convenio entre la organización y Hybridge.
+
+- Se considera nuevo estudiante a toda persona que no esté inscrita previamente en algún programa activo de Hybridge antes del inicio del convenio.
+- Los beneficios no aplican a estudiantes ya inscritos, ni podrán aplicarse de manera retroactiva.
+
+## Vigencia
+
+La vigencia de los beneficios será igual a la duración del convenio formalizado entre la organización y Hybridge, generalmente de 12 meses a partir de la firma del acuerdo.
+
+Una vez concluido el plazo del convenio, los beneficios quedarán sin efecto, salvo que ambas partes acuerden una renovación formal por escrito.
+
+## Promociones sujetas a cambios
+
+Los beneficios otorgados pueden incluir descuentos, becas o precios preferenciales. Hybridge se reserva el derecho de modificar, ampliar o suspender dichos beneficios en cualquier momento, previo aviso a la organización.
+
+Cada promoción tendrá condiciones específicas (por ejemplo: fechas límite de inscripción, programas aplicables, etc.), que serán comunicadas oportunamente a la organización o a los colaboradores interesados.
+
+## Restricciones
+
+- Los beneficios no son transferibles ni acumulables con otras promociones o descuentos externos a los establecidos en el convenio.
+- No aplican para reinscripciones, reactivaciones o cambios de programa de estudiantes previamente inscritos.
+- En caso de detectarse un uso indebido del beneficio (como suplantación de identidad o información falsa), Hybridge se reserva el derecho de cancelar la inscripción sin derecho a reembolso.
+
+## Proceso de validación
+
+Los interesados deberán identificarse como integrantes de la organización conveniada al momento de su inscripción, utilizando los enlaces de inscripción válidos proporcionados por Hybridge.
+
+Hybridge se reserva el derecho de validar directamente con la organización la afiliación del solicitante antes de aplicar cualquier beneficio.
+
+## Casos no previstos
+
+Cualquier situación no contemplada en los presentes términos será resuelta por el equipo administrativo de Hybridge, con base en criterios de equidad, transparencia y protección de la integridad del programa.
+`,
+  },
 } as const
 

@@ -13,8 +13,22 @@ export const HeroBannerBlock = ({ block, locale }: Props) => {
       <div className="container-hb" style={{ position: 'relative', zIndex: 2 }}>
         <div style={{ maxWidth: '600px' }}>
           <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.8rem, 4.5vw, 3rem)', fontWeight: 900, lineHeight: 1.15, color: '#fff', marginBottom: '16px', whiteSpace: 'pre-line' }}>{block.heading}</h1>
-          {block.subheading && <p style={{ fontSize: '1.05rem', fontWeight: 500, color: 'rgba(255,255,255,0.9)', lineHeight: 1.6, marginBottom: '28px', maxWidth: '500px' }}>{block.subheading}</p>}
-          {block.ctaUrl && <Link href={ctaHref || '#'} data-track-id={block.ctaTrackId || ''} style={btnStyles.cover}>{block.ctaLabel || 'Inscríbete ya'}</Link>}
+          {block.subheading && <p style={{ fontSize: '1.05rem', fontWeight: 500, color: 'rgba(255,255,255,0.9)', lineHeight: 1.6, marginBottom: block.campaignPriceLine ? '12px' : '28px', maxWidth: '500px' }}>{block.subheading}</p>}
+          {block.campaignPriceLine ? (
+            <p
+              style={{
+                fontSize: '1.05rem',
+                fontWeight: 700,
+                color: '#fff',
+                lineHeight: 1.5,
+                marginBottom: '24px',
+                maxWidth: '500px',
+              }}
+            >
+              {block.campaignPriceLine}
+            </p>
+          ) : null}
+          {block.ctaUrl && <Link href={ctaHref || '#'} data-track-id={block.ctaTrackId || ''} style={btnStyles.cover}>{block.ctaLabel || '¡Inscríbete ya!'}</Link>}
         </div>
       </div>
     </section>

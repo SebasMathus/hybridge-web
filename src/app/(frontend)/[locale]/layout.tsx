@@ -4,6 +4,7 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { FloatingWhatsAppButton } from '@/components/FloatingWhatsAppButton'
 import type { WACtaEntry } from '@/lib/waCta'
+import { getFechasInicioTexts } from '@/lib/fechaInicioWhatsApp'
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 
@@ -30,6 +31,8 @@ export default async function LocaleLayout({ children, params }: Props) {
   let headerData = {} as Record<string, unknown>
   let footerData = {} as Record<string, unknown>
   let waCtaEntries: WACtaEntry[] = []
+  let prepaFechaText = ''
+  let universidadFechaText = ''
 
   try {
     const payload = await getPayloadClient()
@@ -44,6 +47,13 @@ export default async function LocaleLayout({ children, params }: Props) {
       pageKey: doc?.pageKey ? String(doc.pageKey) : '',
       url: doc?.url ? String(doc.url) : '',
     }))
+    try {
+      const fechas = await getFechasInicioTexts(payload)
+      prepaFechaText = fechas.prepaText
+      universidadFechaText = fechas.universidadText
+    } catch (_) {
+      /* fechas-inicio opcional */
+    }
   } catch (_) {
     // Keep empty header/footer so the app still renders
   }
@@ -53,7 +63,12 @@ export default async function LocaleLayout({ children, params }: Props) {
       <Header data={headerData} locale={lang} />
       <main>{children}</main>
       <Footer data={footerData} locale={lang} />
-      <FloatingWhatsAppButton entries={waCtaEntries} ariaLabel="WhatsApp Hybridge" />
+      <FloatingWhatsAppButton
+        entries={waCtaEntries}
+        prepaFechaText={prepaFechaText}
+        universidadFechaText={universidadFechaText}
+        ariaLabel="WhatsApp Hybridge"
+      />
     </>
   )
 }

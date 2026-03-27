@@ -3,6 +3,9 @@ export const WA_CTA_HOME_URL =
 
 export const WA_CTA_PROGRAMS_URL = 'https://wa.me/message/RNYDE2HK3NGNG1'
 
+/** Landing alianza 99 Minutos — todos los CTAs WhatsApp de esa página. */
+export const WA_CTA_ALIANZA_99_MINUTOS_URL = 'https://wa.me/message/NBAZURLGSWMYH1'
+
 export type WACtaEntry = {
   pageKey?: string
   url?: string
@@ -20,6 +23,7 @@ export function pageKeyFromPath(pathname: string): string {
   const seg = clean.split('/').filter(Boolean)
   if (seg.length === 1 && (seg[0] === 'es' || seg[0] === 'en')) return 'home'
   const maybeSlug = seg.length >= 2 ? seg[1] : ''
+  if (maybeSlug.startsWith('alianzas-')) return maybeSlug
   const maybeChannel = seg.length >= 3 ? seg[2] : ''
   const known = new Set([
     'preparatoria',

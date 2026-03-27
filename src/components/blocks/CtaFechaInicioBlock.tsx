@@ -1,14 +1,16 @@
 import Link from 'next/link'
 import { btnStyles } from '@/lib/utils'
+import { waInscripcionWithFecha, WA_ASESOR_URL, WA_LLAMADA_URL } from '@/lib/fechaInicioWhatsApp'
 
-const WA_INSC = 'https://wa.me/+525592256413?text=¡Hola!%20Me%20gustaria%20inscribirme'
-const WA_ASES = 'https://wa.me/+525592256413?text=¡Hola!%20Quiero%20hablar%20con%20un%20asesor'
-const WA_CALL = 'https://wa.me/+525592256413?text=¡Hola!%20Quiero%20agendar%20una%20llamada'
-
-const defaultButtons = (prefix: string) => [
-  { label: 'Inscríbete Ya', url: WA_INSC, variant: 'primary' as const, trackId: `${prefix}-cta-inscribete` },
-  { label: 'Contacta un asesor', url: WA_ASES, variant: 'secondary' as const, trackId: `${prefix}-cta-asesor` },
-  { label: 'Agenda una llamada', url: WA_CALL, variant: 'outline' as const, trackId: `${prefix}-cta-llamada` },
+const defaultButtons = (prefix: string, dateText: string) => [
+  {
+    label: '¡Inscríbete ya!',
+    url: waInscripcionWithFecha(dateText),
+    variant: 'primary' as const,
+    trackId: `${prefix}-cta-inscribete`,
+  },
+  { label: 'Contacta un asesor', url: WA_ASESOR_URL, variant: 'secondary' as const, trackId: `${prefix}-cta-asesor` },
+  { label: 'Agenda una llamada', url: WA_LLAMADA_URL, variant: 'outline' as const, trackId: `${prefix}-cta-llamada` },
 ]
 
 type Props = { block: any; locale: string }
@@ -20,7 +22,30 @@ export const CtaFechaInicioBlockComponent = ({ block, locale }: Props) => {
   if (!dateText) return null
 
   const prefix = block.trackPrefix || 'cta'
-  const buttons = defaultButtons(prefix)
+  const allianceUrl =
+    typeof block.allianceWaUrl === 'string' && block.allianceWaUrl.trim() ? block.allianceWaUrl.trim() : ''
+  const buttons = allianceUrl
+    ? [
+        {
+          label: '¡Inscríbete ya!',
+          url: allianceUrl,
+          variant: 'primary' as const,
+          trackId: `${prefix}-cta-inscribete`,
+        },
+        {
+          label: 'Contacta un asesor',
+          url: allianceUrl,
+          variant: 'secondary' as const,
+          trackId: `${prefix}-cta-asesor`,
+        },
+        {
+          label: 'Agenda una llamada',
+          url: allianceUrl,
+          variant: 'outline' as const,
+          trackId: `${prefix}-cta-llamada`,
+        },
+      ]
+    : defaultButtons(prefix, dateText)
 
   return (
     <section style={{ background: 'var(--color-hb-bg-alt)', padding: '64px 0', textAlign: 'center' }}>

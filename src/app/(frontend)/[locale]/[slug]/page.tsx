@@ -8,7 +8,9 @@ import { AprendeSobreChipsSection, AprendeSobreSkillsSection } from '@/component
 import { ActiveStudentsHybridge } from '@/components/ActiveStudentsHybridge'
 import { notFound } from 'next/navigation'
 import { hybridgeAppBlock } from '@/seedData/pageBlocksMarketing'
-import { resolveWACtaUrl, type WACtaEntry } from '@/lib/waCta'
+import { type WACtaEntry } from '@/lib/waCta'
+import { getFechasInicioTexts, resolveWhatsAppHrefForPageKey } from '@/lib/fechaInicioWhatsApp'
+import { injectExperienciaHybridgeAsesorCtas } from '@/lib/experienciaHybridgeCtas'
 
 export const dynamic = 'force-dynamic'
 
@@ -142,6 +144,8 @@ export default async function DynamicPage({ params }: Props) {
   let studentsWorkWith: any = null
   let aprendeSobre: any = null
   let waCtaEntries: WACtaEntry[] = []
+  let prepaFechaText = ''
+  let universidadFechaText = ''
   try {
     const payload = await getPayloadClient()
     const result = await payload.find({
@@ -180,6 +184,13 @@ export default async function DynamicPage({ params }: Props) {
         pageKey: doc?.pageKey ? String(doc.pageKey) : '',
         url: doc?.url ? String(doc.url) : '',
       }))
+      try {
+        const fechas = await getFechasInicioTexts(payload)
+        prepaFechaText = fechas.prepaText
+        universidadFechaText = fechas.universidadText
+      } catch (_) {
+        /* fechas-inicio opcional */
+      }
     } catch (_) {
       waCtaEntries = []
     }
@@ -197,10 +208,14 @@ export default async function DynamicPage({ params }: Props) {
       : rawLayout
   if (slug === 'experiencia-hybridge') blocks = normalizeExperienciaHybridgeLayout(blocks)
 
+  const resolvedWaUrl = resolveWhatsAppHrefForPageKey(waCtaEntries, slug, prepaFechaText, universidadFechaText)
+  if (slug === 'experiencia-hybridge') {
+    blocks = injectExperienciaHybridgeAsesorCtas(blocks, resolvedWaUrl)
+  }
+
   const stripAccents = (s: string) => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 
   const enforceTopAndBottomWhatsapp = (arr: any[]) => {
-    const resolvedWaUrl = resolveWACtaUrl(waCtaEntries, slug)
     if (!WHATSAPP_LAYOUT_SLUGS.has(slug)) {
       return arr.map((b) =>
         b?.blockType === 'whatsappBar'

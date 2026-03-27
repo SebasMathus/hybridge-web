@@ -2,6 +2,8 @@
  * Bloques de marketing reutilizables (Payload layout).
  * Una sola fuente de verdad para seeds (`seed`, `seed-internal`, `api/seed`).
  */
+import { HYBRIDGE_APP_STORE_URL, HYBRIDGE_PLAY_STORE_URL } from '@/components/HybridgeAppSection'
+
 const wp = (path: string) => `https://hybridge.education/wp-content/uploads/${path}`
 
 export function modeloEducativoBlock() {
@@ -95,15 +97,15 @@ export function hybridgeAppBlock() {
     imagePosition: 'right' as const,
     backgroundColor: 'cream' as const,
     storesLabel: 'Disponible para iOS y Android',
-    appStoreUrl: 'https://hybridge.education/',
-    playStoreUrl: 'https://hybridge.education/',
+    appStoreUrl: HYBRIDGE_APP_STORE_URL,
+    playStoreUrl: HYBRIDGE_PLAY_STORE_URL,
     appStoreBadgeUrl:
       'https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/es-mx?size=250x83',
     playBadgeUrl: 'https://play.google.com/intl/es-419/badges/static/images/badges/es-419_badge_web_generic.png',
   }
 }
 
-const perfilIngresoBase = (body: string, bulletPoints: { text: string }[]) => ({
+const perfilIngresoBase = (body: string, bulletPoints: { text: string }[], formAnchor: string) => ({
   blockType: 'splitContent' as const,
   eyebrow: '',
   heading: 'PERFIL DE INGRESO',
@@ -112,7 +114,14 @@ const perfilIngresoBase = (body: string, bulletPoints: { text: string }[]) => ({
   imageUrl: wp('2024/10/pexels-emirhan-albayrak-859465-20291643.jpg'),
   imagePosition: 'right' as const,
   backgroundColor: 'white' as const,
-  buttons: [],
+  buttons: [
+    {
+      label: '¡Inscríbete ya!',
+      url: formAnchor,
+      variant: 'primary' as const,
+      trackId: `perfil-ingreso-${formAnchor.replace(/^#form-/, '')}`,
+    },
+  ],
 })
 
 /** Ingeniería en Software — alineado con hybridge.education/ingenieria-en-software */
@@ -127,6 +136,7 @@ export function perfilIngresoSoftwareSplitBlock() {
       { text: 'Cuenta con certificado de bachillerato.' },
       { text: 'Cuenta con lo necesario para hacer un programa en línea.' },
     ],
+    '#form-ingenieria-software',
   )
 }
 
@@ -143,6 +153,7 @@ export function perfilIngresoIASplitBlock() {
       { text: 'Cuenta con certificado de bachillerato.' },
       { text: 'Cuenta con lo necesario para hacer un programa en línea.' },
     ],
+    '#form-ingenieria-inteligencia-artificial',
   )
 }
 
@@ -160,6 +171,7 @@ export function perfilIngresoVideojuegosSplitBlock() {
       { text: 'Cuenta con certificado de bachillerato.' },
       { text: 'Cuenta con lo necesario para hacer un programa en línea.' },
     ],
+    '#form-ingenieria-videojuegos',
   )
 }
 
@@ -175,6 +187,7 @@ export function perfilIngresoAdministracionInnovacionSplitBlock() {
       { text: 'Cuenta con certificado de bachillerato.' },
       { text: 'Cuenta con lo necesario para hacer un programa en línea.' },
     ],
+    '#form-licenciatura-administracion-innovacion',
   )
 }
 
@@ -191,6 +204,7 @@ export function perfilIngresoMercadotecniaSplitBlock() {
       { text: 'Cuenta con certificado de bachillerato.' },
       { text: 'Cuenta con lo necesario para hacer un programa en línea.' },
     ],
+    '#form-licenciatura-mercadotecnia-negocios-digitales',
   )
 }
 

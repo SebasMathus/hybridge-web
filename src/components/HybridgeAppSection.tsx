@@ -8,6 +8,10 @@ export const DEFAULT_APP_STORE_BADGE =
 export const DEFAULT_PLAY_BADGE =
   'https://play.google.com/intl/es-419/badges/static/images/badges/es-419_badge_web_generic.png'
 
+export const HYBRIDGE_APP_STORE_URL = 'https://apps.apple.com/us/app/hybridge/id6756441573'
+export const HYBRIDGE_PLAY_STORE_URL =
+  'https://play.google.com/store/apps/details?id=com.hybridge.HybridgeAppAndroid'
+
 export type HybridgeAppStoreBadgesProps = {
   storesLabel?: string
   appStoreUrl?: string
@@ -21,8 +25,8 @@ export type HybridgeAppStoreBadgesProps = {
  */
 export function HybridgeAppStoreBadges({
   storesLabel = 'Disponible para iOS y Android',
-  appStoreUrl = 'https://hybridge.education/',
-  playStoreUrl = 'https://hybridge.education/',
+  appStoreUrl = HYBRIDGE_APP_STORE_URL,
+  playStoreUrl = HYBRIDGE_PLAY_STORE_URL,
   appStoreBadgeUrl = DEFAULT_APP_STORE_BADGE,
   playBadgeUrl = DEFAULT_PLAY_BADGE,
 }: HybridgeAppStoreBadgesProps) {

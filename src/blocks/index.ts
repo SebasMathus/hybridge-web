@@ -1,4 +1,5 @@
 import type { Block } from 'payload'
+import { HYBRIDGE_APP_STORE_URL, HYBRIDGE_PLAY_STORE_URL } from '@/components/HybridgeAppSection'
 
 /* ────────────────────────────── HERO CAROUSEL ────────────────────────────── */
 export const HeroCarouselBlock: Block = {
@@ -32,7 +33,7 @@ export const HeroBannerBlock: Block = {
     { name: 'subheading', type: 'textarea' },
     { name: 'image', type: 'upload', relationTo: 'media' },
     { name: 'imageUrl', type: 'text' },
-    { name: 'ctaLabel', type: 'text', defaultValue: 'Inscríbete ya' },
+    { name: 'ctaLabel', type: 'text', defaultValue: '¡Inscríbete ya!' },
     { name: 'ctaUrl', type: 'text', required: true },
     { name: 'ctaTrackId', type: 'text' },
   ],
@@ -333,6 +334,26 @@ export const PillarsGridBlock: Block = {
         { name: 'icon', type: 'text' },
       ],
     },
+    {
+      name: 'buttons',
+      type: 'array',
+      labels: { singular: 'Botón', plural: 'Botones' },
+      fields: [
+        { name: 'label', type: 'text', required: true },
+        { name: 'url', type: 'text', required: true },
+        {
+          name: 'variant',
+          type: 'select',
+          defaultValue: 'primary',
+          options: [
+            { label: 'Primario', value: 'primary' },
+            { label: 'Secundario', value: 'secondary' },
+            { label: 'Outline', value: 'outline' },
+          ],
+        },
+        { name: 'trackId', type: 'text' },
+      ],
+    },
   ],
 }
 
@@ -564,8 +585,8 @@ export const HybridgeAppBlock: Block = {
       ],
     },
     { name: 'storesLabel', type: 'text', defaultValue: 'Disponible para iOS y Android' },
-    { name: 'appStoreUrl', type: 'text', defaultValue: 'https://hybridge.education/' },
-    { name: 'playStoreUrl', type: 'text', defaultValue: 'https://hybridge.education/' },
+    { name: 'appStoreUrl', type: 'text', defaultValue: HYBRIDGE_APP_STORE_URL },
+    { name: 'playStoreUrl', type: 'text', defaultValue: HYBRIDGE_PLAY_STORE_URL },
     {
       name: 'appStoreBadgeUrl',
       type: 'text',

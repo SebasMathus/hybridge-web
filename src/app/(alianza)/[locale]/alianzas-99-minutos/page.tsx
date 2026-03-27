@@ -5,6 +5,9 @@ import { BenefitsHybridgeGrid } from '@/components/BenefitsHybridgeGrid'
 import { ActiveStudentsHybridge } from '@/components/ActiveStudentsHybridge'
 import { TodosPorProgramasForm } from '@/components/TodosPorProgramasForm'
 import { resolveWACtaUrl, type WACtaEntry } from '@/lib/waCta'
+import { transformAllianceLandingBlocks } from '@/lib/allianceLandingBlocks'
+
+const ALLIANCE_PAGE_KEY = 'alianzas-99-minutos'
 
 export const dynamic = 'force-dynamic'
 
@@ -39,8 +42,13 @@ export default async function Alianza99MinutosPage({ params }: Props) {
       waCtaEntries = []
     }
 
-    const blocks = (page.layout || []).map((b: any) =>
-      b?.blockType === 'whatsappBar' ? { ...b, url: resolveWACtaUrl(waCtaEntries, 'global') } : b,
+    const allianceWaUrl = resolveWACtaUrl(waCtaEntries, ALLIANCE_PAGE_KEY)
+    const blocks = transformAllianceLandingBlocks(
+      (page.layout || []).map((b: any) => {
+        if (b?.blockType === 'whatsappBar') return { ...b, url: allianceWaUrl }
+        if (b?.blockType === 'ctaFechaInicio') return { ...b, allianceWaUrl }
+        return b
+      }),
     )
 
     const moveWhatsAppAfterFirstBlock = (arr: any[]) => {
@@ -75,7 +83,7 @@ export default async function Alianza99MinutosPage({ params }: Props) {
       <>
         <RenderBlocks blocks={blocksBeforePillarsFirst} locale={lang} />
         <RenderBlocks blocks={waBeforeForm} locale={lang} />
-        <TodosPorProgramasForm locale={lang} />
+        <TodosPorProgramasForm locale={lang} sectionAnchorId="alianza-inscripcion" />
         <RenderBlocks blocks={blocksBeforePillarsRest} locale={lang} />
         {lang === 'es' ? <ActiveStudentsHybridge /> : null}
         <RenderBlocks blocks={blocksAfterPillars} locale={lang} />

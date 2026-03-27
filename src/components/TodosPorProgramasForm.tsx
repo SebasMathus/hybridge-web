@@ -20,6 +20,8 @@ const PREPA_YEAR_OPTIONS = (() => {
 
 type Props = {
   locale?: string
+  /** Ancla para CTAs que enlazan al formulario (p. ej. landings de alianza). */
+  sectionAnchorId?: string
 }
 
 const initial = {
@@ -37,7 +39,7 @@ const initial = {
   whatsappConsent: false,
 }
 
-export function TodosPorProgramasForm({ locale = 'es' }: Props) {
+export function TodosPorProgramasForm({ locale = 'es', sectionAnchorId }: Props) {
   const [data, setData] = useState(initial)
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errorMsg, setErrorMsg] = useState('')
@@ -81,11 +83,12 @@ export function TodosPorProgramasForm({ locale = 'es' }: Props) {
   }
 
   const formId = 'form-todos-por-programas'
+  const sectionId = sectionAnchorId?.trim() || formId
   const creamBg = 'var(--color-hb-bg-alt)'
 
   if (status === 'success') {
     return (
-      <section id={formId} className="section-pad" style={{ background: creamBg }}>
+      <section id={sectionId} className="section-pad" style={{ background: creamBg }}>
         <div className="container-hb" style={{ maxWidth: '560px', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: '1.75rem', color: 'var(--color-hb-text)', marginBottom: '4px' }}>
             ¡Inscríbete ya!
@@ -104,7 +107,7 @@ export function TodosPorProgramasForm({ locale = 'es' }: Props) {
   const inputStyle = { width: '100%', padding: '12px 14px', border: '1px solid var(--color-hb-border)', borderRadius: '8px', fontSize: '1rem', background: '#fff' }
 
   return (
-    <section id={formId} className="section-pad" style={{ background: creamBg }}>
+    <section id={sectionId} className="section-pad" style={{ background: creamBg }}>
       <div className="container-hb" style={{ maxWidth: '560px', margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
           <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: '1.75rem', color: 'var(--color-hb-text)', marginBottom: '4px' }}>
