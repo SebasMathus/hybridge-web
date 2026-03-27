@@ -11,6 +11,13 @@ export const FormSubmissions: CollectionConfig = {
   fields: [
     { name: 'form', type: 'relationship', relationTo: 'forms', required: true },
     { name: 'sourceUrl', type: 'text', required: true, admin: { description: 'URL completa donde el usuario envió el formulario.' } },
+    { name: 'program', type: 'text', required: false },
+    {
+      name: 'prepaYear',
+      type: 'text',
+      required: false,
+      admin: { description: '¿En qué año terminaste la prepa?' },
+    },
     { name: 'firstName', type: 'text', required: true },
     { name: 'lastName', type: 'text', required: true },
     { name: 'email', type: 'email', required: true },

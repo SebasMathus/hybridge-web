@@ -112,9 +112,10 @@ export function EnrollmentForm({ formSlug, title, showWhatsAppConsent, successMe
             <label htmlFor="age" style={{ display: 'block', fontSize: '0.85rem', fontWeight: 500, color: 'var(--color-hb-text)', marginBottom: '6px' }}>Edad</label>
             <select id="age" name="age" required value={data.age} onChange={handleChange} style={inputStyle}>
               <option value="">Selecciona tu edad</option>
-              {Array.from({ length: 87 }, (_, i) => 14 + i).map((n) => (
+              {Array.from({ length: 52 }, (_, i) => 14 + i).map((n) => (
                 <option key={n} value={n}>{n}</option>
               ))}
+              <option value={66}>+65 años</option>
             </select>
           </div>
           <div>

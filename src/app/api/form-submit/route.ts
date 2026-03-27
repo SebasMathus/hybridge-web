@@ -7,6 +7,8 @@ export async function POST(request: Request) {
     const {
       formSlug,
       sourceUrl,
+      program,
+      prepaYear,
       firstName,
       lastName,
       email,
@@ -19,7 +21,22 @@ export async function POST(request: Request) {
       whatsappConsent,
     } = body
 
-    if (!formSlug || !sourceUrl || !firstName || !lastName || !email || !phone || age == null || !state || !howDidYouHear || !message || !privacyAccepted) {
+    const isTodosPorProgramas = formSlug === 'todos-por-programas'
+
+    if (
+      !formSlug ||
+      !sourceUrl ||
+      !firstName ||
+      !lastName ||
+      !email ||
+      !phone ||
+      age == null ||
+      !state ||
+      !howDidYouHear ||
+      !message ||
+      !privacyAccepted ||
+      (isTodosPorProgramas && (!program || !prepaYear))
+    ) {
       return NextResponse.json({ error: 'Faltan campos requeridos.' }, { status: 400 })
     }
 
@@ -39,6 +56,8 @@ export async function POST(request: Request) {
       data: {
         form: form.id,
         sourceUrl: String(sourceUrl).trim(),
+        program: program ? String(program).trim() : undefined,
+        prepaYear: prepaYear ? String(prepaYear).trim() : undefined,
         firstName: String(firstName).trim(),
         lastName: String(lastName).trim(),
         email: String(email).trim(),

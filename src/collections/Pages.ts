@@ -31,6 +31,7 @@ export const Pages: CollectionConfig = {
       options: [
         { label: 'Principal', value: 'main' },
         { label: 'Landing de campaña', value: 'campaign' },
+        { label: 'Landing de alianza', value: 'alliance' },
       ],
       admin: { position: 'sidebar' },
     },

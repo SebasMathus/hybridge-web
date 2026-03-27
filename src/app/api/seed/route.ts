@@ -756,7 +756,7 @@ export async function GET() {
       }, { status: 500 })
     }
 
-    // Ensure forms exist (prepa, ingeniería×3, licenciaturas)
+    // Ensure forms exist (prepa, ingeniería×3, licenciaturas, alianzas)
     let prepaFormId: string | number
     let swFormId: string | number
     let iaFormId: string | number
@@ -860,6 +860,20 @@ export async function GET() {
         },
       })
       mercFormId = created.id
+    }
+
+    const alianzaFormRes = await payload.find({ collection: 'forms', where: { slug: { equals: 'todos-por-programas' } }, limit: 1 })
+    if (!alianzaFormRes.docs.length) {
+      const created = await payload.create({
+        collection: 'forms',
+        data: {
+          title: 'Todos por programas',
+          slug: 'todos-por-programas',
+          showWhatsAppConsent: true,
+          successMessage: 'Gracias. Nos pondremos en contacto contigo pronto.',
+        },
+      })
+      void created.id
     }
     try {
       const legacyDemo = await payload.find({
@@ -1143,6 +1157,7 @@ export async function GET() {
     const channels = ['tk', 'yt'] as const
     const pageSlugsToDelete = [
       'home',
+      'alianzas-99-minutos',
       'preparatoria',
       'ingenieria-en-software',
       'ingenieria-en-inteligencia-artificial',
@@ -1171,6 +1186,17 @@ export async function GET() {
 
     await payload.create({ collection: 'pages', data: { title: 'Inicio', pageType: 'main', slug: 'home', layout: homeLayout(universidadFechaId, universidadTestimonialsId) as any, meta: { title: 'Hybridge Education - La mejor escuela en línea', description: 'Preparatoria y universidad en línea con validez oficial.' } } })
     seedOk('Página: home')
+    await payload.create({
+      collection: 'pages',
+      data: {
+        title: 'Alianza 99 Minutos',
+        pageType: 'alliance',
+        slug: 'alianzas-99-minutos',
+        layout: homeLayout(universidadFechaId, universidadTestimonialsId) as any,
+        meta: { title: 'Alianza 99 Minutos - Hybridge', description: 'Landing de alianza 99 minutos.' },
+      },
+    })
+    seedOk('Página: alianzas-99-minutos (Alianza)')
     await payload.create({ collection: 'pages', data: { title: 'Preparatoria', pageType: 'main', slug: 'preparatoria', layout: prepaLayout(prepaFormId, prepaFechaId, prepaPlanId, prepaTestimonialsId) as any, meta: { title: 'Preparatoria en Línea - Hybridge', description: 'Haz la prepa en 2 años de la manera más disruptiva.' } } })
     seedOk('Página: preparatoria')
     await payload.create({ collection: 'pages', data: { title: 'Ingeniería en Software', pageType: 'main', slug: 'ingenieria-en-software', layout: swLayout(swFormId, universidadFechaId, swPlanId, universidadTestimonialsId) as any, meta: { title: 'Ingeniería en Software - Hybridge', description: 'El mejor programa de ingeniería para dominar la tecnología.' } } })
